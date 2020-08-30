@@ -6,10 +6,8 @@
 How to clone this dotfiles repository:
 
 xcode-select --install
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-brew install yadm
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && brew install yadm
 yadm clone https://github.com/tiulpin/tiulpin.git --bootstrap
-brew bundle
 -->
 
 - 📫 How to reach me: [LinkedIn](https://linkedin.com/in/tiulpin) · [Twitter](https://twitter.com/tiulpin) · [Telegram](https://t.me/tiulpin)
