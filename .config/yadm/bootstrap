@@ -19,13 +19,14 @@ then
 fi
 
 echo "Do you want to set macOS configuration?"
-if [[ "yes" == $(ask_yes_or_no "Do you want to set macOS configuration?")  ]]
+if [[ "yes" == $(ask_yes_or_no "Do you want to set macOS configuration?") ]]
 then
+    chmod a+x ./macos
     ./macos
 fi
 
 echo "Do you want to get your private key?"
-if [[ "yes" == $(ask_yes_or_no "Do you want to get your private key?")  ]]
+if [[ "yes" == $(ask_yes_or_no "Do you want to get your private key?") ]]
 then
     BW_SESSION=$(bw login --raw) && key=$(bw list items --search ssh | jq '.[0].notes') && echo ${key:1:${#key}-2} > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
 fi
