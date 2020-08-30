@@ -1,0 +1,44 @@
+#!/bin/sh
+
+function ask_yes_or_no() {
+    read -p "(([y]es or [N]o): "
+    case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
+        y|yes) echo "yes" ;;
+        *)     echo "no" ;;
+    esac
+}
+
+cat .config/yadm/doggo
+
+cd "$HOME"
+
+echo "Do you want to install brew packages?"
+if [[ "yes" == $(ask_yes_or_no "Do you want to install brew packages?") ]]
+then
+    brew bundle --global
+fi
+
+echo "Do you want to set macOS configuration?"
+if [[ "yes" == $(ask_yes_or_no "Do you want to set macOS configuration?")  ]]
+then
+    ./macos
+fi
+
+echo "Do you want to get your private key?"
+if [[ "yes" == $(ask_yes_or_no "Do you want to get your private key?")  ]]
+then
+    BW_SESSION=$(bw login --raw) && key=$(bw list items --search ssh | jq '.[0].notes') && echo ${key:1:${#key}-2} > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+fi
+
+echo "Do you want to install tmux & vim configurations?"
+if [[ "yes" == $(ask_yes_or_no "Do you want to install tmux & vim configurations?") ]]
+then
+    git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+    sh ~/.vim_runtime/install_awesome_vimrc.sh
+    git clone https://github.com/gpakosz/.tmux.git
+    ln -s -f .tmux/.tmux.conf
+    cp .tmux/.tmux.conf.local .
+fi
+
+echo "Updating the yadm repo origin URL..."
+yadm remote set-url origin "git@github.com:tiulpin/tiulpin.git"
