@@ -1,0 +1,72 @@
+// VS Code:
+{
+    "workbench.colorTheme": "Horizon Bold",
+    "editor.fontFamily": "Fira Code, 'Fira Code', monospace",
+    "editor.fontSize": 18,
+    "editor.fontLigatures": true
+}
+
+// Terminal:
+{
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+
+    "profiles":
+    [
+        {
+            // Make changes here to the powershell.exe profile
+ 
+            "commandline" : "powershell.exe",
+            "cursorColor" : "#FFFFFF",
+            "padding" : "0, 0, 0, 0",
+            "snapOnInput" : true,
+            "closeOnExit" : true,
+            "startingDirectory" : "%USERPROFILE%",
+            "acrylicOpacity" : 0.75,
+            "background" : "#000000",
+            "fontFace" : "Fira Code",
+            "fontSize" : 14,
+            "colorScheme" : "Campbell",
+            "useAcrylic" : true,
+        },
+        {
+            // Make changes here to the wsl.exe profile
+
+            "name": "wsl",
+            "commandline": "wsl.exe",
+            "cursorColor" : "#FFFFFF",
+            "padding" : "0, 0, 0, 0",
+            "snapOnInput" : true,
+            "closeOnExit" : true,
+            "startingDirectory" : "%USERPROFILE%",
+            "acrylicOpacity" : 0.75,
+            "background" : "#000000",
+            "fontFace" : "Fira Code",
+            "fontSize" : 14,
+            "colorScheme" : "Campbell",
+            "useAcrylic" : true,
+        },
+        {
+            "name" : "GPU",
+            "commandline" : "ssh gpu",
+            "cursorColor" : "#FFFFFF",
+            "padding" : "0, 0, 0, 0",
+            "snapOnInput" : true,
+            "closeOnExit" : true,
+            "startingDirectory" : "%USERPROFILE%",
+            "acrylicOpacity" : 0.75,
+            "background" : "#000000",
+            "fontFace" : "Fira Code",
+            "fontSize" : 14,
+            "colorScheme" : "Campbell",
+            "useAcrylic" : true,
+            "hidden": false
+        }
+    ],
+
+    // Add custom color schemes to this array
+    "schemes": [],
+
+    // Add any keybinding overrides to this array.
+    // To unbind a default keybinding, set the command to "unbound"
+    "keybindings": []
+}
