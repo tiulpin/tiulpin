@@ -17,8 +17,8 @@ brew "bat"
 brew "binutils"
 brew "boost"
 brew "cabal-install"
-brew "python@3.8", link: true
 brew "glib"
+brew "python@3.8"
 brew "cmake"
 brew "cookiecutter"
 brew "cowsay"
@@ -68,7 +68,6 @@ brew "wget"
 brew "yadm"
 brew "yarn"
 brew "youtube-dl"
-brew "heroku/brew/heroku"
 cask "1password-cli"
 cask "alacritty"
 cask "balenaetcher"
@@ -98,6 +97,7 @@ cask "obinskit"
 cask "obs"
 cask "openinterminal"
 cask "openvpn-connect"
+cask "opera"
 cask "pock"
 cask "protonvpn"
 cask "quitter"
@@ -118,7 +118,8 @@ mas "Fantastical", id: 975937182
 mas "Flycut", id: 442160987
 mas "Grammarly for Safari", id: 1462114288
 mas "iMovie", id: 408981434
-mas "Instapaper", id: 1481302432
+mas "Instapaper Save", id: 1481302432
+mas "KeyKey", id: 1035137927
 mas "Keynote", id: 409183694
 mas "Magnet", id: 441258766
 mas "MindNode", id: 1289197285
@@ -132,3 +133,5 @@ mas "Studies", id: 1071676469
 mas "Telegram", id: 747648890
 mas "Termius", id: 1176074088
 mas "Tweetbot", id: 1384080005
+mas "TweetDeck", id: 485812721
+mas "Twitter", id: 1482454543
