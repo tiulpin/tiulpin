@@ -10,5 +10,5 @@
 
 - 📫 How to reach me: [LinkedIn](https://linkedin.com/in/tiulpin) · [Twitter](https://twitter.com/tiulpin) · [Telegram](https://t.me/tiulpin)
 - 💼 CV: [tiulp.in/cv/](https://tiulp.in/cv)
-- 😄 Pronouns: he / his
-- ⚡ Fun fact: If your GitHub repository has more than 50 stars, I could clone it
+- 😄 Pronouns: he/his
+- ⚡ Fun fact: If your GitHub repository has more than 50 stars, I cloned it
