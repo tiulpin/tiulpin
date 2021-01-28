@@ -2,7 +2,7 @@
 	name = tiulpin
     email = viktor@tiulp.in
 [core]
-    excludesfile = ~/.gitignore
+	excludesfile = /Users/tv/.gitignore
     autocrlf = input
 [merge]
     ff = only
@@ -36,3 +36,8 @@
 
     # Delete current branch
    	dcb = "!current_branch=$(git symbolic-ref --short -q HEAD) && git co *master* && git b -D $current_branch"
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
