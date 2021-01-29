@@ -13,7 +13,7 @@ brew "ant"
 brew "antigen"
 brew "aria2"
 brew "asciinema"
-brew "coreutils"
+brew "coreutils", link: false
 brew "asdf"
 brew "bat"
 brew "binutils"
@@ -45,7 +45,6 @@ brew "grunt-cli"
 brew "htop"
 brew "httpie"
 brew "hugo"
-brew "python@3.8"
 brew "imagemagick"
 brew "jq"
 brew "kubernetes-cli"
@@ -57,7 +56,6 @@ brew "mosh"
 brew "ncdu"
 brew "neofetch"
 brew "nuget"
-brew "nvm"
 brew "qpdf"
 brew "ocrmypdf"
 brew "openblas"
@@ -67,6 +65,7 @@ brew "pipx"
 brew "ponysay"
 brew "pyenv"
 brew "python@3.7"
+brew "python@3.8"
 brew "rbenv"
 brew "reattach-to-user-namespace"
 brew "ruby"
@@ -133,6 +132,7 @@ cask "tunnelbear"
 cask "turbo-boost-switcher"
 cask "virtualbox"
 cask "vlc"
+cask "zoom"
 cask "zoomus"
 mas "1440", id: 1483764819
 mas "1Password 7", id: 1333542190
@@ -153,7 +153,6 @@ mas "Magnet", id: 441258766
 mas "MindNode", id: 1289197285
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Pixelmator Pro", id: 1289583905
 mas "Reeder", id: 1449412482
 mas "Shazam", id: 897118787
 mas "Spark", id: 1176895641
@@ -161,3 +160,4 @@ mas "Studies", id: 1071676469
 mas "Telegram", id: 747648890
 mas "Termius", id: 1176074088
 mas "Tweetbot", id: 1384080005
+mas "Wayback Machine", id: 1472432422

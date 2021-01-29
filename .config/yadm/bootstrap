@@ -15,7 +15,7 @@ cd "$HOME"
 echo "Do you want to install brew packages?"
 if [[ "yes" == $(ask_yes_or_no "Do you want to install brew packages?") ]]
 then
-    brew bundle --global
+    brew bundle
 fi
 
 echo "Do you want to set macOS configuration?"
