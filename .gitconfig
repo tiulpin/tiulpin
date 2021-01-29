@@ -1,6 +1,7 @@
 [user]
 	name = tiulpin
     email = viktor@tiulp.in
+	signingkey = E4EE1DA3
 [core]
 	excludesfile = /Users/tv/.gitignore
     autocrlf = input
@@ -8,6 +9,7 @@
     ff = only
 [commit]
     template = ~/.gitmessage
+	gpgsign = true
 [fetch]
     prune = true
 [rebase]
@@ -41,3 +43,5 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[gpg]
+	program = /usr/local/bin/gpg
