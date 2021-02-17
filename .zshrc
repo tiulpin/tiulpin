@@ -33,9 +33,9 @@ export PATH=$PATH:$(go env GOPATH)/bin
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
 export PATH="$PATH:/Users/tv/.local/bin"
-export LDFLAGS="-L/usr/local/opt/openblas/lib"
-export CPPFLAGS="-I/usr/local/opt/openblas/include"
-
+export LDFLAGS="-L/usr/local/opt/openblas/lib -L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openblas/include -I/usr/local/opt/openssl/include"
 eval $(thefuck --alias)
 eval "$(pyenv init -)"
+eval "$(nodenv init -)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
