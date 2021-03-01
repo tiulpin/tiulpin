@@ -1,6 +1,6 @@
 [user]
 	name = tiulpin
-    email = viktor@tiulp.in
+	email = viktor@tiulp.in
 	signingkey = E4EE1DA3
 [core]
 	excludesfile = /Users/tv/.gitignore
