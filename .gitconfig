@@ -1,12 +1,10 @@
 [user]
 	name = tiulpin
 	email = viktor@tiulp.in
-	signingkey = E4EE1DA3
+	signingkey = 25AD09288D162FCDFC7DE25E0E5CC7B47A2D1A2A
 [core]
 	excludesfile = /Users/tv/.gitignore
     autocrlf = input
-[merge]
-    ff = only
 [commit]
     template = ~/.gitmessage
 	gpgsign = true
@@ -27,15 +25,12 @@
     d = diff
     s = status
     up = "!git fetch --all --prune && git rebase origin/*master*"
-
     # Pretty log
     ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
     le = log --oneline --decorate
-
     branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
-
     # Delete current branch
    	dcb = "!current_branch=$(git symbolic-ref --short -q HEAD) && git co *master* && git b -D $current_branch"
 [filter "lfs"]
@@ -44,4 +39,4 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 [gpg]
-	program = /usr/local/bin/gpg
+	program = /Users/tv/gpg-no-tty.sh
