@@ -20,7 +20,6 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 
 antigen bundle 'wfxr/forgit'
-
 antigen theme romkatv/powerlevel10k
 
 antigen apply
@@ -28,13 +27,22 @@ antigen apply
 export LANG=en_US.UTF-8
 export EDITOR='vim'
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-export PATH=$PATH:$(go env GOPATH)/bin
-export PATH="$HOME/.poetry/bin:$PATH"
-export PATH="/usr/local/opt/curl/bin:$PATH"
-export PATH="$PATH:/Users/tv/.local/bin"
-export LDFLAGS="-L/usr/local/opt/openblas/lib -L/usr/local/opt/openssl/lib"
-export CPPFLAGS="-I/usr/local/opt/openblas/include -I/usr/local/opt/openssl/include"
+export LDFLAGS="-L/usr/local/opt/openblas/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/ruby@2.6/lib"
+export CPPFLAGS="-I/usr/local/opt/openblas/include -I/usr/local/opt/openssl/include -I/usr/local/opt/ruby@2.6/include"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export SSH_AUTH_SOCK="/Users/tv/.gnupg/S.gpg-agent.ssh"
+export PATH=$PATH:/Users/tv/.local/bin:\
+$PYENV_ROOT/bin:\
+$(go env GOPATH)/bin:\
+$HOME/.poetry/bin:\
+$HOME/.cargo/bin:\
+/usr/local/opt/ruby@2.6/bin:\
+/usr/local/sbin:\
+/usr/local/opt/tcl-tk/bin:\
+/usr/local/opt/gnupg@2.2/bin:\
+/usr/local/opt/openssl@1.1/bin:\
+/usr/local/opt/curl/bin
+
 eval $(thefuck --alias)
 eval "$(pyenv init -)"
 eval "$(nodenv init -)"
