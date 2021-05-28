@@ -30,7 +30,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 export LDFLAGS="-L/usr/local/opt/openblas/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/ruby@2.6/lib"
 export CPPFLAGS="-I/usr/local/opt/openblas/include -I/usr/local/opt/openssl/include -I/usr/local/opt/ruby@2.6/include"
 export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
-export SSH_AUTH_SOCK="/Users/tv/.gnupg/S.gpg-agent.ssh"
 export PATH=$PATH:/Users/tv/.local/bin:\
 $PYENV_ROOT/bin:\
 $(go env GOPATH)/bin:\
