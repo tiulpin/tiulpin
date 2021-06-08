@@ -24,15 +24,15 @@
     cob = checkout -b
     d = diff
     s = status
-    up = "!git fetch --all --prune && git rebase origin/*master*"
+    up = !git fetch --all --prune && git rebase origin/*master*
     # Pretty log
-    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-    ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+    ls = log --pretty=format:%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn] --decorate
+    ll = log --pretty=format:%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn] --decorate --numstat
+    ld = log --pretty=format:%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn] --decorate --date=relative
     le = log --oneline --decorate
     branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
     # Delete current branch
-   	dcb = "!current_branch=$(git symbolic-ref --short -q HEAD) && git co *master* && git b -D $current_branch"
+   	dcb = !current_branch=$(git symbolic-ref --short -q HEAD) && git co *master* && git b -D $current_branch
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
@@ -40,3 +40,6 @@
 	process = git-lfs filter-process
 [gpg]
 	program = /Users/tv/gpg-no-tty.sh
+[filesystem "Amazon.com Inc.|15.0.2|/dev/disk1s1"]
+	timestampResolution = 6000 nanoseconds
+	minRacyThreshold = 0 nanoseconds
