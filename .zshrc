@@ -43,6 +43,5 @@ $HOME/.cargo/bin:\
 /usr/local/opt/curl/bin
 
 eval $(thefuck --alias)
-eval "$(pyenv init -)"
-eval "$(nodenv init -)"
+eval "$(pyenv init --path)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
