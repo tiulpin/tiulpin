@@ -39,7 +39,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 [gpg]
-	program = /Users/tv/gpg-no-tty.sh
+	program = /usr/local/bin/gpg
 [filesystem "Amazon.com Inc.|15.0.2|/dev/disk1s1"]
 	timestampResolution = 6000 nanoseconds
 	minRacyThreshold = 0 nanoseconds
