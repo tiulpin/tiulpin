@@ -45,3 +45,6 @@ $HOME/.cargo/bin:\
 eval $(thefuck --alias)
 eval "$(pyenv init --path)"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export PATH="$HOME/.poetry/bin:$PATH"
+[[ -s "/Users/tiulpin/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/tiulpin/.sdkman/bin/sdkman-init.sh"
