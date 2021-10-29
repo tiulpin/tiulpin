@@ -21,7 +21,7 @@ fi
 echo "Do you want to set macOS configuration?"
 if [[ "yes" == $(ask_yes_or_no "Do you want to set macOS configuration?") ]]
 then
-    chmod a+x ./macos
+    chmod +x ./macos
     ./macos
 fi
 
@@ -33,6 +33,12 @@ then
     git clone https://github.com/gpakosz/.tmux.git
     ln -s -f .tmux/.tmux.conf
     cp .tmux/.tmux.conf.local .
+fi
+
+echo "Do you want to import your publig PGP key?"
+if [[ "yes" == $(ask_yes_or_no "Do you want to import your publig PGP key?") ]]
+then
+    gpg --import < .ssh/pubkey.txt
 fi
 
 echo "Updating the yadm repo origin URL..."
