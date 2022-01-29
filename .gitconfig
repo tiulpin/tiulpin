@@ -1,13 +1,13 @@
 [user]
-	name = tiulpin
-	email = viktor@tiulp.in
-	signingkey = 25AD09288D162FCDFC7DE25E0E5CC7B47A2D1A2A
+    name = tiulpin
+    email = viktor@tiulp.in
+    signingkey = 25AD09288D162FCDFC7DE25E0E5CC7B47A2D1A2A
 [core]
-	excludesfile = /Users/tv/.gitignore
+    excludesfile = /Users/tv/.gitignore
     autocrlf = input
 [commit]
     template = ~/.gitmessage
-	gpgsign = true
+    gpgsign = true
 [fetch]
     prune = true
 [rebase]
@@ -32,14 +32,11 @@
     le = log --oneline --decorate
     branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
     # Delete current branch
-   	dcb = !current_branch=$(git symbolic-ref --short -q HEAD) && git co *master* && git b -D $current_branch
+    dcb = !current_branch=$(git symbolic-ref --short -q HEAD) && git co *master* && git b -D $current_branch
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
 [gpg]
-	program = /usr/local/bin/gpg
-[filesystem "Amazon.com Inc.|15.0.2|/dev/disk1s1"]
-	timestampResolution = 6000 nanoseconds
-	minRacyThreshold = 0 nanoseconds
+    program = /usr/local/bin/gpg
