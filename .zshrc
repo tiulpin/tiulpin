@@ -14,37 +14,18 @@ antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
 antigen bundle sudo
-
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
-
 antigen bundle 'wfxr/forgit'
 antigen theme romkatv/powerlevel10k
 
 antigen apply
 
-export LANG=en_US.UTF-8
-export EDITOR='vim'
-export PYENV_ROOT="$HOME/.pyenv"
-export LDFLAGS="-L/usr/local/opt/openblas/lib -L/usr/local/opt/openssl/lib -L/usr/local/opt/ruby@2.6/lib"
-export CPPFLAGS="-I/usr/local/opt/openblas/include -I/usr/local/opt/openssl/include -I/usr/local/opt/ruby@2.6/include"
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export PATH=$PATH:/Users/tv/.local/bin:\
-$PYENV_ROOT/bin:\
-$(go env GOPATH)/bin:\
-$HOME/.poetry/bin:\
-$HOME/.cargo/bin:\
-/usr/local/opt/ruby@2.6/bin:\
-/usr/local/sbin:\
-/usr/local/opt/tcl-tk/bin:\
-/usr/local/opt/gnupg@2.2/bin:\
-/usr/local/opt/openssl@1.1/bin:\
-/usr/local/opt/curl/bin
+$(go env GOPATH)/bin
 
-eval $(thefuck --alias)
-eval "$(pyenv init --path)"
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-export PATH="$HOME/.poetry/bin:$PATH"
-[[ -s "/Users/tiulpin/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/tiulpin/.sdkman/bin/sdkman-init.sh"
