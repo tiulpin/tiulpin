@@ -47,8 +47,6 @@ cask "raycast"
 cask "warp"
 mas "1Password for Safari", id: 1569813296
 mas "Craft", id: 1487937127
-mas "DigiD", id: 1361013122
-mas "Fantastical", id: 975937182
 mas "GarageBand", id: 682658836
 mas "Gifski", id: 1351639930
 mas "Hidden Bar", id: 1452453066
