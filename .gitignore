@@ -16,3 +16,15 @@ log/*.log
 rerun.txt
 tags
 tmp/**/*
+
+.idea/**
+.gitignore
+node_modules
+public
+prof
+tsconfig.tsbuildinfo
+.obsidian
+.quartz-cache
+private/
+.replit
+replit.nix
