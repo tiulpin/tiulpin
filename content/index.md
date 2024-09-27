@@ -15,10 +15,6 @@ Here I am trying to maintain a <i>third brain</i> – my public personal wiki (t
 The main goal is to keep the knowledge in one place and make it accessible for me, and, thanks to the pressure of the publicity, to keep it organized and clear.
 </div>
 
-<div class="me">
-<img src="https://github.com/tiulpin/tiulpin/assets/13538286/a981f93a-9909-4854-830b-26b0df645dcf"/>
-</div>
-
 </div>
 
 This site is always changing, but here are some things you may be interested in
