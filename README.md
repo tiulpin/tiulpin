@@ -1,18 +1,16 @@
-# Quartz v4
+👋 Hi, I'm Viktor Tiulpin ([@tiulpin](https://twitter.com/tiulpin)), an engineer passionate about Computer Science.
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+<!--
+**tiulpin/tiulpin** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+-->
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
-Quartz v4 features a from-the-ground rewrite focusing on end-user extensibility and ease-of-use.
+[Website](https://tiulp.in/) · [Notes](https://v.tiulp.in/) · [CV](https://tiulp.in/cv.pdf) · [LinkedIn](https://linkedin.com/in/tiulpin) · [GitHub](https://github.com/tiulpin)
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+I seek opportunities to solve problems in many domains, create great products, research, and develop new algorithms.
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+Now I'm working on tools for developers at [@JetBrains](https://github.com/JetBrains).
+We make [JetBrains AI](https://www.jetbrains.com/ai/),
+also I helped to build [@Qodana](https://github.com/marketplace/actions/qodana-scan) in the past.
+Also, I [maintain](https://github.com/tiulpin) a few OSS projects here.
 
-## Sponsors
-
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+⚡ Fun fact: If your GitHub repository has more than 50 stars, I cloned it.
