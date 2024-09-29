@@ -1,10 +1,9 @@
 ---
-title: 🦄 Missing Semester
-date: 2024-10-04
+title: 🔮 Missing Semester
+date: 2023-12-12
 ---
 
-> The Missing Semester of Your CS Education you won’t miss [2]. This is the second edition of the course, it's read offline in
-[Constructor University](https://en.wikipedia.org/wiki/Constructor_University), 2024.
+> The Missing Semester of Your CS Education you won’t miss
 
 ****The Missing Semester of Your CS Education you won’t miss****: the basics of CS tooling skills that will help you with your study, an internship, or even a new job.
 
@@ -12,16 +11,13 @@ date: 2024-10-04
 
 ## Lectures
 
-The lectures will be published here after the class :)
-
-[//]: # (- [1 · Around The Shell]&#40;2024-10-04-1.md&#41;)
-
-[//]: # (- [2 · Lose Yourself to Scripting]&#40;2024-10-04-2.md&#41;)
-
-[//]: # (- [3 · Git Lucky]&#40;2024-10-05-3.md&#41;)
-
-[//]: # (- [4 · The Game of Vim]&#40;2024-10-05-4.md&#41;)
-
+- [1 · Around The Shell](2023-11-7-1.md)
+- [2 · Lose Yourself to Scripting](2023-11-14-2.md)
+- [3 · Git Lucky](2023-11-14-3.md)
+- [4 · The Game of Vim](2023-11-21-4.md)
+- [5 · Fragments of DevOps](2023-11-21-5.md)
+- [6 · Sicherheitskonzepte](2023-11-28-6.md)
+- [7 · Something About Containers](2023-11-28-7.md)
 
 > [!NOTE]
 > The course content is adapted and expanded from **[The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)** by MIT, but comes with additional practical tasks, topics, and supplemental materials.
