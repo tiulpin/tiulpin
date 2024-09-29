@@ -22,7 +22,7 @@ This site is always changing, but here are some things you may be interested in
 - [Notes](/notes) – a random collection of notes on different topics, some of them are from a long time ago
 - [Courses](/courses) – here are the lecture materials for the courses I made in the past
   - [🐍 Python Not Boring](/courses/python_not_boring) – yet another Python course
-  - [🔮 Missing Semester](/courses/missing_semester) – tools, techniques, workflows, and the best practices for the modern developer
+  - [🦄 Missing Semester](/courses/missing_semester) – tools, techniques, workflows, and the best practices for the modern developer
 - [Life](/life) – travelling, important events, and other stuff
 - [Projects](https://www.linkedin.com/in/tiulpin/details/projects/) – a list of projects I've been working on; the section will be deployed soon, for now it's just a LinkedIn URL
 
