@@ -12,15 +12,10 @@ date: 2024-10-04
 
 ## Lectures
 
-The lectures will be published here after the class :)
-
-[//]: # (- [1 · Around The Shell]&#40;2024-10-04-1.md&#41;)
-
-[//]: # (- [2 · Lose Yourself to Scripting]&#40;2024-10-04-2.md&#41;)
-
-[//]: # (- [3 · Git Lucky]&#40;2024-10-05-3.md&#41;)
-
-[//]: # (- [4 · The Game of Vim]&#40;2024-10-05-4.md&#41;)
+- [1 · Around The Shell](2024-10-05-1.md)
+- [2 · Lose Yourself to Scripting](2024-10-05-2.md)
+- [3 · Git Lucky](2024-10-05-3.md)
+- [4 · The Game of Vim](2024-10-05-4.md)
 
 
 > [!NOTE]
