@@ -18,7 +18,7 @@ date: 2024-10-04
 - [4 · The Game of Vim](2024-10-05-4.md)
 - [5 · Fragments of DevOps](2024-11-01-5.md)
 - [6 · Something About Containers](2024-11-02-6.md)
-- [8 · k8s](2024-11-02-7.md)
+- [7 · k8s](2024-11-02-7.md)
 
 
 > [!NOTE]
@@ -26,6 +26,8 @@ date: 2024-10-04
 
 ### Target audience
 This course is for anyone willing to be familiar with the necessary tools, work daily, and achieve as little friction as possible. The curriculum does not emphasize peripheral command-line arguments; instead, the primary focus is to ensure participants achieve proficiency in utilizing helpful tools.
+
+![](https://imgs.xkcd.com/comics/tech_support_cheat_sheet_2x.png)
 
 ### Course outcomes
 
