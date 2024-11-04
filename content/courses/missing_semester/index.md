@@ -27,7 +27,12 @@ date: 2024-10-04
 ### Target audience
 This course is for anyone willing to be familiar with the necessary tools, work daily, and achieve as little friction as possible. The curriculum does not emphasize peripheral command-line arguments; instead, the primary focus is to ensure participants achieve proficiency in utilizing helpful tools.
 
+![](https://imgs.xkcd.com/comics/tech_support_cheat_sheet_2x.png)
+
 ### Course outcomes
 
 Student of this course will be equipped with practical skills to optimize their workflows, be comfortable with lots of new and old approaches and utilities, and be more prepared to work and continuously learn the ever-evolving field of computer science.
 
+### All resources
+
+Here is a generated list of all links that can be found in the course:
