@@ -5,8 +5,6 @@ tags:
   - math
 ---
 
-> Why do you see it here? Because I need it.
-
 ## **Probability of an event**
 
 Any subset $$E$$ of the sample space is known as **an event.**
