@@ -10,8 +10,8 @@ title: Learning How To Learn
 - Try different ways: videos, podcasts, lecture notes…
 - Take a break
 - Explain the stuff to your imaginary friend
-- Focus with Pomidoro
-- Start with the most difficult task
+- Focus on Pomodoro
+- Start with the most challenging task
 - Think about your goals
 
 ### Don't do
