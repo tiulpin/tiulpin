@@ -1,3 +1,7 @@
 dirs:
   - content
+baseUrl: https://v.tiulp.in/
 useGitIgnore: true
+ignorePatterns:
+  - pattern: https://www.linkedin.com/in/tiulpin/.*$
+  - pattern: ^courses/.*$
