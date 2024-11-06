@@ -3,6 +3,7 @@ date: 2021-09-01
 title: Algorithms practice
 tags:
   - math
+  - education
 ---
 
 > [!TIP]

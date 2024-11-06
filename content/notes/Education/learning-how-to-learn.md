@@ -1,6 +1,8 @@
 ---
 date: 2019-01-11
 title: Learning How To Learn
+tags:
+  - education
 ---
 
 ### Do

@@ -3,6 +3,7 @@ date: 2020-02-02
 title: Probability Cheatsheet
 tags:
   - math
+  - education
 ---
 
 ## **Probability of an event**

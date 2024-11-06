@@ -1,6 +1,8 @@
 ---
 date: 2024-05-19
 title: Denis
+tags:
+  - thoughts
 ---
 
 ![Untitled](https://github.com/tiulpin/tiulpin/assets/13538286/50788bfa-3714-4270-91f1-214542497bab)

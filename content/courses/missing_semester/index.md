@@ -1,6 +1,8 @@
 ---
 title: 🦄 Missing Semester
 date: 2024-10-04
+tags:
+  - bachelor-students
 ---
 
 > The Missing Semester of Your CS Education you won’t miss [2]. This is the second edition of the course, it's read offline in

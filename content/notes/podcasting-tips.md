@@ -3,6 +3,7 @@ title: Podcasting Tips
 date: 2021-12-10
 tags:
     - podcast
+    - education
 ---
 
 Things I learned from trying to do it a few times already.
