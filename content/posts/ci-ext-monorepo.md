@@ -12,14 +12,23 @@ tags:
 
 > 💡 The feature image shows a typical CI/CD pipeline in action partly drawn by OpenAI DALL-E, but in this article, we are going to develop something beneficial
 
-**Table of Contents**
-- [Start from the official templates](#start-from-the-official-templates)
-  - [GitHub Actions](#github-actions)
-  - [Azure Pipelines](#azure-pipelines)
-- [Create the monorepo](#create-the-monorepo)
-- [Share code between actions and tasks](#share-code-between-actions-and-tasks)
-- [Build and publish](#build-and-publish)
-- [CircleCI?](#circleci)
+> [!info]- Contents
+> This tutorial demonstrates how to develop, test,
+> and deploy CI extensions for GitHub Actions, Azure Pipelines,
+> and CircleCI from a single monorepo using TypeScript and Node.js.
+> It covers creating a monorepo, sharing code between actions and tasks, and building and publishing extensions. 
+> #### Table of Contents
+><!-- TOC -->
+>* [Start from the official templates](#start-from-the-official-templates)
+>    * [Pros for using JS-based actions:](#pros-for-using-js-based-actions)
+>    * [Cons](#cons)
+>    * [GitHub Actions](#github-actions)
+>    * [Azure Pipelines](#azure-pipelines)
+>* [Create the monorepo](#create-the-monorepo)
+>* [Share code between actions and tasks](#share-code-between-actions-and-tasks)
+>* [Build and publish](#build-and-publish)
+>* [CircleCI?](#circleci)
+><!-- TOC -->
 
 This is a relatively short tutorial on how to develop, test, and deploy your CI extensions for GitHub Actions, Azure Pipelines, and CircleCI from a single monorepo and is based on the experience of creating the [Qodana CI extensions](https://github.com/JetBrains/qodana-action).
 
@@ -29,7 +38,7 @@ Let's pick the technology stack for our CI extensions.
 
 OK, I will not pick. I'll just tell you why I used TypeScript and node.js for the extensions.
 
-#### Pros for using JS-based actions:
+#### Pros for using JS-based actions
 - More flexible than bash/Dockerfile-based approaches
   - Different libraries (like [actions/toolkit](https://github.com/actions/toolkit) and [microsoft/azure-pipelines-task-lib](https://github.com/microsoft/azure-pipelines-task-lib)) with more accessible and easy-to-use APIs are available out-of-box
 - Writing tests is relatively simple
@@ -112,7 +121,8 @@ To start developing your new shiny Azure Pipelines task, I suggest just copying 
 2. Create `task.json` and place it into your `dist` directory (actually better to name it after the task name)
 3. If you used any methods from `@actions/core` or `@actions/github` in your action, you need to replace them with the corresponding methods from `azure-pipelines-task-lib` (e.g. `core.getInput` -> `tl.getInput`)
 
-The API of `azure-pipelines-task-lib` is similar to `@actions/core` and other `@actions/*` libraries. For example, we have a method for obtaining the input parameters:
+The API of `azure-pipelines-task-lib` is similar to `@actions/core` and other `@actions/*` libraries.
+For example, we have a method for getting the input parameters:
 
 ```typescript
 export function getInputs(): Inputs {
@@ -315,7 +325,7 @@ For Azure Pipelines task releases, you can use the official approach from Azure.
           AZURE_TOKEN: ${{ secrets.AZURE_TOKEN }}
 ```
 
-With this set up, each release happens automatically on each tag push.
+With this setup, each release happens automatically on each tag push.
 
 ```bash
 git tag -a v1.0.0 -m "v1.0.0" && git push origin v1.0.0
@@ -328,7 +338,9 @@ git tag -a v1.0.0 -m "v1.0.0" && git push origin v1.0.0
 
 Ah, yes, this article mentioned the CircleCI orb also... CircleCI setup is straightforward but does not support TypeScript extensions, so you have to pack your code into a Docker image or a binary and run it there. The only reason it's included in this post is that we build our orb with the monorepo approach, which works well.
 
-Just implement [the official orb template](https://circleci.com/docs/2.0/orb-author/#quick-start) and place it in your monorepo, so the structure looks like this:
+Implement [the official orb template](https://circleci.com/docs/2.0/orb-author/#quick-start)
+and place it in your monorepo,
+so the structure looks like this:
 
 ```text
 ...
@@ -339,8 +351,6 @@ Just implement [the official orb template](https://circleci.com/docs/2.0/orb-aut
 └── package.json
 ```
 
-And don't forget to commit `.circleci/` directory to your repository to make CircleCI lint, test, and publish your orb.
+And remember to commit `.circleci/` directory to your repository to make CircleCI lint, test, and publish your orb.
 
 <img width="926" alt="CleanShot 2023-06-18 at 16 49 57@2x" src="https://user-images.githubusercontent.com/13538286/246672378-e7107578-9b52-46b3-8c42-3b381f007c93.png">
-
-> If this post gets ten reactions here, I'll add a second part about publishing and testing Azure Pipelines and CircleCI orbs
