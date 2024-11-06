@@ -3,6 +3,7 @@ date: 2024-02-25
 title: B1/B2 US Visa
 tags:
     - docs 
+    - travel
 ---
 
 

@@ -1,6 +1,8 @@
 ---
 date: 2024-10-06
 title: Trips
+tags:
+  - travel
 ---
 
 I was thinking to leave some notes here, but found a better service for it instead.

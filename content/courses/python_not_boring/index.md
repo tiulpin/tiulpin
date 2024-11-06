@@ -1,6 +1,9 @@
 ---
 title: 🐍 Python Not Boring
 date: 2021-12-10
+tags:
+  - master-students
+  - education
 ---
 
 Python is an interpreted, high-level, and universal programming language. It’s design philosophy emphasizes code readability and ease of implementation. According to the study The State of the Octoverse in 2020 Python overtook Java in popularity and came in second place in the top most used programming languages on GitHub. Python is used in products by companies such as:

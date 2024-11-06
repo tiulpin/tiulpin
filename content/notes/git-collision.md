@@ -4,6 +4,7 @@ title: How many digits is enough to reference a Git commit?
 tags:
     - git
     - collision
+    - education
 ---
 
 Depends on the total number of commits. The probability $$p$$ can be approximated as
