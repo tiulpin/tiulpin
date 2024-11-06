@@ -31,5 +31,5 @@ This course is for anyone willing to be familiar with the necessary tools, work 
 
 ### Course outcomes
 
-Student of this course will be equipped with practical skills to optimize their workflows, be comfortable with lots of new and old approaches and utilities, and be more prepared to work and continuously learn the ever-evolving field of computer science.
+Students of this course will be equipped with practical skills to optimize their workflows, be comfortable with lots of new and old approaches and utilities, and be more prepared to work and continuously learn the ever-evolving field of computer science.
 
