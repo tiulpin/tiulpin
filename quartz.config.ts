@@ -19,6 +19,7 @@ const config: QuartzConfig = {
     baseUrl: "v.tiulp.in",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
+    generateSocialImages: false,
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
