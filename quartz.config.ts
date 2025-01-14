@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "👨🏻‍💻 Viktor's notes",
+    pageTitle: "🗿 Viktor's notes",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
@@ -19,18 +19,18 @@ const config: QuartzConfig = {
     baseUrl: "v.tiulp.in",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
-    generateSocialImages: false,
+    generateSocialImages: true,
     theme: {
-      fontOrigin: "googleFonts",
+      fontOrigin: "local",
       cdnCaching: true,
       typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
+        header: "Noto Sans",
+        body: "Roboto",
         code: "JetBrains Mono",
       },
       colors: {
         lightMode: {
-          light: "#faf8f8",
+          light: "#fff",
           lightgray: "#e5e5e5",
           gray: "#b8b8b8",
           darkgray: "#4e4e4e",
@@ -41,7 +41,7 @@ const config: QuartzConfig = {
           textHighlight: "#fff23688",
         },
         darkMode: {
-          light: "#161618",
+          light: "#000",
           lightgray: "#393639",
           gray: "#646464",
           darkgray: "#d4d4d4",
