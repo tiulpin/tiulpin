@@ -7,6 +7,7 @@ tags:
   - circleci
   - azure
   - education
+  - crosspost
 ---
 
 ![](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9vcmavef9imakkjzq1gm.png)
