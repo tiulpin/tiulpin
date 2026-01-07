@@ -196,7 +196,9 @@ export const defaultImage: SocialImageOptions["imageStructure"] = ({
   // Get tags if available
   const tags = fileData.frontmatter?.tags ?? []
   const bodyFont = getFontSpecificationName(cfg.theme.typography.body)
-  const headerFont = getFontSpecificationName(cfg.theme.typography.header)
+  const titleFont = getFontSpecificationName(
+    cfg.theme.typography.title ?? cfg.theme.typography.header,
+  )
 
   return (
     <div
@@ -253,7 +255,7 @@ export const defaultImage: SocialImageOptions["imageStructure"] = ({
           style={{
             margin: 0,
             fontSize: useSmallerFont ? 64 : 72,
-            fontFamily: headerFont,
+            fontFamily: titleFont,
             fontWeight: 700,
             color: cfg.theme.colors[colorScheme].dark,
             lineHeight: 1.2,
