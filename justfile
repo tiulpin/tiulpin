@@ -1,4 +1,4 @@
-# v.tiulp.in (quartz wiki)
+# log.tiulp.in (quartz wiki)
 
 dev:
     npx quartz build --serve
@@ -14,4 +14,3 @@ check:
 
 format:
     npm run format
-

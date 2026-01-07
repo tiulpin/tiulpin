@@ -10,7 +10,7 @@ export const sharedPageComponents: SharedLayout = {
     links: {
       "About me": "https://tiulp.in/",
       "Feed": "https://feed.tiulp.in/",
-      "Notes": "https://v.tiulp.in/",
+      "Notes": "https://log.tiulp.in/",
       "CV": "https://tiulp.in/cv",
       "LinkedIn": "https://www.linkedin.com/in/tiulpin",
       "GitHub": "https://github.com/tiulpin",

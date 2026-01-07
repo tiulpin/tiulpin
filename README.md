@@ -4,7 +4,7 @@
 **tiulpin/tiulpin** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 -->
 
-[Website](https://tiulp.in/) · [Notes](https://v.tiulp.in/) · [CV](https://tiulp.in/cv.pdf) · [LinkedIn](https://linkedin.com/in/tiulpin) · [GitHub](https://github.com/tiulpin)
+[Website](https://tiulp.in/) · [Notes](https://log.tiulp.in/) · [Feed](https://feed.tiulp.in/) · [CV](https://tiulp.in/cv.pdf) · [LinkedIn](https://linkedin.com/in/tiulpin) · [Email](mailto:viktor@tiulp.in)
 
 I seek opportunities to solve problems in many domains, create great products, research, and develop new algorithms.
 

@@ -37,7 +37,7 @@ export default ((userOpts?: Partial<Options>) => {
             <p>
               <strong>A living knowledge base: engineering notes, course archives, crossposts, and experiments.</strong> This is my third brain – a public wiki where I keep knowledge in one place.
               <br />
-              <a href="https://tiulp.in/">About me</a> · <a href="https://feed.tiulp.in/">Feed</a> · <a href="https://v.tiulp.in/">Notes</a> · <a href="https://tiulp.in/cv">CV</a> · <a href="https://www.linkedin.com/in/tiulpin">LinkedIn</a> · <a href="https://github.com/tiulpin">GitHub</a>
+              <a href="https://tiulp.in/">About me</a> · <a href="https://feed.tiulp.in/">Feed</a> · <a href="https://tiulp.in/cv">CV</a> · <a href="https://www.linkedin.com/in/tiulpin">LinkedIn</a> · <a href="https://github.com/tiulpin">GitHub</a>
             </p>
           </div>
         </section>
@@ -166,6 +166,7 @@ body:has(.landing) hr {
   background: var(--secondary);
   position: relative;
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 :root[saved-theme="dark"] .landing-title-block {
@@ -182,6 +183,7 @@ body:has(.landing) hr {
   bottom: 10px;
   border: 5px solid var(--dark);
   z-index: -1;
+  box-sizing: border-box;
 }
 
 :root[saved-theme="dark"] .landing-title-block::before {
@@ -431,7 +433,7 @@ body:has(.landing) hr {
   }
 
   .landing-title-block {
-    width: 100%;
+    width: auto;
   }
 
   .landing-meta {
@@ -444,14 +446,11 @@ body:has(.landing) hr {
   .landing-title-block {
     padding: 1rem 1.5rem;
     border-width: 4px;
+    box-shadow: 6px 6px 0 var(--dark);
   }
 
   .landing-title-block::before {
-    top: -7px;
-    left: -7px;
-    right: 7px;
-    bottom: 7px;
-    border-width: 4px;
+    display: none;
   }
 
   .landing-title-block h1 {
