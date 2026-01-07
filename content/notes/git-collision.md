@@ -7,6 +7,8 @@ tags:
     - education
 ---
 
+> See also: [[courses/missing_semester/2024-10-05-3|Git Lucky]] lecture from the Missing Semester course for Git fundamentals.
+
 Depends on the total number of commits. The probability $$p$$ can be approximated as
 
 $$

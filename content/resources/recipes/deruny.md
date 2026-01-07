@@ -28,5 +28,9 @@ tags:
 
 3. Fry the pancakes in vegetable oil in a well-heated frying pan for about 10 minutes.
 
+---
+
+See also: [[resources/recipes/turkish-eggs|Turkish Eggs]] for another savory breakfast option.
+
 
 

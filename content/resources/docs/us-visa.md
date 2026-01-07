@@ -6,6 +6,8 @@ tags:
     - travel
 ---
 
+> See also: [[resources/docs/canada-visa|Canada Visitor Visa]] for another visa guide, and [[notes/trips|Trips]] for travel updates.
+
 
 > [!TIP]
 > This is a guide for getting US Visa if you need one. I got a B1/B2 three-year valid visa in Brussels for a conference. I share it here since many folks asked me about this in private messages.

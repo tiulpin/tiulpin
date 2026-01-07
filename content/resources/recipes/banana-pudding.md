@@ -39,3 +39,7 @@ tags:
 
 9. Let set in the refrigerator. The longer it chills, the softer the ladyfingers become, enhancing the desert's overall flavor.
 
+---
+
+See also: [[resources/recipes/chocolate-cake|Chocolate Cake]] and [[resources/recipes/napoleon|Napoleon Cake]] for more dessert options.
+

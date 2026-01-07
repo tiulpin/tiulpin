@@ -49,4 +49,6 @@ I applied online on **January 1, 2025**, and received an email invitation to boo
 
 **Tips for success:**
 - Apply way before your travel date as some of my friends were waiting for many months.
-- Having [US Visa](/notes/us-visa) helps to speed up the process.
+- Having [[resources/docs/us-visa|US Visa]] helps to speed up the process.
+
+See also: [[notes/trips|Trips]] for my travel updates.

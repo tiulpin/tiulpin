@@ -1,5 +1,5 @@
 ---
-title: 🦄 Missing Semester
+title: Missing Semester
 date: 2024-10-04
 tags:
   - bachelor-students
@@ -34,4 +34,6 @@ This course is for anyone willing to be familiar with the necessary tools, work 
 ### Course outcomes
 
 Students of this course will be equipped with practical skills to optimize their workflows, be comfortable with lots of new and old approaches and utilities, and be more prepared to work and continuously learn the ever-evolving field of computer science.
+
+See also: [[courses/python_not_boring/index|Python Not Boring]] for another course on practical programming skills.
 

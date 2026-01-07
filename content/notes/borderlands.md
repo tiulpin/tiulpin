@@ -12,3 +12,7 @@ tags:
 > I really want to live to see the time when humanism will prevail, and those who think about territories first will simply not be able to hold them and will turn into Borderlands.
 
 from [t.me/youneverasked/304](https://t.me/youneverasked/304)
+
+---
+
+See also: [[notes/attention|Attention]] and [[notes/sunscreen|Wear Sunscreen]]

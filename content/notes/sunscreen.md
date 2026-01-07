@@ -62,3 +62,7 @@ tags:
 > But trust me on the sunscreen.
 
 by [Mary Schmich, Chicago Tribune, 1997](https://en.wikipedia.org/wiki/Wear_Sunscreen)
+
+---
+
+See also: [[notes/attention|Attention]] and [[notes/borderlands|Borderlands]]

@@ -1,5 +1,5 @@
 ---
-title: 🐍 Python Not Boring
+title: Python Not Boring
 date: 2021-12-10
 tags:
   - master-students
@@ -51,5 +51,7 @@ Many useful tools for developers. You can get this after confirming your educati
 See [education.github.com/pack](https://education.github.com/pack).
 
 </details>
+
+See also: [[courses/missing_semester/index|Missing Semester]] for tools, techniques, and best practices for the modern developer.
 
 ## All lectures

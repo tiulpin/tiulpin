@@ -27,3 +27,7 @@ tags:
 > You are a software engineer. Don't become a prompt refiner.
 
 by [Anton Zhiyanov](https://antonz.org/write-code/)
+
+---
+
+See also: [[notes/ai-tips|AI Tips]] for more practical advice on working with AI coding assistants.

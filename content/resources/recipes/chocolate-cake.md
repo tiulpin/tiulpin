@@ -60,3 +60,7 @@ tags:
 4. Adjust consistency with more milk if too dry, or more powdered sugar if too wet.
 
 5. Frost the cooled cake with an icing spatula or butter knife.
+
+---
+
+See also: [[resources/recipes/banana-pudding|Banana Pudding]] and [[resources/recipes/napoleon|Napoleon Cake]] for more dessert options.
