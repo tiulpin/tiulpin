@@ -5,7 +5,10 @@ import { byDateAndAlphabetical } from "./PageList"
 import { Date, getDate } from "./Date"
 // @ts-ignore
 import graphScript from "./scripts/graph.inline"
+// @ts-ignore
+import textRotatorScript from "./scripts/textRotator.inline"
 import graphStyle from "./styles/graph.scss"
+import { concatenateResources } from "../util/resources"
 
 interface Options {
   limit: number
@@ -30,12 +33,17 @@ export default ((userOpts?: Partial<Options>) => {
     return (
       <div class="landing">
         <section class="landing-header">
-          <div class="landing-title-block">
-            <h1>VIKTOR'S<br/>NOTES</h1>
+          <div class="title-deck" id="title-deck">
+            <div class="deck-back">
+              <span class="anki-fact">Anki makes you remember everything</span>
+            </div>
+            <div class="deck-front">
+              <h1>VIKTOR'S<br/>NOTES</h1>
+            </div>
           </div>
           <div class="landing-meta">
             <p>
-              <strong>A living knowledge base: engineering notes, course archives, crossposts, and experiments.</strong> This is my third brain – a public wiki where I keep knowledge in one place.
+              <span id="rotating-text"><strong>A living knowledge base: engineering notes, course archives, crossposts, and experiments.</strong> This is my third brain – a public wiki where I keep knowledge in one place.</span>
               <br />
               <a href="https://tiulp.in/">About me</a> · <a href="https://feed.tiulp.in/">Feed</a> · <a href="https://tiulp.in/cv">CV</a> · <a href="https://www.linkedin.com/in/tiulpin">LinkedIn</a> · <a href="https://github.com/tiulpin">GitHub</a>
             </p>
@@ -123,7 +131,7 @@ export default ((userOpts?: Partial<Options>) => {
     )
   }
 
-  Landing.afterDOMLoaded = graphScript;
+  Landing.afterDOMLoaded = concatenateResources(graphScript, textRotatorScript)
 
   Landing.css = graphStyle + `
 body:has(.landing) .sidebar.left,
@@ -160,37 +168,60 @@ body:has(.landing) hr {
   flex-wrap: wrap;
 }
 
-.landing-title-block {
+.title-deck {
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.deck-back,
+.deck-front {
   border: 5px solid var(--dark);
   padding: 1rem 1.5rem;
   background: var(--secondary);
-  position: relative;
-  flex-shrink: 0;
   box-sizing: border-box;
 }
 
-:root[saved-theme="dark"] .landing-title-block {
+:root[saved-theme="dark"] .deck-back,
+:root[saved-theme="dark"] .deck-front {
   border-color: var(--dark);
   background: var(--light);
 }
 
-.landing-title-block::before {
-  content: '';
+.deck-back {
   position: absolute;
-  top: -10px;
-  left: -10px;
-  right: 10px;
-  bottom: 10px;
-  border: 5px solid var(--dark);
+  top: -5px;
+  left: -5px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+
+.deck-front {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.2s;
+}
+
+.title-deck.slide .deck-front {
+  transform: translate(10px, 10px);
   z-index: -1;
-  box-sizing: border-box;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0s;
 }
 
-:root[saved-theme="dark"] .landing-title-block::before {
-  border-color: var(--dark);
+.anki-fact {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--dark);
+  text-align: center;
+  line-height: 1.4;
+  padding: 0.5rem;
 }
 
-.landing-title-block h1 {
+.title-deck h1 {
   font-family: var(--headerFont);
   font-size: clamp(1.75rem, 5vw, 2.75rem);
   font-weight: 900;
@@ -212,6 +243,23 @@ body:has(.landing) hr {
   color: var(--dark);
   margin: 0;
   font-weight: 500;
+}
+
+#rotating-text {
+  transition: opacity 0.4s ease;
+}
+
+#rotating-text.slide-out {
+  opacity: 0;
+}
+
+#rotating-text.slide-in {
+  opacity: 0;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
 }
 
 :root[saved-theme="dark"] .landing-meta p {
@@ -432,7 +480,7 @@ body:has(.landing) hr {
     align-items: flex-start;
   }
 
-  .landing-title-block {
+  .title-deck {
     width: auto;
   }
 
@@ -443,17 +491,21 @@ body:has(.landing) hr {
 }
 
 @media (max-width: 600px) {
-  .landing-title-block {
-    padding: 1rem 1.5rem;
+  .deck-front,
+  .deck-back {
     border-width: 4px;
-    box-shadow: 6px 6px 0 var(--dark);
   }
 
-  .landing-title-block::before {
-    display: none;
+  .deck-back {
+    top: -4px;
+    left: -4px;
   }
 
-  .landing-title-block h1 {
+  .title-deck.slide .deck-front {
+    transform: translate(8px, 8px);
+  }
+
+  .title-deck h1 {
     font-size: 2rem;
   }
 
@@ -494,7 +546,6 @@ body:has(.landing) hr {
   }
 }
 `
-  Landing.afterDOMLoaded = graphScript
 
   return Landing
 }) satisfies QuartzComponentConstructor
