@@ -87,14 +87,30 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     showTags,
     focusOnHover,
     enableRadial,
+    excludePatterns,
   } = JSON.parse(graph.dataset["cfg"]!) as D3Config
 
-  const data: Map<SimpleSlug, ContentDetails> = new Map(
-    Object.entries<ContentDetails>(await fetchData).map(([k, v]) => [
-      simplifySlug(k as FullSlug),
-      v,
-    ]),
-  )
+  const allData = Object.entries<ContentDetails>(await fetchData).map(([k, v]) => [
+    simplifySlug(k as FullSlug),
+    v,
+  ] as const)
+
+  console.log("[Graph] excludePatterns:", excludePatterns)
+  console.log("[Graph] Total nodes before filter:", allData.length)
+  console.log("[Graph] Sample slugs:", allData.slice(0, 5).map(([s]) => s))
+
+  const filteredData = excludePatterns?.length
+    ? allData.filter(([slug]) => {
+        const excluded = excludePatterns.some((pattern) =>
+          slug.startsWith(pattern) || slug.startsWith(pattern.replace(/\/$/, ""))
+        )
+        return !excluded
+      })
+    : allData
+
+  console.log("[Graph] Total nodes after filter:", filteredData.length)
+
+  const data: Map<SimpleSlug, ContentDetails> = new Map(filteredData)
   const links: SimpleLinkData[] = []
   const tags: SimpleSlug[] = []
   const validLinks = new Set(data.keys())

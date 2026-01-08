@@ -9,7 +9,7 @@ tags:
     - ai
 ---
 
-Aici colectez sfaturi de programare cu AI pe care le găsesc utile, bazate pe experiența mea și pe [această discuție HN](https://news.ycombinator.com/item?id=46255285). Cel mai important: [[notes/write-the-damn-code|scrie naibii codul]]. Nu deveni un rafinor de prompturi.
+Aici colectez sfaturi de programare cu AI pe care le găsesc utile, bazate pe experiența mea și pe [această discuție HN](https://news.ycombinator.com/item?id=46255285). Cel mai important: [[ro/notes/write-the-damn-code|scrie naibii codul]]. Nu deveni un rafinor de prompturi.
 
 ## Folosește reguli de proiect
 

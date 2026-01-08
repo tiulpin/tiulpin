@@ -33,4 +33,4 @@ translationKey: resources/recipes/deruny
 
 ---
 
-另请参阅 [[resources/recipes/turkish-eggs|土耳其鸡蛋]] 另一种咸味早餐。
+另请参阅 [[zh/resources/recipes/turkish-eggs|土耳其鸡蛋]] 另一种咸味早餐。

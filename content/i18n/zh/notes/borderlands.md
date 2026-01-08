@@ -16,4 +16,4 @@ tags:
 
 ---
 
-另见: [[notes/attention|专注]] 和 [[notes/sunscreen|涂防晒霜]]
+另见: [[zh/notes/attention|专注]] 和 [[zh/notes/sunscreen|涂防晒霜]]

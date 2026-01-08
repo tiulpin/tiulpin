@@ -32,4 +32,4 @@ translationKey: resources/recipes/deruny
 
 ---
 
-Ver también: [[resources/recipes/turkish-eggs|Huevos a la Turca]] para otra opción de desayuno salado.
+Ver también: [[es/resources/recipes/turkish-eggs|Huevos a la Turca]] para otra opción de desayuno salado.

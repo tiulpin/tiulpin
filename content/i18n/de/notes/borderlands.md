@@ -16,4 +16,4 @@ von [t.me/youneverasked/304](https://t.me/youneverasked/304)
 
 ---
 
-Siehe auch: [[notes/attention|Aufmerksamkeit]] und [[notes/sunscreen|Sonnenschutz]]
+Siehe auch: [[de/notes/attention|Aufmerksamkeit]] und [[de/notes/sunscreen|Sonnenschutz]]

@@ -16,4 +16,4 @@ de [t.me/youneverasked/304](https://t.me/youneverasked/304)
 
 ---
 
-Veja também: [[notes/attention|Atenção]] e [[notes/sunscreen|Use Protetor Solar]]
+Veja também: [[pt/notes/attention|Atenção]] e [[pt/notes/sunscreen|Use Protetor Solar]]

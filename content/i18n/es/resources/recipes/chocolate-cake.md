@@ -66,4 +66,4 @@ translationKey: resources/recipes/chocolate-cake
 
 ---
 
-Ver también: [[resources/recipes/banana-pudding|Budín de Plátano]] y [[resources/recipes/napoleon|Tarta Napoleón]] para más opciones de postres.
+Ver también: [[es/resources/recipes/banana-pudding|Budín de Plátano]] y [[es/resources/recipes/napoleon|Tarta Napoleón]] para más opciones de postres.

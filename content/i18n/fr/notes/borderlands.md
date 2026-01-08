@@ -16,4 +16,4 @@ de [t.me/youneverasked/304](https://t.me/youneverasked/304)
 
 ---
 
-Voir aussi : [[notes/attention|Attention]] et [[notes/sunscreen|Portez de la crème solaire]]
+Voir aussi : [[fr/notes/attention|Attention]] et [[fr/notes/sunscreen|Portez de la crème solaire]]

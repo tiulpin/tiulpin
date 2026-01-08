@@ -67,6 +67,7 @@ export default ((userOpts?: Partial<Options>) => {
               removeTags: [],
               focusOnHover: true,
               enableRadial: true,
+              excludePatterns: ["de/", "es/", "fr/", "nl/", "ja/", "zh/", "ro/", "uk/", "pt/"],
             })}>
             </div>
           </div>
@@ -157,6 +158,8 @@ body:has(.landing) hr {
   max-width: 100%;
   margin: 0;
   padding: 0;
+  position: relative;
+  z-index: 0;
 }
 
 .landing-header {
@@ -172,6 +175,7 @@ body:has(.landing) hr {
   position: relative;
   flex-shrink: 0;
   cursor: pointer;
+  isolation: isolate;
 }
 
 .deck-back,

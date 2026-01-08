@@ -6,7 +6,7 @@ tags:
   - travel
 ---
 
-> Siehe auch: [[resources/docs/us-visa|US-Visum-Leitfaden]] und [[resources/docs/canada-visa|Kanada-Visum-Leitfaden]] für Tipps zur Visumsbeantragung.
+> Siehe auch: [[de/resources/docs/us-visa|US-Visum-Leitfaden]] und [[de/resources/docs/canada-visa|Kanada-Visum-Leitfaden]] für Tipps zur Visumsbeantragung.
 
 
 Ich hatte überlegt, hier einige Notizen zu hinterlassen, habe aber stattdessen einen besseren Service dafür gefunden.

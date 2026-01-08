@@ -66,4 +66,4 @@ de [Mary Schmich, Chicago Tribune, 1997](https://en.wikipedia.org/wiki/Wear_Suns
 
 ---
 
-Vezi și: [[notes/attention|Atenție]] și [[notes/borderlands|Borderlands]]
+Vezi și: [[ro/notes/attention|Atenție]] și [[ro/notes/borderlands|Borderlands]]

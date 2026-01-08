@@ -14,3 +14,10 @@ check:
 
 format:
     npm run format
+
+# Translation commands (requires DEEPL_API_KEY in .env)
+translate-check:
+    npx tsx scripts/translate.ts check
+
+translate:
+    npx tsx scripts/translate.ts translate

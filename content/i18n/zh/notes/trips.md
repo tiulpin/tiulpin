@@ -6,7 +6,7 @@ tags:
   - travel
 ---
 
-> 另见: [[resources/docs/us-visa|美国签证指南]]和[[resources/docs/canada-visa|加拿大签证指南]]获取签证申请提示。
+> 另见: [[zh/resources/docs/us-visa|美国签证指南]]和[[zh/resources/docs/canada-visa|加拿大签证指南]]获取签证申请提示。
 
 
 我本来想在这里留下一些笔记,但找到了一个更好的服务。

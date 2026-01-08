@@ -9,7 +9,7 @@ tags:
     - ai
 ---
 
-ここでは、私の経験と[このHNディスカッション](https://news.ycombinator.com/item?id=46255285)に基づいて、役立つAIコーディングのヒントを集めています。最も重要なもの: [[notes/write-the-damn-code|実際にコードを書く]]。プロンプトの精錬者にならないでください。
+ここでは、私の経験と[このHNディスカッション](https://news.ycombinator.com/item?id=46255285)に基づいて、役立つAIコーディングのヒントを集めています。最も重要なもの: [[ja/notes/write-the-damn-code|実際にコードを書く]]。プロンプトの精錬者にならないでください。
 
 ## プロジェクトルールを使用する
 

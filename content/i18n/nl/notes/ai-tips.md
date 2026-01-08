@@ -9,7 +9,7 @@ tags:
     - ai
 ---
 
-Hier verzamel ik AI-coderingstips die ik nuttig vind, gebaseerd op mijn ervaring en [deze HN-discussie](https://news.ycombinator.com/item?id=46255285). De belangrijkste: [[notes/write-the-damn-code|schrijf de verdoemde code]]. Word geen prompt-verfijner.
+Hier verzamel ik AI-coderingstips die ik nuttig vind, gebaseerd op mijn ervaring en [deze HN-discussie](https://news.ycombinator.com/item?id=46255285). De belangrijkste: [[nl/notes/write-the-damn-code|schrijf de verdoemde code]]. Word geen prompt-verfijner.
 
 ## Gebruik projectregels
 

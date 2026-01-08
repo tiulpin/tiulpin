@@ -31,4 +31,4 @@ door [Anton Zhiyanov](https://antonz.org/write-code/)
 
 ---
 
-Zie ook: [[notes/ai-tips|AI Tips]] voor meer praktisch advies over werken met AI-codeeringsassistenten.
+Zie ook: [[nl/notes/ai-tips|AI Tips]] voor meer praktisch advies over werken met AI-codeeringsassistenten.

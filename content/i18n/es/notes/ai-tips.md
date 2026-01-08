@@ -9,7 +9,7 @@ tags:
     - ai
 ---
 
-Aquí recopilo consejos de codificación con IA que encuentro útiles, basados en mi experiencia y [esta discusión de HN](https://news.ycombinator.com/item?id=46255285). El más importante: [[notes/write-the-damn-code|escribe el maldito código]]. No te conviertas en un refinador de prompts.
+Aquí recopilo consejos de codificación con IA que encuentro útiles, basados en mi experiencia y [esta discusión de HN](https://news.ycombinator.com/item?id=46255285). El más importante: [[es/notes/write-the-damn-code|escribe el maldito código]]. No te conviertas en un refinador de prompts.
 
 ## Usa reglas de proyecto
 

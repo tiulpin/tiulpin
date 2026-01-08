@@ -16,4 +16,4 @@ tags:
 
 ---
 
-Див. також: [[notes/attention|Увага]] та [[notes/sunscreen|Носіть сонцезахисний крем]]
+Див. також: [[uk/notes/attention|Увага]] та [[uk/notes/sunscreen|Носіть сонцезахисний крем]]

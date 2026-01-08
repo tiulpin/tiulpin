@@ -6,7 +6,7 @@ tags:
 translationKey: notes/trips
 ---
 
-> Vezi și: [[resources/docs/us-visa|Ghid Viză SUA]] și [[resources/docs/canada-visa|Ghid Viză Canada]] pentru sfaturi despre aplicația de viză.
+> Vezi și: [[ro/resources/docs/us-visa|Ghid Viză SUA]] și [[ro/resources/docs/canada-visa|Ghid Viză Canada]] pentru sfaturi despre aplicația de viză.
 
 
 M-am gândit să las câteva note aici, dar am găsit un serviciu mai bun pentru asta.

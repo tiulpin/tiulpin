@@ -9,7 +9,7 @@ tags:
     - ai
 ---
 
-Hier sammle ich KI-Programmier-Tipps, die ich aufgrund meiner Erfahrung und [dieser HN-Diskussion](https://news.ycombinator.com/item?id=46255285) als nützlich empfinde. Der wichtigste: [[notes/write-the-damn-code|Schreib den verdammten Code]]. Werde kein Prompt-Verfeinerer.
+Hier sammle ich KI-Programmier-Tipps, die ich aufgrund meiner Erfahrung und [dieser HN-Diskussion](https://news.ycombinator.com/item?id=46255285) als nützlich empfinde. Der wichtigste: [[de/notes/write-the-damn-code|Schreib den verdammten Code]]. Werde kein Prompt-Verfeinerer.
 
 ## Verwende Projektregeln
 

@@ -33,4 +33,4 @@ translationKey: resources/recipes/deruny
 
 ---
 
-Voir aussi : [[resources/recipes/turkish-eggs|Œufs Turcs]] pour une autre option de petit-déjeuner salé.
+Voir aussi : [[fr/resources/recipes/turkish-eggs|Œufs Turcs]] pour une autre option de petit-déjeuner salé.

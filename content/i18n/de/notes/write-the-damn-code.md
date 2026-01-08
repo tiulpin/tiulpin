@@ -31,4 +31,4 @@ von [Anton Zhiyanov](https://antonz.org/write-code/)
 
 ---
 
-Siehe auch: [[notes/ai-tips|KI-Tipps]] für mehr praktische Ratschläge zur Arbeit mit KI-Programmierassistenten.
+Siehe auch: [[de/notes/ai-tips|KI-Tipps]] für mehr praktische Ratschläge zur Arbeit mit KI-Programmierassistenten.

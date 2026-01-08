@@ -16,4 +16,4 @@ de la [t.me/youneverasked/304](https://t.me/youneverasked/304)
 
 ---
 
-Vezi și: [[notes/attention|Atenție]] și [[notes/sunscreen|Poartă cremă de protecție solară]]
+Vezi și: [[ro/notes/attention|Atenție]] și [[ro/notes/sunscreen|Poartă cremă de protecție solară]]

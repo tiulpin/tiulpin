@@ -32,4 +32,4 @@ translationKey: resources/recipes/deruny
 
 ---
 
-Siehe auch: [[resources/recipes/turkish-eggs|Türkische Eier]] für eine weitere herzhafte Frühstücksvariante.
+Siehe auch: [[de/resources/recipes/turkish-eggs|Türkische Eier]] für eine weitere herzhafte Frühstücksvariante.

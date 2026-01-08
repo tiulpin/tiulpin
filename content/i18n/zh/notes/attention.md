@@ -9,7 +9,7 @@ tags:
 我很喜欢 [billwear.github.io/](https://billwear.github.io/art-of-attention.html) 的这篇文章。
 为了防止原页面失效,我把它保存在这里。
 
-> 另见: [[resources/education/learning-how-to-learn|学习如何学习]], [[notes/sunscreen|涂防晒霜]]
+> 另见: [[zh/resources/education/learning-how-to-learn|学习如何学习]], [[zh/notes/sunscreen|涂防晒霜]]
 
 > ### 专注的静谧艺术
 >

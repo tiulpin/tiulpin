@@ -66,4 +66,4 @@ von [Mary Schmich, Chicago Tribune, 1997](https://en.wikipedia.org/wiki/Wear_Sun
 
 ---
 
-Siehe auch: [[notes/attention|Aufmerksamkeit]] und [[notes/borderlands|Grenzlande]]
+Siehe auch: [[de/notes/attention|Aufmerksamkeit]] und [[de/notes/borderlands|Grenzlande]]

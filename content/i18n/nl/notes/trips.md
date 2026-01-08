@@ -6,7 +6,7 @@ tags:
   - travel
 ---
 
-> Zie ook: [[resources/docs/us-visa|US Visa Gids]] en [[resources/docs/canada-visa|Canada Visa Gids]] voor visumaanvraagtips.
+> Zie ook: [[nl/resources/docs/us-visa|US Visa Gids]] en [[nl/resources/docs/canada-visa|Canada Visa Gids]] voor visumaanvraagtips.
 
 
 Ik dacht erover om hier wat notities achter te laten, maar vond in plaats daarvan een betere service.

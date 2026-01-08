@@ -9,7 +9,7 @@ tags:
     - ai
 ---
 
-这里我收集了我觉得有用的 AI 编码技巧,基于我的经验和[这个 HN 讨论](https://news.ycombinator.com/item?id=46255285)。最重要的一条:[[notes/write-the-damn-code|写该死的代码]]。不要成为一个提示词精炼师。
+这里我收集了我觉得有用的 AI 编码技巧,基于我的经验和[这个 HN 讨论](https://news.ycombinator.com/item?id=46255285)。最重要的一条:[[zh/notes/write-the-damn-code|写该死的代码]]。不要成为一个提示词精炼师。
 
 ## 使用项目规则
 

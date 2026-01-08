@@ -64,4 +64,4 @@ translationKey: resources/recipes/chocolate-cake
 
 ---
 
-另请参阅：[[resources/recipes/banana-pudding|香蕉布丁]] 和 [[resources/recipes/napoleon|拿破仑蛋糕]] 了解更多甜点选择。
+另请参阅：[[zh/resources/recipes/banana-pudding|香蕉布丁]] 和 [[zh/resources/recipes/napoleon|拿破仑蛋糕]] 了解更多甜点选择。

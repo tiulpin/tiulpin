@@ -66,4 +66,4 @@ tags:
 
 ---
 
-另见: [[notes/attention|专注]] 和 [[notes/borderlands|边境之地]]
+另见: [[zh/notes/attention|专注]] 和 [[zh/notes/borderlands|边境之地]]

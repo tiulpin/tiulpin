@@ -9,7 +9,7 @@ tags:
 Am iubit acest articol de pe [billwear.github.io/](https://billwear.github.io/art-of-attention.html).
 O să-l păstrez aici în cazul în care pagina originală dispare.
 
-> Vezi și: [[resources/education/learning-how-to-learn|Learning How To Learn]], [[notes/sunscreen|Poartă cremă de protecție solară]]
+> Vezi și: [[ro/resources/education/learning-how-to-learn|Learning How To Learn]], [[ro/notes/sunscreen|Poartă cremă de protecție solară]]
 
 > ### arta tăcută a atenției
 >

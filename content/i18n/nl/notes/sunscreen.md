@@ -66,4 +66,4 @@ door [Mary Schmich, Chicago Tribune, 1997](https://en.wikipedia.org/wiki/Wear_Su
 
 ---
 
-Zie ook: [[notes/attention|Aandacht]] en [[notes/borderlands|Borderlands]]
+Zie ook: [[nl/notes/attention|Aandacht]] en [[nl/notes/borderlands|Borderlands]]

@@ -9,7 +9,7 @@ tags:
 [billwear.github.io/](https://billwear.github.io/art-of-attention.html)のこの作品が大好きです。
 元のページが消えた場合に備えて、ここに保管しておきます。
 
-> 参照: [[resources/education/learning-how-to-learn|学習の仕方を学ぶ]], [[notes/sunscreen|日焼け止めを塗ろう]]
+> 参照: [[ja/resources/education/learning-how-to-learn|学習の仕方を学ぶ]], [[ja/notes/sunscreen|日焼け止めを塗ろう]]
 
 > ### 注意という静かな芸術
 >

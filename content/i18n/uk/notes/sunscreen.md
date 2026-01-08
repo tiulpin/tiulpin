@@ -66,4 +66,4 @@ tags:
 
 ---
 
-Див. також: [[notes/attention|Увага]] та [[notes/borderlands|Пограниччя]]
+Див. також: [[uk/notes/attention|Увага]] та [[uk/notes/borderlands|Пограниччя]]

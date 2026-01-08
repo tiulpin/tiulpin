@@ -41,4 +41,4 @@ translationKey: resources/recipes/banana-pudding
 
 ---
 
-こちらもご参照ください：[[resources/recipes/chocolate-cake|チョコレートケーキ]]と[[resources/recipes/napoleon|ナポレオンケーキ]]を参照。
+こちらもご参照ください：[[ja/resources/recipes/chocolate-cake|チョコレートケーキ]]と[[ja/resources/recipes/napoleon|ナポレオンケーキ]]を参照。

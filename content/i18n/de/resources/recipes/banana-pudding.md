@@ -42,4 +42,4 @@ translationKey: resources/recipes/banana-pudding
 
 ---
 
-Siehe auch: [[resources/recipes/chocolate-cake|Schokoladenkuchen]] und [[resources/recipes/napoleon|Napoleon-Torte]] für weitere Dessertoptionen.
+Siehe auch: [[de/resources/recipes/chocolate-cake|Schokoladenkuchen]] und [[de/resources/recipes/napoleon|Napoleon-Torte]] für weitere Dessertoptionen.

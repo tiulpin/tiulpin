@@ -31,4 +31,4 @@ by [Anton Zhiyanov](https://antonz.org/write-code/)
 
 ---
 
-参照: [[notes/ai-tips|AIのヒント]] AIコーディングアシスタントと作業するための実践的なアドバイス。
+参照: [[ja/notes/ai-tips|AIのヒント]] AIコーディングアシスタントと作業するための実践的なアドバイス。

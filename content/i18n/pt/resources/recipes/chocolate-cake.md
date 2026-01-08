@@ -66,4 +66,4 @@ translationKey: resources/recipes/chocolate-cake
 
 ---
 
-Veja também: [[resources/recipes/banana-pudding|Pudim de Banana]] e [[resources/recipes/napoleon|Bolo Napoleão]] para mais opções de sobremesas.
+Veja também: [[pt/resources/recipes/banana-pudding|Pudim de Banana]] e [[pt/resources/recipes/napoleon|Bolo Napoleão]] para mais opções de sobremesas.

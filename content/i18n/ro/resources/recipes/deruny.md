@@ -31,7 +31,7 @@ translationKey: resources/recipes/deruny
 
 ---
 
-A se vedea, de asemenea: [[resources/recipes/turkish-eggs|Ouă Turcești]] pentru o altă opțiune de mic dejun sărat.
+A se vedea, de asemenea: [[ro/resources/recipes/turkish-eggs|Ouă Turcești]] pentru o altă opțiune de mic dejun sărat.
 
 
 

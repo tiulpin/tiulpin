@@ -42,5 +42,5 @@ translationKey: resources/recipes/banana-pudding
 
 ---
 
-A se vedea, de asemenea: [[resources/recipes/chocolate-cake|Tort de Ciocolată]] și [[resources/recipes/napoleon|Tort Napoleon]] pentru mai multe opțiuni de desert.
+A se vedea, de asemenea: [[ro/resources/recipes/chocolate-cake|Tort de Ciocolată]] și [[ro/resources/recipes/napoleon|Tort Napoleon]] pentru mai multe opțiuni de desert.
 

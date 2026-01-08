@@ -66,4 +66,4 @@ by [Mary Schmich, Chicago Tribune, 1997](https://en.wikipedia.org/wiki/Wear_Suns
 
 ---
 
-参照: [[notes/attention|注意]] and [[notes/borderlands|ボーダーランド]]
+参照: [[ja/notes/attention|注意]] and [[ja/notes/borderlands|ボーダーランド]]

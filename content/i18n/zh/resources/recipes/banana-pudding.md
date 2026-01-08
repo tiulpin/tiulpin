@@ -41,4 +41,4 @@ translationKey: resources/recipes/banana-pudding
 
 ---
 
-另请参阅：[[resources/recipes/chocolate-cake|巧克力蛋糕]] 和 [[resources/recipes/napoleon|拿破仑蛋糕]] 了解更多甜点选择。
+另请参阅：[[zh/resources/recipes/chocolate-cake|巧克力蛋糕]] 和 [[zh/resources/recipes/napoleon|拿破仑蛋糕]] 了解更多甜点选择。

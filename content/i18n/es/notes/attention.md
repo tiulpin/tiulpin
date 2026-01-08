@@ -9,7 +9,7 @@ tags:
 Me encantó este artículo de [billwear.github.io/](https://billwear.github.io/art-of-attention.html).
 Voy a mantenerlo aquí en caso de que la página original se cae.
 
-> Ver también: [[resources/education/learning-how-to-learn|Learning How To Learn]], [[notes/sunscreen|Wear Sunscreen]]
+> Ver también: [[es/resources/education/learning-how-to-learn|Learning How To Learn]], [[es/notes/sunscreen|Wear Sunscreen]]
 
 > ### el silencioso arte de la atención
 >

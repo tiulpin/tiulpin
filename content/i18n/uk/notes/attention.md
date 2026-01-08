@@ -9,7 +9,7 @@ tags:
 Сподобалася ця стаття з [billwear.github.io/](https://billwear.github.io/art-of-attention.html).
 Збережу її тут на випадок, якщо оригінальна сторінка зникне.
 
-> Див. також: [[resources/education/learning-how-to-learn|Як навчитися вчитися]], [[notes/sunscreen|Носіть сонцезахисний крем]]
+> Див. також: [[uk/resources/education/learning-how-to-learn|Як навчитися вчитися]], [[uk/notes/sunscreen|Носіть сонцезахисний крем]]
 
 > ### тихе мистецтво уваги
 >

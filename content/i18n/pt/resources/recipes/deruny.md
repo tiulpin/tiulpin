@@ -32,4 +32,4 @@ translationKey: resources/recipes/deruny
 
 ---
 
-Veja também: [[resources/recipes/turkish-eggs|Ovos Turcos]] para outra opção de café da manhã salgado.
+Veja também: [[pt/resources/recipes/turkish-eggs|Ovos Turcos]] para outra opção de café da manhã salgado.

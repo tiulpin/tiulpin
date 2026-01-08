@@ -31,4 +31,4 @@ de [Anton Zhiyanov](https://antonz.org/write-code/)
 
 ---
 
-Vezi și: [[notes/ai-tips|Sfaturi AI]] pentru mai multe sfaturi practice despre lucrul cu asistenți AI de programare.
+Vezi și: [[ro/notes/ai-tips|Sfaturi AI]] pentru mai multe sfaturi practice despre lucrul cu asistenți AI de programare.

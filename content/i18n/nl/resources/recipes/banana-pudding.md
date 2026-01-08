@@ -41,4 +41,4 @@ translationKey: resources/recipes/banana-pudding
 
 ---
 
-Zie ook: [[resources/recipes/chocolate-cake|Chocoladetaart]] en [[resources/recipes/napoleon|Napoleontaart]] voor meer dessertopties.
+Zie ook: [[nl/resources/recipes/chocolate-cake|Chocoladetaart]] en [[nl/resources/recipes/napoleon|Napoleontaart]] voor meer dessertopties.

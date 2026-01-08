@@ -9,7 +9,7 @@ tags:
 Mir hat dieser Text von [billwear.github.io/](https://billwear.github.io/art-of-attention.html) sehr gefallen.
 Ich bewahre ihn hier auf, falls die ursprüngliche Seite nicht mehr verfügbar ist.
 
-> Siehe auch: [[resources/education/learning-how-to-learn|Lernen, wie man lernt]], [[notes/sunscreen|Sonnenschutz]]
+> Siehe auch: [[de/resources/education/learning-how-to-learn|Lernen, wie man lernt]], [[de/notes/sunscreen|Sonnenschutz]]
 
 > ### die stille kunst der aufmerksamkeit
 >

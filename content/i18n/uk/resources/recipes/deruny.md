@@ -33,4 +33,4 @@ translationKey: resources/recipes/deruny
 
 ---
 
-Дивіться також [[resources/recipes/turkish-eggs|Турецькі яйця]] ще один пікантний варіант сніданку.
+Дивіться також [[uk/resources/recipes/turkish-eggs|Турецькі яйця]] ще один пікантний варіант сніданку.

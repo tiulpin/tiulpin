@@ -6,7 +6,7 @@ tags:
 translationKey: notes/trips
 ---
 
-> Ver también: [[resources/docs/us-visa|Guía de Visa de EE.UU.]] y [[resources/docs/canada-visa|Guía de Visa de Canadá]] para consejos de solicitud de visa.
+> Ver también: [[es/resources/docs/us-visa|Guía de Visa de EE.UU.]] y [[es/resources/docs/canada-visa|Guía de Visa de Canadá]] para consejos de solicitud de visa.
 
 
 Estaba pensando en dejar algunas notas aquí, pero encontré un mejor servicio para ello.

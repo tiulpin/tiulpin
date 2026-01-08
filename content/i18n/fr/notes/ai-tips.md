@@ -9,7 +9,7 @@ tags:
     - ai
 ---
 
-Ici je collecte les conseils de codage avec l'IA que je trouve utiles, basés sur mon expérience et [cette discussion HN](https://news.ycombinator.com/item?id=46255285). Le plus important : [[notes/write-the-damn-code|écrivez le code vous-même]]. Ne devenez pas un affineur de prompts.
+Ici je collecte les conseils de codage avec l'IA que je trouve utiles, basés sur mon expérience et [cette discussion HN](https://news.ycombinator.com/item?id=46255285). Le plus important : [[fr/notes/write-the-damn-code|écrivez le code vous-même]]. Ne devenez pas un affineur de prompts.
 
 ## Utilisez les règles de projet
 

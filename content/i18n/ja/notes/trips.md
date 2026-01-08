@@ -6,7 +6,7 @@ tags:
 translationKey: notes/trips
 ---
 
-> 参照：ビザ申請のヒントについては[[resources/docs/us-visa|米国ビザガイド]]と[[resources/docs/canada-visa|カナダビザガイド]]も参照してください。
+> 参照：ビザ申請のヒントについては[[ja/resources/docs/us-visa|米国ビザガイド]]と[[ja/resources/docs/canada-visa|カナダビザガイド]]も参照してください。
 
 
 ここにいくつかのノートを残そうと思っていましたが、代わりにもっと良いサービスを見つけました。

@@ -33,4 +33,4 @@ translationKey: resources/recipes/deruny
 
 ---
 
-Zie ook: [[resources/recipes/turkish-eggs|Turkse eieren]] voor een andere hartige ontbijtoptie.
+Zie ook: [[nl/resources/recipes/turkish-eggs|Turkse eieren]] voor een andere hartige ontbijtoptie.

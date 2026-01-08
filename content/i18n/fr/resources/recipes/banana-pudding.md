@@ -42,4 +42,4 @@ translationKey: resources/recipes/banana-pudding
 
 ---
 
-Voir aussi : [[resources/recipes/chocolate-cake|Gâteau au Chocolat]] et [[resources/recipes/napoleon|Gâteau Napoléon]] pour d'autres options de desserts.
+Voir aussi : [[fr/resources/recipes/chocolate-cake|Gâteau au Chocolat]] et [[fr/resources/recipes/napoleon|Gâteau Napoléon]] pour d'autres options de desserts.

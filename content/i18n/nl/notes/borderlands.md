@@ -16,4 +16,4 @@ van [t.me/youneverasked/304](https://t.me/youneverasked/304)
 
 ---
 
-Zie ook: [[notes/attention|Aandacht]] en [[notes/sunscreen|Draag Zonnebrandcrème]]
+Zie ook: [[nl/notes/attention|Aandacht]] en [[nl/notes/sunscreen|Draag Zonnebrandcrème]]

@@ -64,4 +64,4 @@ translationKey: resources/recipes/chocolate-cake
 
 ---
 
-Siehe auch: [[resources/recipes/banana-pudding|Bananenpudding]] und [[resources/recipes/napoleon|Napoleon-Torte]] für weitere Dessertvarianten.
+Siehe auch: [[de/resources/recipes/banana-pudding|Bananenpudding]] und [[de/resources/recipes/napoleon|Napoleon-Torte]] für weitere Dessertvarianten.

@@ -41,4 +41,4 @@ translationKey: resources/recipes/banana-pudding
 
 ---
 
-Ver también: [[resources/recipes/chocolate-cake|Tarta de Chocolate]] y [[resources/recipes/napoleon|Tarta Napoleón]] para más opciones de postres.
+Ver también: [[es/resources/recipes/chocolate-cake|Tarta de Chocolate]] y [[es/resources/recipes/napoleon|Tarta Napoleón]] para más opciones de postres.

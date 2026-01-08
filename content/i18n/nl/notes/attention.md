@@ -9,7 +9,7 @@ tags:
 Ik vond dit stuk geweldig van [billwear.github.io/](https://billwear.github.io/art-of-attention.html).
 Ik bewaar het hier voor het geval de originele pagina verdwijnt.
 
-> Zie ook: [[resources/education/learning-how-to-learn|Leren Hoe Te Leren]], [[notes/sunscreen|Draag Zonnebrandcrème]]
+> Zie ook: [[nl/resources/education/learning-how-to-learn|Leren Hoe Te Leren]], [[nl/notes/sunscreen|Draag Zonnebrandcrème]]
 
 > ### de stille kunst van aandacht
 >

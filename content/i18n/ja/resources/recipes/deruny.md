@@ -33,4 +33,4 @@ translationKey: resources/recipes/deruny
 
 ---
 
-こちらも参照：[[resources/recipes/turkish-eggs|トルコの卵]]を参照のこと。
+こちらも参照：[[ja/resources/recipes/turkish-eggs|トルコの卵]]を参照のこと。

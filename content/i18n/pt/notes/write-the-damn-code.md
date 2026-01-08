@@ -31,4 +31,4 @@ por [Anton Zhiyanov](https://antonz.org/write-code/)
 
 ---
 
-Veja também: [[notes/ai-tips|Dicas de IA]] para mais conselhos práticos sobre trabalhar com assistentes de codificação IA.
+Veja também: [[pt/notes/ai-tips|Dicas de IA]] para mais conselhos práticos sobre trabalhar com assistentes de codificação IA.

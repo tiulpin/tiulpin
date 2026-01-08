@@ -16,4 +16,4 @@ from [t.me/youneverasked/304](https://t.me/youneverasked/304)
 
 ---
 
-参照: [[notes/attention|注意]] and [[notes/sunscreen|日焼け止めを塗ろう]]
+参照: [[ja/notes/attention|注意]] and [[ja/notes/sunscreen|日焼け止めを塗ろう]]

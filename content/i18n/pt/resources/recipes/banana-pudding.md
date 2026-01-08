@@ -41,4 +41,4 @@ translationKey: resources/recipes/banana-pudding
 
 ---
 
-Veja também: [[resources/recipes/chocolate-cake|Bolo de Chocolate]] e [[resources/recipes/napoleon|Bolo Napoleão]] para mais opções de sobremesas.
+Veja também: [[pt/resources/recipes/chocolate-cake|Bolo de Chocolate]] e [[pt/resources/recipes/napoleon|Bolo Napoleão]] para mais opções de sobremesas.
