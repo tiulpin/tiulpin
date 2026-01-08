@@ -25,6 +25,7 @@ import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
 import Landing from "./Landing"
 import LanguageSwitcher from "./LanguageSwitcher"
+import ReplyByEmail from "./ReplyByEmail"
 
 export {
   ArticleTitle,
@@ -54,4 +55,5 @@ export {
   ConditionalRender,
   Landing,
   LanguageSwitcher,
+  ReplyByEmail,
 }

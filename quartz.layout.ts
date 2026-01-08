@@ -5,7 +5,18 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [
+    Component.ConditionalRender({
+      component: Component.ReplyByEmail(),
+      condition: (page) => {
+        const slug = page.fileData.slug ?? ""
+        const isIndex = slug === "index"
+        const isTagPage = slug.startsWith("tags/") || slug === "tags"
+        const isFolderIndex = slug.endsWith("/index")
+        return !isIndex && !isTagPage && !isFolderIndex
+      },
+    }),
+  ],
   footer: Component.Footer({
     links: {
       "About me": "https://tiulp.in/",

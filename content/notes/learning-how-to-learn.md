@@ -5,6 +5,8 @@ tags:
   - education
 ---
 
+Notes from the excellent Coursera course [Learning How to Learn](https://www.coursera.org/learn/learning-how-to-learn) by Barbara Oakley, based on her book *A Mind for Numbers*.
+
 ### Do
 
 - Remember to remember. Do it anywhere. Practice Anki.

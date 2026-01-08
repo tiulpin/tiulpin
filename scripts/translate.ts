@@ -1,9 +1,13 @@
-#!/usr/bin/env npx ts-node
+#!/usr/bin/env tsx
 import * as fs from 'fs'
 import * as path from 'path'
+import { fileURLToPath } from 'url'
 import * as dotenv from 'dotenv'
 
 dotenv.config()
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const DEEPL_API_KEY = process.env.DEEPL_API_KEY
 const CONTENT_DIR = path.join(__dirname, '..', 'content')
@@ -21,7 +25,8 @@ const LANGUAGES: Record<string, { name: string; deeplCode: string }> = {
   uk: { name: 'Ukrainian', deeplCode: 'UK' },
 }
 
-const SKIP_PATTERNS = ['index.md', 'resources/']
+const SKIP_PATTERNS = ['index.md']
+const CONTENT_DIRS = ['notes', 'resources/recipes']
 
 interface Frontmatter {
   title?: string
@@ -104,39 +109,42 @@ function stringifyFrontmatter(frontmatter: Frontmatter): string {
   return lines.join('\n')
 }
 
-function getNotesToTranslate(): string[] {
-  const notes: string[] = []
-  const notesDir = path.join(CONTENT_DIR, 'notes')
+function getFilesToTranslate(): string[] {
+  const files: string[] = []
 
-  if (!fs.existsSync(notesDir)) return notes
+  for (const dir of CONTENT_DIRS) {
+    const fullDir = path.join(CONTENT_DIR, dir)
+    if (!fs.existsSync(fullDir)) continue
 
-  const files = fs.readdirSync(notesDir)
-  for (const file of files) {
-    if (!file.endsWith('.md')) continue
-    if (SKIP_PATTERNS.some(p => file.includes(p))) continue
-
-    notes.push(path.join('notes', file))
+    const dirFiles = fs.readdirSync(fullDir)
+    for (const file of dirFiles) {
+      if (!file.endsWith('.md')) continue
+      if (SKIP_PATTERNS.some(p => file.includes(p))) continue
+      files.push(path.join(dir, file))
+    }
   }
 
-  return notes
+  return files
 }
 
 function getExistingTranslations(): Map<string, Set<string>> {
   const translations = new Map<string, Set<string>>()
 
   for (const lang of Object.keys(LANGUAGES)) {
-    const langDir = path.join(I18N_DIR, lang, 'notes')
-    if (!fs.existsSync(langDir)) continue
+    for (const dir of CONTENT_DIRS) {
+      const langDir = path.join(I18N_DIR, lang, dir)
+      if (!fs.existsSync(langDir)) continue
 
-    const files = fs.readdirSync(langDir)
-    for (const file of files) {
-      if (!file.endsWith('.md')) continue
+      const files = fs.readdirSync(langDir)
+      for (const file of files) {
+        if (!file.endsWith('.md')) continue
 
-      const notePath = path.join('notes', file)
-      if (!translations.has(notePath)) {
-        translations.set(notePath, new Set())
+        const filePath = path.join(dir, file)
+        if (!translations.has(filePath)) {
+          translations.set(filePath, new Set())
+        }
+        translations.get(filePath)!.add(lang)
       }
-      translations.get(notePath)!.add(lang)
     }
   }
 
@@ -144,7 +152,7 @@ function getExistingTranslations(): Map<string, Set<string>> {
 }
 
 function checkMissingTranslations(): void {
-  const notes = getNotesToTranslate()
+  const files = getFilesToTranslate()
   const existing = getExistingTranslations()
   const languages = Object.keys(LANGUAGES)
 
@@ -152,12 +160,12 @@ function checkMissingTranslations(): void {
 
   let totalMissing = 0
 
-  for (const note of notes) {
-    const existingLangs = existing.get(note) || new Set()
+  for (const file of files) {
+    const existingLangs = existing.get(file) || new Set()
     const missingLangs = languages.filter(l => !existingLangs.has(l))
 
     if (missingLangs.length > 0) {
-      console.log(`${note}:`)
+      console.log(`${file}:`)
       console.log(`  Missing: ${missingLangs.join(', ')}`)
       console.log(`  Existing: ${existingLangs.size > 0 ? [...existingLangs].join(', ') : 'none'}`)
       console.log()
@@ -165,11 +173,13 @@ function checkMissingTranslations(): void {
     }
   }
 
-  console.log(`\nTotal: ${notes.length} notes, ${totalMissing} missing translations`)
+  console.log(`\nTotal: ${files.length} files, ${totalMissing} missing translations`)
   console.log(`Languages: ${languages.join(', ')}`)
 }
 
-async function translateText(text: string, targetLang: string): Promise<string> {
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+async function translateText(text: string, targetLang: string, retries = 3): Promise<string> {
   if (!DEEPL_API_KEY) {
     throw new Error('DEEPL_API_KEY not set in .env')
   }
@@ -179,26 +189,37 @@ async function translateText(text: string, targetLang: string): Promise<string> 
     throw new Error(`Unknown language: ${targetLang}`)
   }
 
-  const response = await fetch('https://api-free.deepl.com/v2/translate', {
-    method: 'POST',
-    headers: {
-      'Authorization': `DeepL-Auth-Key ${DEEPL_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      text: [text],
-      target_lang: langConfig.deeplCode,
-      source_lang: 'EN',
-    }),
-  })
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    const response = await fetch('https://api-free.deepl.com/v2/translate', {
+      method: 'POST',
+      headers: {
+        'Authorization': `DeepL-Auth-Key ${DEEPL_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: [text],
+        target_lang: langConfig.deeplCode,
+        source_lang: 'EN',
+      }),
+    })
 
-  if (!response.ok) {
-    const error = await response.text()
-    throw new Error(`DeepL API error: ${response.status} - ${error}`)
+    if (response.status === 429) {
+      const waitTime = attempt * 5000
+      console.log(`    Rate limited, waiting ${waitTime / 1000}s before retry ${attempt}/${retries}...`)
+      await sleep(waitTime)
+      continue
+    }
+
+    if (!response.ok) {
+      const error = await response.text()
+      throw new Error(`DeepL API error: ${response.status} - ${error}`)
+    }
+
+    const data = await response.json() as { translations: Array<{ text: string }> }
+    return data.translations[0].text
   }
 
-  const data = await response.json() as { translations: Array<{ text: string }> }
-  return data.translations[0].text
+  throw new Error('Max retries exceeded for DeepL API')
 }
 
 async function translateFile(notePath: string, targetLang: string): Promise<void> {
@@ -227,7 +248,7 @@ async function translateFile(notePath: string, targetLang: string): Promise<void
   const translatedFrontmatter: Frontmatter = {
     ...frontmatter,
     title: translatedTitle,
-    translationKey: notePath.replace(/\.md$/, '').replace(/^notes\//, 'notes/'),
+    translationKey: notePath.replace(/\.md$/, ''),
   }
 
   const translatedContent = stringifyFrontmatter(translatedFrontmatter) + '\n' + translatedBody
@@ -237,63 +258,107 @@ async function translateFile(notePath: string, targetLang: string): Promise<void
 }
 
 async function translateMarkdownBody(body: string, targetLang: string): Promise<string> {
-  const preservePatterns = [
-    /```[\s\S]*?```/g,
-    /`[^`]+`/g,
-    /\$\$[\s\S]*?\$\$/g,
-    /\$[^$]+\$/g,
-    /!\[.*?\]\(.*?\)/g,
-    /\[\[.*?\]\]/g,
-    /<[^>]+>/g,
-  ]
-
   const preserved: string[] = []
-  let processedBody = body
 
-  for (const pattern of preservePatterns) {
-    processedBody = processedBody.replace(pattern, (match) => {
-      preserved.push(match)
-      return `__PRESERVE_${preserved.length - 1}__`
-    })
-  }
+  let processed = body
 
-  processedBody = processedBody.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
-    preserved.push(url)
-    return `[${text}](__PRESERVE_${preserved.length - 1}__)`
+  // Preserve code blocks
+  processed = processed.replace(/```[\s\S]*?```/g, (match) => {
+    preserved.push(match)
+    return `<x id="${preserved.length - 1}"/>`
   })
 
-  if (processedBody.trim()) {
-    processedBody = await translateText(processedBody, targetLang)
-  }
+  // Preserve inline code
+  processed = processed.replace(/`[^`]+`/g, (match) => {
+    preserved.push(match)
+    return `<x id="${preserved.length - 1}"/>`
+  })
 
+  // Preserve math blocks
+  processed = processed.replace(/\$\$[\s\S]*?\$\$/g, (match) => {
+    preserved.push(match)
+    return `<x id="${preserved.length - 1}"/>`
+  })
+  processed = processed.replace(/\$[^$\n]+\$/g, (match) => {
+    preserved.push(match)
+    return `<x id="${preserved.length - 1}"/>`
+  })
+
+  // Preserve wikilinks
+  processed = processed.replace(/\[\[[^\]]+\]\]/g, (match) => {
+    preserved.push(match)
+    return `<x id="${preserved.length - 1}"/>`
+  })
+
+  // Preserve image syntax
+  processed = processed.replace(/!\[[^\]]*\]\([^)]+\)/g, (match) => {
+    preserved.push(match)
+    return `<x id="${preserved.length - 1}"/>`
+  })
+
+  // Preserve URLs in markdown links but allow text translation
+  processed = processed.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
+    preserved.push(url)
+    return `[${text}](<x id="${preserved.length - 1}"/>)`
+  })
+
+  // Preserve callout markers
+  processed = processed.replace(/^(>\s*\[!(\w+)\])/gm, (match) => {
+    preserved.push(match)
+    return `<x id="${preserved.length - 1}"/>`
+  })
+
+  // Preserve table structure markers (pipe characters and separator rows)
+  processed = processed.replace(/^\|[-:\s|]+\|$/gm, (match) => {
+    preserved.push(match)
+    return `<x id="${preserved.length - 1}"/>`
+  })
+
+  // Translate the processed text
+  const translated = await translateText(processed, targetLang)
+
+  // Restore preserved content
+  let result = translated
   for (let i = 0; i < preserved.length; i++) {
-    processedBody = processedBody.replace(`__PRESERVE_${i}__`, preserved[i])
+    result = result.replace(new RegExp(`<x id="${i}"\\s*/>`, 'g'), preserved[i])
+    result = result.replace(new RegExp(`<x id="${i}"/>`, 'g'), preserved[i])
   }
 
-  return processedBody
+  return result
 }
 
 async function translateAll(): Promise<void> {
-  const notes = getNotesToTranslate()
+  const files = getFilesToTranslate()
   const existing = getExistingTranslations()
   const languages = Object.keys(LANGUAGES)
 
   console.log('=== Starting Translation ===\n')
 
-  for (const note of notes) {
-    const existingLangs = existing.get(note) || new Set()
+  let completed = 0
+  let total = 0
+
+  for (const file of files) {
+    const existingLangs = existing.get(file) || new Set()
+    total += languages.filter(l => !existingLangs.has(l)).length
+  }
+
+  console.log(`Total translations needed: ${total}\n`)
+
+  for (const file of files) {
+    const existingLangs = existing.get(file) || new Set()
 
     for (const lang of languages) {
       if (existingLangs.has(lang)) {
-        console.log(`Skipping ${note} -> ${lang} (already exists)`)
         continue
       }
 
       try {
-        await translateFile(note, lang)
-        await new Promise(resolve => setTimeout(resolve, 500))
+        await translateFile(file, lang)
+        completed++
+        console.log(`  Progress: ${completed}/${total}\n`)
+        await sleep(1000)
       } catch (error) {
-        console.error(`Error translating ${note} to ${lang}:`, error)
+        console.error(`Error translating ${file} to ${lang}:`, error)
       }
     }
   }
