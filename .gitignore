@@ -1,5 +1,6 @@
 .DS_Store
 .gitignore
+.env
 node_modules
 public
 prof
