@@ -60,6 +60,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `زمان تقریبی مطالعه: ${minutes} دقیقه`,
     },
+    languageSwitcher: {
+      alsoAvailableIn: "Also available in:",
+    },
   },
   pages: {
     rss: {

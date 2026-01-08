@@ -59,6 +59,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} хв читання`,
     },
+    languageSwitcher: {
+      alsoAvailableIn: "Також доступно:",
+    },
   },
   pages: {
     rss: {

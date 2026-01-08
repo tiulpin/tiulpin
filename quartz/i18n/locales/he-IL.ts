@@ -60,6 +60,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} דקות קריאה`,
     },
+    languageSwitcher: {
+      alsoAvailableIn: "Also available in:",
+    },
   },
   pages: {
     rss: {

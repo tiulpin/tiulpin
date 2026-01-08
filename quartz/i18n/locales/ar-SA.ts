@@ -65,6 +65,9 @@ export default {
             ? `دقيقتان للقراءة`
             : `${minutes} دقائق للقراءة`,
     },
+    languageSwitcher: {
+      alsoAvailableIn: "Also available in:",
+    },
   },
   pages: {
     rss: {

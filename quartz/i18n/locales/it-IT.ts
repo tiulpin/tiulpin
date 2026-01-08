@@ -60,6 +60,9 @@ export default {
     contentMeta: {
       readingTime: ({ minutes }) => (minutes === 1 ? "1 minuto" : `${minutes} minuti`),
     },
+    languageSwitcher: {
+      alsoAvailableIn: "Also available in:",
+    },
   },
   pages: {
     rss: {
