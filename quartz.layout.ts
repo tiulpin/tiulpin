@@ -37,6 +37,20 @@ export const defaultContentPageLayout: PageLayout = {
       component: Component.TagList(),
       condition: (page) => page.fileData.slug !== "index",
     }),
+    Component.LanguageSwitcher({
+      locales: {
+        en: { name: "English" },
+        es: { name: "Español" },
+        pt: { name: "Português" },
+        fr: { name: "Français" },
+        de: { name: "Deutsch" },
+        nl: { name: "Nederlands" },
+        ja: { name: "日本語" },
+        zh: { name: "中文" },
+        ro: { name: "Română" },
+        uk: { name: "Українська" },
+      },
+    }),
     Component.ConditionalRender({
       component: Component.Landing(),
       condition: (page) => page.fileData.slug === "index",
@@ -55,7 +69,11 @@ export const defaultContentPageLayout: PageLayout = {
         { Component: Component.ReaderMode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      filterFn: (node) =>
+        node.slugSegment !== "tags" &&
+        !["es", "pt", "fr", "de", "nl", "ja", "zh", "ro", "uk"].includes(node.slugSegment),
+    }),
   ],
   right: [
     Component.Graph(),
@@ -79,7 +97,11 @@ export const defaultListPageLayout: PageLayout = {
         { Component: Component.Darkmode() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      filterFn: (node) =>
+        node.slugSegment !== "tags" &&
+        !["es", "pt", "fr", "de", "nl", "ja", "zh", "ro", "uk"].includes(node.slugSegment),
+    }),
   ],
   right: [],
 }

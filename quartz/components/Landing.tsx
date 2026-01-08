@@ -90,7 +90,7 @@ export default ((userOpts?: Partial<Options>) => {
               <button
                 class="landing-show-more"
                 type="button"
-                onclick="window.location.href='http://localhost:8080/notes/';"
+                onclick="window.location.href='notes/';"
               >
                 SHOW MORE
               </button>

@@ -91,7 +91,14 @@ export function googleFontHref(theme: Theme) {
   const bodyFont = formatFontSpecification("body", body)
   const codeFont = formatFontSpecification("code", code)
 
-  return `https://fonts.googleapis.com/css2?family=${headerFont}&family=${bodyFont}&family=${codeFont}&display=swap`
+  // Fallback fonts for multilingual support (Cyrillic, Japanese, Chinese)
+  const fallbackFonts = [
+    "Cormorant:wght@400;700", // Cyrillic support
+    "Noto+Serif+JP:wght@400;700", // Japanese
+    "Noto+Serif+SC:wght@400;700", // Simplified Chinese
+  ]
+
+  return `https://fonts.googleapis.com/css2?family=${headerFont}&family=${bodyFont}&family=${codeFont}&family=${fallbackFonts.join("&family=")}&display=swap`
 }
 
 export function googleFontSubsetHref(theme: Theme, text: string) {
@@ -155,8 +162,8 @@ ${stylesheet.join("\n\n")}
   --highlight: ${theme.colors.lightMode.highlight};
   --textHighlight: ${theme.colors.lightMode.textHighlight};
 
-  --titleFont: "${getFontSpecificationName(theme.typography.title || theme.typography.header)}", ${DEFAULT_SANS_SERIF};
-  --headerFont: "${getFontSpecificationName(theme.typography.header)}", ${DEFAULT_SANS_SERIF};
+  --titleFont: "${getFontSpecificationName(theme.typography.title || theme.typography.header)}", "Cormorant", "Noto Serif JP", "Noto Serif SC", ${DEFAULT_SANS_SERIF};
+  --headerFont: "${getFontSpecificationName(theme.typography.header)}", "Cormorant", "Noto Serif JP", "Noto Serif SC", ${DEFAULT_SANS_SERIF};
   --bodyFont: "${getFontSpecificationName(theme.typography.body)}", ${DEFAULT_SANS_SERIF};
   --codeFont: "${getFontSpecificationName(theme.typography.code)}", ${DEFAULT_MONO};
 }

@@ -73,6 +73,22 @@ const config: QuartzConfig = {
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
       Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),
+      Plugin.MultilingualContent({
+        defaultLocale: "en-US",
+        i18nDir: "i18n",
+        locales: {
+          en: { name: "English", locale: "en-US" },
+          es: { name: "Español", locale: "es-ES" },
+          pt: { name: "Português", locale: "pt-BR" },
+          fr: { name: "Français", locale: "fr-FR" },
+          de: { name: "Deutsch", locale: "de-DE" },
+          nl: { name: "Nederlands", locale: "nl-NL" },
+          ja: { name: "日本語", locale: "ja-JP" },
+          zh: { name: "中文", locale: "zh-CN" },
+          ro: { name: "Română", locale: "ro-RO" },
+          uk: { name: "Українська", locale: "uk-UA" },
+        },
+      }),
     ],
     filters: [Plugin.RemoveDrafts()],
     emitters: [
