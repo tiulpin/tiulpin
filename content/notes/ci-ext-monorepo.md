@@ -2,6 +2,7 @@
 date: 2023-06-18
 title: Develop, test, and deploy your extensions for all popular CIs from a single codebase
 description: Or how I implemented it for Qodana
+translationKey: notes/ci-ext-monorepo
 tags:
   - github-actions
   - circleci

@@ -1,8 +1,9 @@
 ---
 date: 2024-10-14
 title: Attention
+translationKey: notes/attention
 tags:
-    - thoughts 
+    - thoughts
 ---
 
 Loved this piece from [billwear.github.io/](https://billwear.github.io/art-of-attention.html).

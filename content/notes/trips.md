@@ -1,6 +1,7 @@
 ---
 date: 2024-10-06
 title: Trips
+translationKey: notes/trips
 tags:
   - travel
 ---

@@ -1,6 +1,7 @@
 ---
 title: Notes
 date: 2021-01-01
+translationKey: notes/index
 ---
 
 Thoughts, articles, and blog posts on various topics. This collection is constantly updating.

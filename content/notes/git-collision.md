@@ -1,6 +1,7 @@
 ---
 date: 2023-11-25
 title: How many digits is enough to reference a Git commit?
+translationKey: notes/git-collision
 tags:
     - git
     - collision

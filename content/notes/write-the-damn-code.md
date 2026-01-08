@@ -1,8 +1,9 @@
 ---
 date: 2025-09-30
 title: Write the damn code
+translationKey: notes/write-the-damn-code
 tags:
-    - thoughts 
+    - thoughts
 ---
 
 > Here's some popular programming advice these days:

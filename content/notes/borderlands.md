@@ -1,8 +1,9 @@
 ---
 date: 2024-10-13
 title: Borderlands
+translationKey: notes/borderlands
 tags:
-    - thoughts 
+    - thoughts
 ---
 
 > In the book Homodeus, it was written that the religion of the future is humanism. Where man replaces God. One of these ideas is that in the future, nations will compete and fight not for territory, but for people, for their talents, brains, and what they can give to humanity.

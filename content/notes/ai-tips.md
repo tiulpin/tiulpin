@@ -1,11 +1,12 @@
 ---
 date: 2025-12-14
 title: AI Tips
+translationKey: notes/ai-tips
 tags:
     - tips
     - programming
     - engineering
-    - ai 
+    - ai
 ---
 
 Here I collect AI coding tips I find useful, based on my experience and [this HN discussion](https://news.ycombinator.com/item?id=46255285). The most important one: [[notes/write-the-damn-code|write the damn code]]. Don't become a prompt refiner.

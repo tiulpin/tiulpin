@@ -1,6 +1,7 @@
 ---
 title: Podcasting Tips
 date: 2021-12-10
+translationKey: notes/podcasting-tips
 tags:
     - podcast
     - education

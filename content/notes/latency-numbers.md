@@ -1,6 +1,7 @@
 ---
 date: 2026-01-07
 title: Latency Numbers Every Programmer Should Know
+translationKey: notes/latency-numbers
 tags:
     - performance
     - systems

@@ -1,8 +1,9 @@
 ---
 date: 2024-12-31
 title: Wear Sunscreen
+translationKey: notes/sunscreen
 tags:
-    - thoughts 
+    - thoughts
 ---
 
 > Wear Sunscreen.
