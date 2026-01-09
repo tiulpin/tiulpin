@@ -215,7 +215,7 @@ $light-border: hsl(0, 0%, 88%);
     font-weight: 500 !important;
     margin: 0;
   }
-  
+
   .folder-button,
   .folder-title {
     font-family: var(--bodyFont) !important;
@@ -224,21 +224,32 @@ $light-border: hsl(0, 0%, 88%);
     letter-spacing: 0.08em !important;
     font-weight: 500 !important;
   }
-  
-  .folder-outer ul li > a {
-    font-family: var(--bodyFont);
-    text-transform: none !important;
-    font-size: 0.85rem;
-    letter-spacing: 0;
+
+  .folder-outer ul li {
+    padding: 0.3rem 0;
+    border-bottom: 1px solid hsla(0, 0%, 50%, 0.1);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    > a {
+      font-family: var(--bodyFont);
+      text-transform: none !important;
+      font-size: 0.85rem;
+      letter-spacing: 0;
+      line-height: 1.4;
+      display: block;
+    }
+
+    > a.active,
+    > a[aria-current="page"] {
+      color: var(--secondary) !important;
+      opacity: 1 !important;
+      font-weight: 500;
+    }
   }
-  
-  .folder-outer ul li > a.active,
-  .folder-outer ul li > a[aria-current="page"] {
-    color: var(--secondary) !important;
-    opacity: 1 !important;
-    font-weight: 500;
-  }
-  
+
   h3 {
     font-family: var(--bodyFont) !important;
     text-transform: uppercase !important;
@@ -246,12 +257,12 @@ $light-border: hsl(0, 0%, 88%);
     letter-spacing: 0.08em !important;
     font-weight: 500 !important;
   }
-  
+
   .fold {
     transition: transform 0.2s ease;
     opacity: 0.6;
   }
-  
+
   .title-button[aria-expanded="false"] .fold {
     transform: rotate(-90deg);
   }
@@ -373,22 +384,22 @@ a.internal.tag-link {
 
 article {
   max-width: 65ch;
-  
+
   p {
     font-size: 1.05rem;
-    line-height: 1.85;
-    margin-bottom: 1.6em;
+    line-height: 1.5;
+    margin-bottom: 1.25em;
     letter-spacing: 0.005em;
     word-spacing: 0.02em;
   }
-  
+
   ul, ol {
     font-size: 1.05rem;
-    line-height: 1.8;
-    margin-bottom: 1.5em;
-    
+    line-height: 1.5;
+    margin-bottom: 1.25em;
+
     li {
-      margin-bottom: 0.6em;
+      margin-bottom: 0.35em;
     }
   }
   
