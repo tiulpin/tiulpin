@@ -31,3 +31,12 @@ $(go env GOPATH)/bin
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 export GPG_TTY=$(tty)
+eval "$(direnv hook zsh)"
+
+# Push prompt to bottom of terminal (Warp-style)
+function _prompt_at_bottom() {
+  printf '\n%.0s' {1..$LINES}
+  # Only run once on shell startup, then remove itself
+  precmd_functions=(${precmd_functions:#_prompt_at_bottom})
+}
+precmd_functions+=(_prompt_at_bottom)
