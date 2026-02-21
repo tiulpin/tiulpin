@@ -37,7 +37,7 @@ export default ((userOpts?: Partial<Options>) => {
   background: var(--light);
   border: 3px solid var(--dark);
   color: var(--dark);
-  font-family: var(--headerFont);
+  font-family: var(--bodyFont);
   font-size: 0.85rem;
   font-weight: 900;
   text-transform: uppercase;

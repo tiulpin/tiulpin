@@ -34,6 +34,16 @@
   --graph-text: hsl(0, 0%, 82%);
 }
 
+.page > #quartz-body {
+  .sidebar {
+    padding-top: 2rem;
+  }
+
+  .page-header {
+    margin: 2rem 0 0 0;
+  }
+}
+
 html {
   font-size: 17px;
   
@@ -383,20 +393,23 @@ a.internal.tag-link {
 }
 
 article {
-  max-width: 65ch;
+  max-width: 56ch;
+  font-weight: 300;
 
   p {
-    font-size: 1.05rem;
-    line-height: 1.5;
+    font-size: 1rem;
+    line-height: 1.75;
     margin-bottom: 1.25em;
-    letter-spacing: 0.005em;
-    word-spacing: 0.02em;
+    letter-spacing: 0.025em;
+    word-spacing: 0.08em;
   }
 
   ul, ol {
-    font-size: 1.05rem;
-    line-height: 1.5;
+    font-size: 1rem;
+    line-height: 1.75;
     margin-bottom: 1.25em;
+    letter-spacing: 0.025em;
+    word-spacing: 0.08em;
 
     li {
       margin-bottom: 0.35em;

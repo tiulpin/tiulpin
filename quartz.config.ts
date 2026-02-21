@@ -25,7 +25,7 @@ const config: QuartzConfig = {
       typography: {
         title: { name: "Instrument Serif", weights: [400] },
         header: "Instrument Serif",
-        body: "Lora",
+        body: "JetBrains Mono",
         code: "JetBrains Mono",
       },
       colors: {
