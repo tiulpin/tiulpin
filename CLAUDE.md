@@ -118,3 +118,76 @@ The translation script (`scripts/translate.ts`) preserves code blocks, links, ma
 - Components: `quartz/components/`
 - Styles: `quartz/components/styles/`
 - CI: `.github/workflows/ci.yaml`
+- Wiki: `content/wiki/`
+
+## LLM Wiki
+
+A persistent, LLM-maintained knowledge base that indexes ALL content in `content/`. Existing notes, courses, recipes, and docs are cataloged in the wiki index. New LLM-generated synthesis goes in `content/wiki/pages/`. Everything is published by Quartz, visible in Obsidian's graph view, and searchable.
+
+### Directory Structure
+
+```
+content/
+  ├── notes/         # Hand-written notes and articles
+  ├── resources/     # Courses, recipes, docs, education
+  ├── wiki/
+  │   ├── raw/       # Immutable source documents (excluded from Quartz via ignorePatterns)
+  │   │   └── assets/
+  │   ├── pages/     # LLM-generated pages (summaries, entities, concepts, analyses)
+  │   ├── index.md   # Master catalog — ALL content with links and one-line summaries
+  │   └── log.md     # Chronological record of operations
+  └── ...
+```
+
+### Page Format
+
+LLM-generated wiki pages in `content/wiki/pages/` use this frontmatter:
+
+```yaml
+---
+title: Page Title
+date: 2026-04-06
+tags: [topic1, topic2]
+type: source | entity | concept | analysis | comparison
+sources: [raw/filename.md]
+---
+```
+
+- Use Obsidian wikilinks: `[[wiki/pages/page-name]]`, `[[notes/some-note]]`
+- Keep pages focused — one entity/concept/source per page
+
+### Workflows
+
+**Ingest** (user drops a source into `content/wiki/raw/` or adds content to `content/`):
+1. Read the source/content
+2. Discuss key takeaways with the user
+3. If raw source: create a summary page in `content/wiki/pages/`
+4. Create or update entity/concept pages touched by the source
+5. Update `content/wiki/index.md` — this is the master catalog of ALL content
+6. Append to `content/wiki/log.md`: `## [YYYY-MM-DD] ingest | Source Title`
+
+**Query** (user asks a question against the wiki):
+1. Read `content/wiki/index.md` to find relevant pages across all of `content/`
+2. Read those pages and synthesize an answer
+3. If the answer is substantial, offer to file it as a new page in `content/wiki/pages/`
+4. Log the query: `## [YYYY-MM-DD] query | Question summary`
+
+**Lint** (periodic health check):
+1. Check for contradictions between pages
+2. Find orphan pages (no inbound links)
+3. Identify concepts mentioned but lacking their own page
+4. Ensure `content/wiki/index.md` is up to date with all content
+5. Suggest new questions to investigate or sources to find
+6. Log the lint: `## [YYYY-MM-DD] lint | Summary of findings`
+
+### Conventions
+
+- Raw sources are immutable — never modify files in `content/wiki/raw/`
+- The LLM owns `content/wiki/pages/`, `content/wiki/index.md`, and `content/wiki/log.md`
+- The LLM does NOT modify hand-written content in `notes/`, `resources/` without explicit request
+- `content/wiki/index.md` indexes content that benefits from cross-referencing and synthesis
+- **Excluded from wiki:** recipes (`resources/recipes/`) and courses (`resources/courses/`) — recipes don't compound, courses are archived reference material for past students
+- Log entries use the format `## [YYYY-MM-DD] operation | Title` for parsability
+- When a query produces a valuable analysis, file it in `content/wiki/pages/`
+- Raw sources excluded from Quartz build (`wiki/raw` in `ignorePatterns`)
+- To keep a wiki page as draft, add `draft: true` to its frontmatter

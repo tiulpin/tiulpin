@@ -17,7 +17,7 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     baseUrl: "log.tiulp.in",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    ignorePatterns: ["private", "templates", ".obsidian", "wiki/raw"],
     defaultDateType: "created",
     theme: {
       fontOrigin: "googleFonts",
