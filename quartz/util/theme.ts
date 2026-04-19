@@ -87,18 +87,26 @@ function formatFontSpecification(
 
 export function googleFontHref(theme: Theme) {
   const { header, body, code } = theme.typography
-  const headerFont = formatFontSpecification("header", header)
-  const bodyFont = formatFontSpecification("body", body)
-  const codeFont = formatFontSpecification("code", code)
+  const headerName = getFontSpecificationName(header)
+  const bodyName = getFontSpecificationName(body)
+  const codeName = getFontSpecificationName(code)
 
-  // Fallback fonts for multilingual support (Cyrillic, Japanese, Chinese)
-  const fallbackFonts = [
-    "Cormorant:wght@400;700", // Cyrillic support
-    "Noto+Serif+JP:wght@400;700", // Japanese
-    "Noto+Serif+SC:wght@400;700", // Simplified Chinese
-  ]
+  const families: string[] = [formatFontSpecification("header", header)]
+  if (bodyName !== headerName) families.push(formatFontSpecification("body", body))
+  // Code font: skip if provided locally via @font-face (e.g. JetBrains Mono
+  // is bundled in quartz/static/fonts and declared in custom.scss).
+  if (codeName !== "JetBrains Mono" && codeName !== headerName && codeName !== bodyName) {
+    families.push(formatFontSpecification("code", code))
+  }
 
-  return `https://fonts.googleapis.com/css2?family=${headerFont}&family=${bodyFont}&family=${codeFont}&family=${fallbackFonts.join("&family=")}&display=swap`
+  // Fallback fonts for multilingual support (Cyrillic, Japanese, Chinese).
+  families.push(
+    "Cormorant:wght@400;700",
+    "Noto+Serif+JP:wght@400;700",
+    "Noto+Serif+SC:wght@400;700",
+  )
+
+  return `https://fonts.googleapis.com/css2?family=${families.join("&family=")}&display=swap`
 }
 
 export function googleFontSubsetHref(theme: Theme, text: string) {

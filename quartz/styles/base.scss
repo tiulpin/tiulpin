@@ -9,6 +9,7 @@ html {
   text-size-adjust: none;
   overflow-x: hidden;
   width: 100vw;
+  font-size: clamp(100%, 0.5vw + 93.75%, 118.75%);
 }
 
 body {
@@ -17,6 +18,7 @@ body {
   background-color: var(--light);
   font-family: var(--bodyFont);
   color: var(--darkgray);
+  line-height: 1.5;
 }
 
 .text-highlight {
@@ -393,19 +395,22 @@ h6 {
 
 // typography improvements
 h1 {
-  font-size: 1.75rem;
+  font-size: clamp(1.75rem, 1.5vw + 1rem, 2.5rem);
+  font-weight: 400;
   margin-top: 2.25rem;
   margin-bottom: 1rem;
 }
 
 h2 {
-  font-size: 1.4rem;
+  font-size: clamp(1.3rem, 1vw + 0.8rem, 1.75rem);
+  font-weight: 400;
   margin-top: 1.9rem;
   margin-bottom: 1rem;
 }
 
 h3 {
-  font-size: 1.12rem;
+  font-size: clamp(1.05rem, 0.5vw + 0.8rem, 1.3rem);
+  font-weight: 600;
   margin-top: 1.62rem;
   margin-bottom: 1rem;
 }
@@ -414,6 +419,7 @@ h4,
 h5,
 h6 {
   font-size: 1rem;
+  font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -510,7 +516,11 @@ code {
 tbody,
 li,
 p {
-  line-height: 1.6rem;
+  line-height: 1.6;
+}
+
+p {
+  margin-bottom: 1.2em;
 }
 
 .table-container {

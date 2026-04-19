@@ -18,46 +18,62 @@ export default ((userOpts?: Partial<Options>) => {
     const mailtoLink = `mailto:${opts.email}?subject=${subject}`
 
     return (
-      <div class="reply-by-email">
-        <a href={mailtoLink} class="reply-by-email-button">
-          Reply by Email
-        </a>
+      <div class="reply-block">
+        <div class="copy">
+          <strong>Reply by email.</strong>
+          <span class="sub">no comments, no accounts — just write to {opts.email}</span>
+        </div>
+        <a href={mailtoLink} class="reply-button">Reply →</a>
       </div>
     )
   }
 
   ReplyByEmail.css = `
-.reply-by-email {
-  margin-top: 1.5rem;
+.reply-block {
+  margin: 2rem 0 0;
+  padding: 1rem 1.1rem;
+  background: var(--bg-island);
+  border: 1px solid var(--border-faint);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
-
-.reply-by-email-button {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: var(--light);
-  border: 3px solid var(--dark);
-  color: var(--dark);
-  font-family: var(--bodyFont);
-  font-size: 0.85rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: all 0.1s ease;
-  text-decoration: none;
+.reply-block .copy {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+  flex: 1;
+  min-width: 240px;
 }
-
-:root[saved-theme="dark"] .reply-by-email-button {
-  background: var(--light);
-  border-color: var(--dark);
-  color: var(--dark);
+.reply-block .copy strong { color: var(--ink-strong); font-weight: 600; }
+.reply-block .copy .sub {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 0.25rem;
 }
-
-.reply-by-email-button:hover {
-  background: var(--lightgray);
-  transform: translate(-2px, -2px);
-  box-shadow: 2px 2px 0 var(--dark);
-  color: var(--dark);
+.reply-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 28px;
+  padding: 0 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink) !important;
+  background: transparent;
+  border: 1px solid var(--border-island);
+  border-radius: 4px;
+  text-decoration: none !important;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+.reply-button:hover {
+  background: var(--hover);
+  border-color: var(--ink-faint);
+  color: var(--ink-strong) !important;
 }
 `
 

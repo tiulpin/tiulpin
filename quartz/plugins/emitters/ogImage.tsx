@@ -110,6 +110,8 @@ export const CustomOgImages: QuartzEmitterPlugin<Partial<SocialImageOptions>> = 
       return []
     },
     async *emit(ctx, content, _resources) {
+      if (ctx.argv.serve) return
+
       const cfg = ctx.cfg.configuration
       const titleFont = cfg.theme.typography.title ?? cfg.theme.typography.header
       const bodyFont = cfg.theme.typography.body
@@ -121,6 +123,8 @@ export const CustomOgImages: QuartzEmitterPlugin<Partial<SocialImageOptions>> = 
       }
     },
     async *partialEmit(ctx, _content, _resources, changeEvents) {
+      if (ctx.argv.serve) return
+
       const cfg = ctx.cfg.configuration
       const titleFont = cfg.theme.typography.title ?? cfg.theme.typography.header
       const bodyFont = cfg.theme.typography.body

@@ -16,6 +16,16 @@ export const sharedPageComponents: SharedLayout = {
         return !isIndex && !isTagPage && !isFolderIndex
       },
     }),
+    Component.ConditionalRender({
+      component: Component.Tweaks(),
+      condition: (page) => {
+        const slug = page.fileData.slug ?? ""
+        const isIndex = slug === "index"
+        const isTagPage = slug.startsWith("tags/") || slug === "tags"
+        const isFolderIndex = slug.endsWith("/index")
+        return !isIndex && !isTagPage && !isFolderIndex
+      },
+    }),
   ],
   footer: Component.Footer({
     links: {
@@ -33,7 +43,7 @@ export const sharedPageComponents: SharedLayout = {
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
-      component: Component.Breadcrumbs(),
+      component: Component.Breadcrumbs({ spacerSymbol: "/", rootName: "~" }),
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.ConditionalRender({
@@ -72,10 +82,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
+        { Component: Component.Search() },
         { Component: Component.Darkmode() },
         { Component: Component.ReaderMode() },
       ],
@@ -95,16 +102,13 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [Component.Breadcrumbs({ spacerSymbol: "/", rootName: "~" }), Component.ArticleTitle(), Component.ContentMeta()],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Flex({
       components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
+        { Component: Component.Search() },
         { Component: Component.Darkmode() },
       ],
     }),

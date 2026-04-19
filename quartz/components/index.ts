@@ -26,6 +26,7 @@ import ConditionalRender from "./ConditionalRender"
 import Landing from "./Landing"
 import LanguageSwitcher from "./LanguageSwitcher"
 import ReplyByEmail from "./ReplyByEmail"
+import Tweaks from "./Tweaks"
 
 export {
   ArticleTitle,
@@ -56,4 +57,5 @@ export {
   Landing,
   LanguageSwitcher,
   ReplyByEmail,
+  Tweaks,
 }
