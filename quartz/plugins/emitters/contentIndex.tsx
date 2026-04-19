@@ -137,22 +137,39 @@ export const ContentIndex: QuartzEmitterPlugin<Partial<Options>> = (opts) => {
         })
       }
 
-      const fp = joinSegments("static", "contentIndex") as FullSlug
-      const simplifiedIndex = Object.fromEntries(
-        Array.from(linkIndex).map(([slug, content]) => {
-          // remove description and from content index as nothing downstream
-          // actually uses it. we only keep it in the index as we need it
-          // for the RSS feed
-          delete content.description
-          delete content.date
-          return [slug, content]
-        }),
-      )
+      // Emit two indexes:
+      //   contentIndex.json — lightweight, no `content`; used by explorer & graph on every page
+      //   searchIndex.json  — heavy, includes `content`; fetched lazily when search opens
+      const contentIndexEntries: Array<[FullSlug, Omit<ContentDetails, "content" | "richContent" | "description" | "date">]> = []
+      const searchIndexEntries: Array<[FullSlug, Pick<ContentDetails, "title" | "content" | "tags">]> = []
+      for (const [slug, content] of linkIndex) {
+        contentIndexEntries.push([
+          slug,
+          {
+            slug: content.slug,
+            filePath: content.filePath,
+            title: content.title,
+            links: content.links,
+            tags: content.tags,
+          },
+        ])
+        searchIndexEntries.push([
+          slug,
+          { title: content.title, content: content.content, tags: content.tags },
+        ])
+      }
 
       yield write({
         ctx,
-        content: JSON.stringify(simplifiedIndex),
-        slug: fp,
+        content: JSON.stringify(Object.fromEntries(contentIndexEntries)),
+        slug: joinSegments("static", "contentIndex") as FullSlug,
+        ext: ".json",
+      })
+
+      yield write({
+        ctx,
+        content: JSON.stringify(Object.fromEntries(searchIndexEntries)),
+        slug: joinSegments("static", "searchIndex") as FullSlug,
         ext: ".json",
       })
     },

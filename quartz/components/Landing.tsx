@@ -4,7 +4,7 @@ import { QuartzPluginData } from "../plugins/vfile"
 import { byDateAndAlphabetical } from "./PageList"
 import { Date, getDate } from "./Date"
 // @ts-ignore
-import graphScript from "./scripts/graph.inline"
+import graphScript from "./scripts/graphLazy.inline"
 // @ts-ignore
 import textRotatorScript from "./scripts/textRotator.inline"
 import graphStyle from "./styles/graph.scss"
