@@ -52,7 +52,7 @@
     height: 100vh;
     overflow-y: auto;
     display: none;
-    backdrop-filter: blur(4px);
+    background: color-mix(in srgb, var(--dark) 35%, transparent);
 
     &.active {
       display: inline-block;
