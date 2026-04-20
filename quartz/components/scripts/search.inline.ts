@@ -1,7 +1,20 @@
 import FlexSearch, { DefaultDocumentSearchResults } from "flexsearch"
-import { ContentDetails } from "../../plugins/emitters/contentIndex"
 import { registerEscapeHandler, removeAllChildren } from "./util"
-import { FullSlug, normalizeRelativeURLs, resolveRelative } from "../../util/path"
+import {
+  FullSlug,
+  getFullSlug,
+  joinSegments,
+  normalizeRelativeURLs,
+  pathToRoot,
+  resolveRelative,
+} from "../../util/path"
+
+type SearchDocument = {
+  title: string
+  content: string
+  tags: string[]
+}
+type SearchIndexData = Record<FullSlug, SearchDocument>
 
 interface Item {
   id: number
@@ -187,7 +200,11 @@ function highlightHTML(searchTerm: string, el: HTMLElement) {
   return html.body
 }
 
-async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: ContentIndex) {
+async function setupSearch(
+  searchElement: Element,
+  currentSlug: FullSlug,
+  loadData: () => Promise<SearchIndexData>,
+) {
   const container = searchElement.querySelector(".search-container") as HTMLElement
   if (!container) return
 
@@ -202,7 +219,19 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   const searchLayout = searchElement.querySelector(".search-layout") as HTMLElement
   if (!searchLayout) return
 
-  const idDataMap = Object.keys(data) as FullSlug[]
+  let data: SearchIndexData = {} as SearchIndexData
+  let idDataMap: FullSlug[] = []
+  let readyPromise: Promise<void> | null = null
+  const ensureReady = (): Promise<void> => {
+    if (!readyPromise) {
+      readyPromise = loadData().then(async (loaded) => {
+        data = loaded
+        idDataMap = Object.keys(data) as FullSlug[]
+        await fillDocument(data)
+      })
+    }
+    return readyPromise
+  }
   const appendLayout = (el: HTMLElement) => {
     searchLayout.appendChild(el)
   }
@@ -238,6 +267,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
     if (sidebar) sidebar.style.zIndex = "1"
     container.classList.add("active")
     searchBar.focus()
+    void ensureReady()
   }
 
   let currentHover: HTMLInputElement | null = null
@@ -437,6 +467,7 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
 
   async function onType(e: HTMLElementEventMap["input"]) {
     if (!searchLayout || !index) return
+    await ensureReady()
     currentSearchTerm = (e.target as HTMLInputElement).value
     searchLayout.classList.toggle("display-results", currentSearchTerm !== "")
     searchType = currentSearchTerm.startsWith("#") ? "tags" : "basic"
@@ -501,7 +532,6 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
   window.addCleanup(() => searchBar.removeEventListener("input", onType))
 
   registerEscapeHandler(container, hideSearch)
-  await fillDocument(data)
 }
 
 /**
@@ -510,11 +540,11 @@ async function setupSearch(searchElement: Element, currentSlug: FullSlug, data: 
  * @param data data to fill index with
  */
 let indexPopulated = false
-async function fillDocument(data: ContentIndex) {
+async function fillDocument(data: SearchIndexData) {
   if (indexPopulated) return
   let id = 0
   const promises: Array<Promise<unknown>> = []
-  for (const [slug, fileData] of Object.entries<ContentDetails>(data)) {
+  for (const [slug, fileData] of Object.entries<SearchDocument>(data)) {
     promises.push(
       index.addAsync(id++, {
         id,
@@ -530,11 +560,19 @@ async function fillDocument(data: ContentIndex) {
   indexPopulated = true
 }
 
+let searchIndexPromise: Promise<SearchIndexData> | null = null
+function loadSearchIndex(): Promise<SearchIndexData> {
+  if (!searchIndexPromise) {
+    const url = joinSegments(pathToRoot(getFullSlug(window)), "static/searchIndex.json")
+    searchIndexPromise = fetch(url).then((r) => r.json())
+  }
+  return searchIndexPromise
+}
+
 document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
   const currentSlug = e.detail.url
-  const data = await fetchData
-  const searchElement = document.getElementsByClassName("search")
-  for (const element of searchElement) {
-    await setupSearch(element, currentSlug, data)
+  const searchElements = document.getElementsByClassName("search")
+  for (const element of searchElements) {
+    await setupSearch(element, currentSlug, loadSearchIndex)
   }
 })

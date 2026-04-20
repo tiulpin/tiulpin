@@ -42,17 +42,38 @@ export default (() => {
         <meta charSet="utf-8" />
         {cfg.theme.cdnCaching && cfg.theme.fontOrigin === "googleFonts" && (
           <>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link rel="stylesheet" href={googleFontHref(cfg.theme)} />
+            <link rel="preconnect" href="https://fonts.googleapis.com" data-persist="true" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" data-persist="true" />
+            <link
+              rel="stylesheet"
+              href={googleFontHref(cfg.theme)}
+              media="print"
+              data-persist="true"
+              {...({ onload: "this.media='all'" } as Record<string, string>)}
+            />
+            <noscript>
+              <link rel="stylesheet" href={googleFontHref(cfg.theme)} />
+            </noscript>
             {cfg.theme.typography.title && (
-              <link rel="stylesheet" href={googleFontSubsetHref(cfg.theme, cfg.pageTitle)} />
+              <>
+                <link
+                  rel="stylesheet"
+                  href={googleFontSubsetHref(cfg.theme, cfg.pageTitle)}
+                  media="print"
+                  data-persist="true"
+                  {...({ onload: "this.media='all'" } as Record<string, string>)}
+                />
+                <noscript>
+                  <link rel="stylesheet" href={googleFontSubsetHref(cfg.theme, cfg.pageTitle)} />
+                </noscript>
+              </>
             )}
           </>
         )}
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
-        <link rel="preload" href={joinSegments(baseDir, "static/fonts/Inter_18pt-Regular.woff2")} as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href={joinSegments(baseDir, "static/fonts/JetBrainsMono-Regular.woff2")} as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" data-persist="true" />
+        <link rel="preload" href={joinSegments(baseDir, "static/fonts/Inter_18pt-Regular.woff2")} as="font" type="font/woff2" crossOrigin="anonymous" data-persist="true" />
+        <link rel="preload" href={joinSegments(baseDir, "static/fonts/Inter_18pt-SemiBold.woff2")} as="font" type="font/woff2" crossOrigin="anonymous" data-persist="true" />
+        <link rel="preload" href={joinSegments(baseDir, "static/fonts/JetBrainsMono-Regular.woff2")} as="font" type="font/woff2" crossOrigin="anonymous" data-persist="true" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <meta name="og:site_name" content={cfg.pageTitle}></meta>

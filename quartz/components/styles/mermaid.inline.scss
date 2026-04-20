@@ -45,7 +45,6 @@ pre {
   height: 100vh;
   overflow: hidden;
   display: none;
-  backdrop-filter: blur(4px);
   background: rgba(0, 0, 0, 0.5);
 
   &.active {

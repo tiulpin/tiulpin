@@ -4,7 +4,7 @@ import { QuartzPluginData } from "../plugins/vfile"
 import { byDateAndAlphabetical } from "./PageList"
 import { Date, getDate } from "./Date"
 // @ts-ignore
-import graphScript from "./scripts/graph.inline"
+import graphScript from "./scripts/graphLazy.inline"
 // @ts-ignore
 import textRotatorScript from "./scripts/textRotator.inline"
 import graphStyle from "./styles/graph.scss"
@@ -228,7 +228,6 @@ export default ((userOpts?: Partial<Options>) => {
   color: var(--ink);
   margin: 1rem 0 0;
   max-width: 36em;
-  text-wrap: pretty;
   transition: opacity 0.4s ease;
   font-weight: 400;
 }
@@ -398,7 +397,6 @@ export default ((userOpts?: Partial<Options>) => {
   color: var(--ink-mute);
   line-height: 1.5;
   margin: 0.35rem 0 0 0;
-  text-wrap: pretty;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;

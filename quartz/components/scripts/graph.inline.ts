@@ -95,20 +95,15 @@ async function renderGraph(graph: HTMLElement, fullSlug: FullSlug) {
     v,
   ] as const)
 
-  console.log("[Graph] excludePatterns:", excludePatterns)
-  console.log("[Graph] Total nodes before filter:", allData.length)
-  console.log("[Graph] Sample slugs:", allData.slice(0, 5).map(([s]) => s))
-
   const filteredData = excludePatterns?.length
     ? allData.filter(([slug]) => {
-        const excluded = excludePatterns.some((pattern) =>
-          slug.startsWith(pattern) || slug.startsWith(pattern.replace(/\/$/, ""))
+        const excluded = excludePatterns.some(
+          (pattern) =>
+            slug.startsWith(pattern) || slug.startsWith(pattern.replace(/\/$/, "")),
         )
         return !excluded
       })
     : allData
-
-  console.log("[Graph] Total nodes after filter:", filteredData.length)
 
   const data: Map<SimpleSlug, ContentDetails> = new Map(filteredData)
   const links: SimpleLinkData[] = []

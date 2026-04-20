@@ -558,7 +558,7 @@ article {
     color: var(--ink);
   }
 
-  p { margin: 0 0 1.1em 0; text-wrap: pretty; letter-spacing: 0; word-spacing: 0; }
+  p { margin: 0 0 1.1em 0; letter-spacing: 0; word-spacing: 0; }
 
   > h1, > h2, > h3, > h4, > h5, > h6 {
     font-family: var(--font-body);
@@ -921,24 +921,24 @@ footer {
 }
 
 /* hide the generic dividing rule for index/landing */
-body:has(.landing) .center > hr { display: none; }
-body:has(.landing) .page-footer { margin: 0; padding: 0; }
+body[data-slug="index"] .center > hr { display: none; }
+body[data-slug="index"] .page-footer { margin: 0; padding: 0; }
 
 /* ============================================================
  * Landing-specific tweaks — actual Landing.css lives inside Landing.tsx
  * ============================================================ */
-body:has(.landing) footer { display: none; }
+body[data-slug="index"] footer { display: none; }
 
-body:has(.landing) .sidebar.left,
-body:has(.landing) .sidebar.right {
+body[data-slug="index"] .sidebar.left,
+body[data-slug="index"] .sidebar.right {
   opacity: 0.5;
   transition: opacity 0.2s ease;
 }
-body:has(.landing) .sidebar.left:hover,
-body:has(.landing) .sidebar.right:hover { opacity: 1; }
+body[data-slug="index"] .sidebar.left:hover,
+body[data-slug="index"] .sidebar.right:hover { opacity: 1; }
 
 /* Right-side mini graph duplicates the big landing graph — hide it on index */
-body:has(.landing) .sidebar.right .graph { display: none; }
+body[data-slug="index"] .sidebar.right .graph { display: none; }
 
 /* ============================================================
  * Tag list above article
