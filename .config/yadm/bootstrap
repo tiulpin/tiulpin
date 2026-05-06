@@ -54,15 +54,19 @@ if gum confirm "Set up GPG + SSH via YubiKey?"; then
     chmod 700 ~/.gnupg
     find ~/.gnupg -type f -exec chmod 600 {} \;
 
-    if [ -f ~/.gnupg/pubkey.asc ]; then
-        step "Importing public key"
+    step "Fetching public key from log.tiulp.in"
+    if curl -fsSL https://log.tiulp.in/pubkey.asc | gpg --import 2>/dev/null; then
+        :
+    elif [ -f ~/.gnupg/pubkey.asc ]; then
+        step "Falling back to tracked ~/.gnupg/pubkey.asc"
         gpg --import ~/.gnupg/pubkey.asc
-        FPR=$(gpg --with-colons --import-options show-only --import ~/.gnupg/pubkey.asc \
-              | awk -F: '/^fpr:/ {print $10; exit}')
-        if [ -n "$FPR" ]; then
-            step "Trusting key $FPR"
-            echo -e "5\ny\n" | gpg --command-fd 0 --batch --no-tty --edit-key "$FPR" trust quit
-        fi
+    fi
+
+    FPR=$(gpg --list-keys --with-colons viktor@tiulp.in \
+          | awk -F: '/^fpr:/ {print $10; exit}')
+    if [ -n "$FPR" ]; then
+        step "Trusting key $FPR"
+        echo -e "5\ny\n" | gpg --command-fd 0 --batch --no-tty --edit-key "$FPR" trust quit
     fi
 
     gum style --foreground "$PINK" "Insert your YubiKey, then press Enter."
