@@ -1,42 +1,47 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# Powerlevel10k instant prompt — keep at top
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 source $(brew --prefix)/share/antigen/antigen.zsh
 antigen use oh-my-zsh
-
 antigen bundle git
-antigen bundle heroku
-antigen bundle pip
-antigen bundle lein
-antigen bundle command-not-found
 antigen bundle sudo
+antigen bundle command-not-found
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle 'wfxr/forgit'
+antigen bundle wfxr/forgit
 antigen theme romkatv/powerlevel10k
-
 antigen apply
 
-export PATH=$PATH:/Users/tv/.local/bin:\
-$(go env GOPATH)/bin
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#141414'
 
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+path=(
+  $HOME/.local/bin
+  $HOME/.lmstudio/bin
+  $(go env GOPATH)/bin
+  $path
+)
+fpath=(
+  $HOME/.zsh/completions
+  $HOME/.local/share/zsh/site-functions
+  $fpath
+)
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-export GPG_TTY=$(tty)
 eval "$(direnv hook zsh)"
 
-# Push prompt to bottom of terminal (Warp-style)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+export GPG_TTY=$(tty)
+export TEAMCITY_NO_UPDATE=1
+
+alias peon="bash ~/.claude/hooks/peon-ping/peon.sh"
+[ -f ~/.claude/hooks/peon-ping/completions.bash ] && source ~/.claude/hooks/peon-ping/completions.bash
+
+# Push prompt to bottom of terminal on first prompt (Warp-style)
 function _prompt_at_bottom() {
   printf '\n%.0s' {1..$LINES}
-  # Only run once on shell startup, then remove itself
   precmd_functions=(${precmd_functions:#_prompt_at_bottom})
 }
 precmd_functions+=(_prompt_at_bottom)

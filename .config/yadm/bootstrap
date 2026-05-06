@@ -1,45 +1,81 @@
-#!/bin/sh
-
-function ask_yes_or_no() {
-    read -p "(([y]es or [N]o): "
-    case $(echo $REPLY | tr '[A-Z]' '[a-z]') in
-        y|yes) echo "yes" ;;
-        *)     echo "no" ;;
-    esac
-}
-
-cat .config/yadm/doggo
+#!/usr/bin/env bash
+set -e
 
 cd "$HOME"
 
-echo "Do you want to install brew packages?"
-if [[ "yes" == $(ask_yes_or_no "Do you want to install brew packages?") ]]
-then
+if ! command -v brew >/dev/null 2>&1; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+if ! command -v gum >/dev/null 2>&1; then
+    brew install gum >/dev/null
+fi
+
+PINK="212"
+GREEN="42"
+
+banner() {
+    gum style --foreground "$PINK" --border double --margin "1 2" --padding "1 4" --align center "$1"
+}
+
+step() {
+    gum style --foreground "$GREEN" --bold "▸ $1"
+}
+
+cat .config/yadm/doggo
+banner "Bootstrapping $(whoami)@$(hostname)"
+
+if gum confirm "Install brew packages from Brewfile?"; then
+    step "brew bundle"
     brew bundle
 fi
 
-echo "Do you want to set macOS configuration?"
-if [[ "yes" == $(ask_yes_or_no "Do you want to set macOS configuration?") ]]
-then
+if gum confirm "Apply macOS defaults?"; then
+    step "./macos"
     chmod +x ./macos
     ./macos
 fi
 
-echo "Do you want to install tmux & vim configurations?"
-if [[ "yes" == $(ask_yes_or_no "Do you want to install tmux & vim configurations?") ]]
-then
+if gum confirm "Install tmux & vim configurations?"; then
+    step "amix/vimrc"
     git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
     sh ~/.vim_runtime/install_awesome_vimrc.sh
-    git clone https://github.com/gpakosz/.tmux.git
-    ln -s -f .tmux/.tmux.conf
-    cp .tmux/.tmux.conf.local .
+
+    step "gpakosz/.tmux"
+    git clone https://github.com/gpakosz/.tmux.git ~/.tmux
+    ln -sf ~/.tmux/.tmux.conf ~/.tmux.conf
+    [ -f ~/.tmux.conf.local ] || cp ~/.tmux/.tmux.conf.local ~/.tmux.conf.local
 fi
 
-echo "Do you want to import your publig PGP key?"
-if [[ "yes" == $(ask_yes_or_no "Do you want to import your publig PGP key?") ]]
-then
-    gpg --import < .ssh/pubkey.txt
+if gum confirm "Set up GPG + SSH via YubiKey?"; then
+    step "Locking down ~/.gnupg permissions"
+    chmod 700 ~/.gnupg
+    find ~/.gnupg -type f -exec chmod 600 {} \;
+
+    if [ -f ~/.gnupg/pubkey.asc ]; then
+        step "Importing public key"
+        gpg --import ~/.gnupg/pubkey.asc
+        FPR=$(gpg --with-colons --import-options show-only --import ~/.gnupg/pubkey.asc \
+              | awk -F: '/^fpr:/ {print $10; exit}')
+        if [ -n "$FPR" ]; then
+            step "Trusting key $FPR"
+            echo -e "5\ny\n" | gpg --command-fd 0 --batch --no-tty --edit-key "$FPR" trust quit
+        fi
+    fi
+
+    gum style --foreground "$PINK" "Insert your YubiKey, then press Enter."
+    read -r
+    step "Engaging YubiKey"
+    gpg --card-status >/dev/null 2>&1 || true
+    gpgconf --kill gpg-agent
+    gpg-connect-agent /bye >/dev/null 2>&1
+
+    gum style --foreground "$GREEN" --bold "✔ Verify with: ssh-add -L"
 fi
 
-echo "Updating the yadm repo origin URL..."
+step "Setting yadm origin to SSH"
 yadm remote set-url origin "git@github.com:tiulpin/tiulpin.git"
+
+banner "All done — reload your shell"

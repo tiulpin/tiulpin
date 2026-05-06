@@ -1,6 +1,9 @@
 .DS_Store
-.gitignore
+.claude/
+.idea/
 .env
+.tmux.conf
+.vimrc
 node_modules
 public
 prof
