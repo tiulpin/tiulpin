@@ -2,7 +2,6 @@
 .claude/
 .idea/
 .env
-.tmux.conf
 .vimrc
 node_modules
 public

@@ -14,7 +14,7 @@ yadm bootstrap
 ```
 
 Review the [Go setup program](.config/yadm/setup/bootstrap.go) before running it. Its prompts cover
-packages, CLI integrations, macOS preferences and tmux/vim configs. Workstation
+packages, CLI integrations, macOS preferences and vim configuration. Workstation
 setup also offers YubiKey configuration and an SSH remote for yadm. Setup requires
 Go 1.27 or later and uses no third-party Go packages.
 Run `yadm bootstrap --check-tools` afterward to check installed tools and plugins.
@@ -151,7 +151,7 @@ go -C ~/.config/yadm/setup vet ./...
 The Dotfiles workflow checks the Go program, shell launchers and package profiles,
 and previews macOS preferences. Tests use temporary homes and fake command
 runners to cover backups, power restrictions, repeat runs and local overrides.
-Existing vim/tmux checkouts are kept; conflicting paths produce an error.
+Existing vim checkouts are kept; conflicting paths produce an error.
 
 ## macOS preferences
 

@@ -202,30 +202,6 @@ func TestPrimaryFingerprint(t *testing.T) {
 	}
 }
 
-func TestCopyIfAbsentPreservesLocalConfig(t *testing.T) {
-	directory := t.TempDir()
-	source, target := filepath.Join(directory, "source"), filepath.Join(directory, "target")
-	if err := os.WriteFile(source, []byte("default"), 0o600); err != nil {
-		t.Fatal(err)
-	}
-	if err := copyIfAbsent(source, target); err != nil {
-		t.Fatal(err)
-	}
-	if err := os.WriteFile(target, []byte("custom"), 0o600); err != nil {
-		t.Fatal(err)
-	}
-	if err := os.Remove(source); err != nil {
-		t.Fatal(err)
-	}
-	if err := copyIfAbsent(source, target); err != nil {
-		t.Fatal(err)
-	}
-	content, err := os.ReadFile(target)
-	if err != nil || string(content) != "custom" {
-		t.Fatalf("local config changed: %q (%v)", content, err)
-	}
-}
-
 func TestPreferenceArgumentsDoNotMutateDefaults(t *testing.T) {
 	pref := preference{domain: "example", key: "path", values: []string{"-string", "$HOME/Desktop/"}}
 	first := pref.arguments("/first")

@@ -69,33 +69,5 @@ func (a *app) editors() error {
 	} else {
 		fmt.Fprintln(a.out, "Keeping existing", vimrc)
 	}
-	tmux := filepath.Join(a.home, ".tmux")
-	if err := a.ensureRepo("https://github.com/gpakosz/.tmux.git", tmux); err != nil {
-		return err
-	}
-	if err := ensureLink(filepath.Join(tmux, ".tmux.conf"), filepath.Join(a.home, ".tmux.conf")); err != nil {
-		return err
-	}
-	return copyIfAbsent(filepath.Join(tmux, ".tmux.conf.local"), filepath.Join(a.home, ".tmux.conf.local"))
-}
-
-func copyIfAbsent(source, target string) error {
-	if _, err := os.Lstat(target); err == nil {
-		return nil
-	} else if !errors.Is(err, fs.ErrNotExist) {
-		return err
-	}
-	content, err := os.ReadFile(source)
-	if err != nil {
-		return err
-	}
-	file, err := os.OpenFile(target, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o600)
-	if errors.Is(err, fs.ErrExist) {
-		return nil
-	}
-	if err != nil {
-		return err
-	}
-	_, writeErr := file.Write(content)
-	return errors.Join(writeErr, file.Close())
+	return nil
 }

@@ -46,7 +46,7 @@ func (a *app) bootstrap(profile string) error {
 			}
 		}
 	}
-	if a.confirm("Install tmux and vim configurations?") {
+	if a.confirm("Install vim configuration?") {
 		if err := a.editors(); err != nil {
 			return err
 		}

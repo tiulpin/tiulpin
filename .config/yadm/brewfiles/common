@@ -34,7 +34,6 @@ brew "kubernetes-cli"
 brew "openjdk@21"
 brew "pi-coding-agent"
 brew "scc"
-brew "tmux"
 brew "derailed/k9s/k9s", trusted: true
 brew "jetbrains/utils/teamcity", trusted: true
 brew "jetbrains/utils/youtrack", trusted: true
