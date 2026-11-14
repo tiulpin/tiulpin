@@ -7,7 +7,7 @@ done
 unset _dotfiles_prefix
 
 typeset -U path
-for _dotfiles_bin in "$HOME/.docker/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"; do
+for _dotfiles_bin in "$HOME/.cargo/bin" "$HOME/.docker/bin" "$HOME/Library/Application Support/JetBrains/Toolbox/scripts"; do
   [[ ! -d "$_dotfiles_bin" ]] || path+=("$_dotfiles_bin")
 done
 unset _dotfiles_bin

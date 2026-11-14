@@ -50,7 +50,7 @@ jobs:
         env:
           HOMEBREW_NO_AUTO_UPDATE: '1'
         run: |
-          for profile in workstation mini optional-cli optional-apps; do
+          for profile in workstation mini optional-apps; do
             brew bundle list --all --file=".config/yadm/brewfiles/$profile"
           done
       - name: Preview macOS settings

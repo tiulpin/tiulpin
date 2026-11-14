@@ -1,4 +1,4 @@
-# Shared CLIs: shell setup, development tools and commands observed in workstation history.
+# Shared CLI tools for workstation and Mini.
 brew "antigen"
 brew "bat"
 brew "direnv"
@@ -42,3 +42,42 @@ cask "gcloud-cli"
 brew "jetbrains/utils/jcp", trusted: true
 brew "golangci-lint"
 brew "python@3.14"
+
+tap "brewsci/bio"
+tap "goreleaser/tap"
+
+brew "bcftools"
+brew "cmake"
+brew "duckdb"
+brew "ffmpeg"
+brew "git-absorb"
+brew "git-quick-stats"
+brew "hadolint"
+brew "helm"
+brew "imagemagick"
+brew "jless"
+brew "ktlint"
+brew "leetcode-cli"
+brew "libimobiledevice"
+brew "maven"
+brew "mcp-grafana"
+brew "opencode"
+brew "openssh"
+brew "poppler"
+brew "semgrep"
+brew "skaffold"
+brew "syft"
+brew "tfenv"
+brew "wget"
+brew "yamllint"
+brew "yarn"
+brew "yt-dlp"
+brew "brewsci/bio/plink2", trusted: true
+brew "jetbrains/utils/qodana", trusted: true
+cask "goreleaser/tap/goreleaser-pro", trusted: true
+cask "mitmproxy"
+
+# Keep an existing native Rust installation.
+brew "rustup" unless File.executable?(File.expand_path("~/.cargo/bin/rustup"))
+
+brew "gum"

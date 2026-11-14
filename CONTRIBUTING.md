@@ -46,11 +46,12 @@ Keep tokens, kubeconfigs, account details, and private configuration untracked.
 `~/Brewfile` selects the profile from `yadm config local.class`, defaulting to
 `workstation`. Edit the manifests under `.config/yadm/brewfiles/`:
 
-- `common`: shared development/work CLIs, including cloud tools and coding agents.
+- `common`: all shared CLI tools, including Rust, Maven, Helm, CMake, FFmpeg,
+  tfenv, cloud tools and coding agents. Both machines install this list.
 - `workstation`: common plus desktop apps and YubiKey tools.
 - `mini`: common plus OrbStack; no App Store apps.
-- `optional-cli`, `optional-apps`: other tools from the installed inventory.
-  Bootstrap skips these files. Move entries into a profile when needed.
+- `optional-apps`: other desktop apps from the installed inventory. Bootstrap
+  skips this file.
 
 ```bash
 brew bundle list --all --file="$HOME/Brewfile"
@@ -70,8 +71,7 @@ brew bundle dump --file=/tmp/Brewfile.installed --force
 ```
 
 Review the dump before updating manifests. Avoid `brew bundle cleanup --force`:
-it would uninstall optional tools that are deliberately outside the default
-profile. Use project configuration to pin runtime versions.
+it would uninstall desktop apps kept outside the default profile. Use project configuration to pin runtime versions.
 
 ### Installation sources
 
@@ -89,7 +89,8 @@ profile. Use project configuration to pin runtime versions.
 | Yeti Dev | Local build. Yeti Alpha is in workstation; stable Yeti is optional. |
 | `yt`, `herdr-app`, `docker-credential-space`, Claude Code URL Handler | Helpers installed with their parent tools |
 | GKE authentication plugin | `gcloud components install gke-gcloud-auth-plugin`; handled by bootstrap |
-| Rust | Native rustup found in `~/.cargo/bin`; Brew `rustup` is an optional alternative, not an additional installation |
+| Rust | Keep native `~/.cargo/bin/rustup` when present; otherwise install Brew `rustup`. Run `rustup default stable` on a fresh machine. |
+| Terraform | Shared Brew `tfenv`; install the version required by each project with `tfenv install` and select it with `tfenv use`. |
 
 Craft, Happ, Hidden Bar, NordVPN, Slack, WhatsApp and Windows App also have Brew
 casks. The manifests retain their existing App Store channel. Check product
@@ -103,8 +104,8 @@ Airlock (123), Claude (61), Codex (45), Central (26), TeamCity (25), kubectl (13
 Go (13), scc (13), gh (10), op (10), Space (9), YouTrack (9) and gcloud (8) have
 direct usage evidence. Shared tools also include shell/bootstrap dependencies,
 JDK 21 for Gradle work and golangci-lint for the Airlock/Central projects.
-Shell history misses agent commands and indirect script calls; optional means
-unconfirmed in this sample, not unused.
+Shell history misses agent commands and indirect script calls. All CLI tools from
+the inventory are shared, including those absent from this sample.
 
 The mini had `gh`, Codex and OrbStack installed through Brew, with almost no shell
 history. Its profile uses workstation CLI needs. Airlock, Central and Space still
