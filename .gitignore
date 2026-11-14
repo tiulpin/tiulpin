@@ -17,3 +17,8 @@ content/private
 
 # Private workstation setup notes
 .bootstrap/
+
+# Machine-specific overrides
+/.gitconfig.local
+/.zshrc.local
+/.ssh/config.local

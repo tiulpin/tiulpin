@@ -131,7 +131,9 @@ The translation script (`scripts/translate.ts`) preserves code blocks, links, ma
 - Translations: `content/i18n/<lang>/`
 - Components: `quartz/components/`
 - Styles: `quartz/components/styles/`
-- CI: `.github/workflows/ci.yaml`
+- Dotfiles setup: `.config/yadm/setup/` (Go, standard library only)
+- Dotfiles CI: `.github/workflows/dotfiles.yaml`
+- Site CI: `.github/workflows/ci.yaml`
 - Wiki: `content/wiki/`
 
 ## LLM wiki

@@ -7,15 +7,16 @@ dotfiles managed by [yadm](https://yadm.io/), with `$HOME` as the worktree.
 
 ```bash
 xcode-select --install
-brew install yadm
+brew install go yadm
 yadm clone --no-bootstrap https://github.com/tiulpin/tiulpin.git
 yadm config local.class workstation # use mini on the Mac mini
 yadm bootstrap
 ```
 
-Review [bootstrap](.config/yadm/bootstrap) before running it. Its prompts cover
+Review the [Go setup program](.config/yadm/setup/bootstrap.go) before running it. Its prompts cover
 packages, CLI integrations, macOS preferences and tmux/vim configs. Workstation
-setup also offers YubiKey configuration and an SSH remote for yadm.
+setup also offers YubiKey configuration and an SSH remote for yadm. Setup requires
+Go 1.22 or later and uses no third-party Go packages.
 Run `yadm bootstrap --check-tools` afterward to check installed tools and plugins.
 
 Afterward:
@@ -115,24 +116,55 @@ GarageBand and LM Studio. Other installed apps remain available in optional-apps
 Changing a manifest does not uninstall an app. Keep IntelliJ installations under
 separate management. Junie and Grazie are excluded from all profiles.
 
-Before deploying all dotfiles to the mini, guard the unconditional Go/GPG calls
-in `.zshrc`, configure Git signing independently, and review the workstation GPG
-agent reference in `.ssh/config`. Agent/Rex settings are not tracked here; port
-portable configuration separately from credentials. The tracked `.node-version`
-and `.tool-versions` also disagree and need reconciling per project.
+## Machine-specific configuration
+
+Shared Git config includes `~/.gitconfig.local`; shared SSH config includes
+`~/.ssh/config.local`. Both files are ignored. Keep signing keys, credential
+helpers, host aliases and agent selection there. Existing workstation settings
+were moved into these files; a fresh machine starts without mandatory signing.
+
+`.zshrc` preserves `SSH_AUTH_SOCK` and loads an optional ignored `~/.zshrc.local`.
+It skips integrations whose tools are not installed yet. A fresh mini can use its
+own agent without the workstation's GPG socket. To select an agent explicitly,
+set `IdentityAgent` in that machine's `.ssh/config.local`.
+
+The optional YubiKey step verifies the tracked public key and offers to enable
+local GPG commit signing. Authentication and signing credentials stay on each
+host. Agent/Rex settings are not tracked here; port configuration separately
+from credentials.
+
+`.node-version` is the Node version for this repo and its Node-based CI workflows.
+Homebrew provides the system runtime; project version managers must read
+`.node-version` if an exact version is needed.
+
+## Setup development
+
+`.config/yadm/bootstrap`, `check-tools` and `macos` are launchers for the Go
+program in `.config/yadm/setup`. Shell startup stays in zsh. Go setup invokes
+tools with argument arrays; it does not build shell command strings.
+
+```bash
+go -C ~/.config/yadm/setup test ./...
+go -C ~/.config/yadm/setup vet ./...
+```
+
+The Dotfiles workflow checks the Go program, shell launchers and package profiles,
+and previews macOS preferences. Tests use temporary homes and fake command
+runners to cover backups, power restrictions, repeat runs and local overrides.
+Existing vim/tmux checkouts are kept; conflicting paths produce an error.
 
 ## macOS preferences
 
-[macos](.config/yadm/macos) applies preferences sampled from the main Mac on
+[macos](.config/yadm/macos) runs the Go preferences command, using settings sampled from the main Mac on
 2026-11-13: keyboard/text input, language and region, Finder, Dock, trackpads,
 screenshots, Activity Monitor and Terminal. Check the results after macOS upgrades;
 some keys are undocumented.
 
 ```bash
-bash ~/.config/yadm/macos                              # preview only
-bash ~/.config/yadm/macos --apply                      # apply shared preferences
-bash ~/.config/yadm/macos --profile mini --power       # preview shared + server power settings
-bash ~/.config/yadm/macos --profile mini --power --apply
+~/.config/yadm/macos                              # preview only
+~/.config/yadm/macos --apply                      # apply shared preferences
+~/.config/yadm/macos --profile mini --power       # preview shared + server power settings
+~/.config/yadm/macos --profile mini --power --apply
 ```
 
 The script uses the same yadm profile as the Brewfile. Both profiles share
@@ -154,7 +186,7 @@ Settings applied by older versions remain until explicitly changed.
 - Packages: edit `.config/yadm/brewfiles/common`, `workstation`, or `mini`.
   `~/Brewfile` selects the profile; see [Package profiles](#package-profiles).
 - Dotfiles: edit files directly in `$HOME`; use `yadm diff` to review.
-- Setup steps: edit `.config/yadm/bootstrap`. Shell configuration is in
-  `.zshrc`, macOS defaults in `.config/yadm/macos`, and GPG settings in `.gnupg/`.
+- Setup steps: edit `.config/yadm/setup/`. Shell configuration is in `.zshrc`
+  and `.zprofile`, macOS values in `setup/preferences.go`, and GPG settings in `.gnupg/`.
 - Sync: use `yadm pull --rebase` with a clean worktree.
 - Keep site and dotfile changes in separate commits when practical.

@@ -39,3 +39,5 @@ cask "mitmproxy"
 
 # Native Rust toolchain manager found in ~/.cargo/bin. Choose one installation.
 brew "rustup"
+
+brew "gum"

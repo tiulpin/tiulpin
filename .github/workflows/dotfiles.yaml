@@ -1,0 +1,60 @@
+name: Dotfiles
+
+on:
+  pull_request:
+    paths:
+      - '.config/yadm/**'
+      - '.zshrc'
+      - '.zprofile'
+      - '.gitconfig'
+      - '.ssh/config'
+      - 'Brewfile'
+      - '.github/workflows/dotfiles.yaml'
+  push:
+    branches: [main]
+    paths:
+      - '.config/yadm/**'
+      - '.zshrc'
+      - '.zprofile'
+      - '.gitconfig'
+      - '.ssh/config'
+      - 'Brewfile'
+      - '.github/workflows/dotfiles.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+          cache: false
+      - name: Check Go formatting
+        run: test -z "$(gofmt -l .config/yadm/setup)"
+      - name: Test setup and configuration
+        working-directory: .config/yadm/setup
+        run: |
+          go test ./...
+          go vet ./...
+      - name: Check shell configuration and launchers
+        run: |
+          zsh -n .zshrc .zprofile
+          brew install shellcheck
+          shellcheck .config/yadm/bootstrap .config/yadm/check-tools .config/yadm/macos
+      - name: Parse package profiles
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: '1'
+        run: |
+          for profile in workstation mini optional-cli optional-apps; do
+            brew bundle list --all --file=".config/yadm/brewfiles/$profile"
+          done
+      - name: Preview macOS settings
+        working-directory: .config/yadm/setup
+        run: |
+          go run . macos --profile workstation
+          go run . macos --profile mini --power

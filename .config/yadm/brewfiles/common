@@ -6,7 +6,6 @@ brew "fzf"
 brew "gh"
 brew "git"
 brew "git-lfs"
-brew "gum"
 brew "jq"
 brew "just"
 brew "neovim"
@@ -21,7 +20,6 @@ brew "yq"
 
 # CLI casks
 cask "codex"
-
 
 # Work and infrastructure CLIs
 tap "derailed/k9s"
