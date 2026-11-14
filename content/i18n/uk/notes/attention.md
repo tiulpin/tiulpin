@@ -6,7 +6,7 @@ tags:
     - thoughts
 ---
 
-Сподобалася ця стаття з [billwear.github.io/](https://billwear.github.io/art-of-attention.html).
+Сподобалася ця стаття з [billwear.github.io/](https://billwear.github.io/quiet-art-of-attention.html).
 Збережу її тут на випадок, якщо оригінальна сторінка зникне.
 
 > Див. також: [[uk/resources/education/learning-how-to-learn|Як навчитися вчитися]], [[uk/notes/sunscreen|Носіть сонцезахисний крем]]

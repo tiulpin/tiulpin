@@ -6,7 +6,7 @@ tags:
     - thoughts
 ---
 
-Adorei este texto de [billwear.github.io/](https://billwear.github.io/art-of-attention.html).
+Adorei este texto de [billwear.github.io/](https://billwear.github.io/quiet-art-of-attention.html).
 Vou mantê-lo aqui caso a página original saia do ar.
 
 > Veja também: [[pt/resources/education/learning-how-to-learn|Aprendendo a Aprender]], [[pt/notes/sunscreen|Use Protetor Solar]]

@@ -339,7 +339,7 @@ git tag -a v1.0.0 -m "v1.0.0" && git push origin v1.0.0
 
 ああ、そうです、この記事ではCircleCI orbについても言及しました... CircleCIの設定は簡単ですが、TypeScript拡張機能をサポートしていないため、コードをDockerイメージまたはバイナリにパックして実行する必要があります。この投稿に含まれている唯一の理由は、monorepoアプローチでorbをビルドしており、それがうまく機能しているためです。
 
-[公式orbテンプレート](https://circleci.com/docs/2.0/orb-author/#quick-start)を実装し、monorepoに配置します。構造は次のようになります：
+[公式orbテンプレート](https://circleci.com/docs/orbs/author/creating-orbs/)を実装し、monorepoに配置します。構造は次のようになります：
 
 ```text
 ...

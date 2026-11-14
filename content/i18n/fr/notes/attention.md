@@ -6,7 +6,7 @@ tags:
     - thoughts
 ---
 
-J'ai adoré ce texte de [billwear.github.io/](https://billwear.github.io/art-of-attention.html).
+J'ai adoré ce texte de [billwear.github.io/](https://billwear.github.io/quiet-art-of-attention.html).
 Je le garde ici au cas où la page originale disparaîtrait.
 
 > Voir aussi : [[fr/resources/education/learning-how-to-learn|Apprendre à apprendre]], [[fr/notes/sunscreen|Portez de la crème solaire]]

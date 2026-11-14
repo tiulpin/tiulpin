@@ -21,7 +21,7 @@ translationKey: notes/ci-ext-monorepo
 > #### Table des matières
 ><!-- TOC -->
 >* [Commencer avec les templates officiels](#commencer-avec-les-templates-officiels)
->    * [Avantages de l'utilisation d'actions basées sur JS :](#avantages-de-lutilisation-dactions-basées-sur-js-)
+>    * [Avantages de l'utilisation d'actions basées sur JS :](#avantages-de-lutilisation-dactions-basées-sur-js)
 >    * [Inconvénients](#inconvénients)
 >    * [GitHub Actions](#github-actions)
 >    * [Azure Pipelines](#azure-pipelines)
@@ -339,7 +339,7 @@ git tag -a v1.0.0 -m "v1.0.0" && git push origin v1.0.0
 
 Ah oui, cet article mentionnait également l'orb CircleCI... La configuration CircleCI est simple mais ne prend pas en charge les extensions TypeScript, vous devez donc empaqueter votre code dans une image Docker ou un binaire et l'exécuter là-bas. La seule raison pour laquelle c'est inclus dans cet article est que nous construisons notre orb avec l'approche monorepo, ce qui fonctionne bien.
 
-Implémentez [le template d'orb officiel](https://circleci.com/docs/2.0/orb-author/#quick-start)
+Implémentez [le template d'orb officiel](https://circleci.com/docs/orbs/author/creating-orbs/)
 et placez-le dans votre monorepo,
 donc la structure ressemble à ceci :
 
