@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 This is Viktor Tiulpin's personal digital garden/notes website built with **Quartz v4** static site generator.
 
