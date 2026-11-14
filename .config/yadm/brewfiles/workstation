@@ -1,0 +1,45 @@
+# Workstation apps observed running, requested apps and desktop setup tools.
+common = File.join(__dir__, "common")
+instance_eval(File.read(common), common)
+
+tap "jorgelbg/tap"
+tap "tiulpin/tap"
+
+brew "mas"
+brew "pinentry-mac"
+brew "ykman"
+brew "jorgelbg/tap/pinentry-touchid", trusted: true
+cask "1password"
+cask "chatgpt"
+cask "claude"
+cask "cleanshot"
+cask "cloudflare-warp"
+cask "docker-desktop"
+cask "finicky"
+cask "font-jetbrains-mono"
+cask "google-chrome"
+cask "google-gemini"
+cask "jetbrains-toolbox"
+cask "proton-mail-bridge"
+cask "raycast"
+cask "tailscale-app"
+cask "tiulpin/tap/yeti-alpha", trusted: true
+
+# App Store sign-in required
+mas "1Password for Safari", id: 1569813296
+mas "Craft", id: 1487937127
+mas "Flighty", id: 1358823008
+mas "Flow", id: 1423210932
+mas "Foodnoms", id: 1479461686
+mas "Happ", id: 6504287215
+mas "MoneyWiz", id: 1511185140
+mas "Slack", id: 803453959
+mas "Things", id: 904280696
+mas "WhatsApp", id: 310633997
+cask "lm-studio"
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Logic Pro", id: 1615087040
+
+# Keep an existing native Claude installation instead of installing a second copy.
+cask "claude-code" unless File.executable?(File.expand_path("~/.local/bin/claude"))

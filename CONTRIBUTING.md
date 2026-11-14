@@ -1,64 +1,193 @@
 # Contributing
 
-Mostly notes for future Viktor, but anyone curious about the setup is welcome.
+This repo contains the [tiulp.in](https://tiulp.in/) Quartz site and personal
+dotfiles managed by [yadm](https://yadm.io/), with `$HOME` as the worktree.
 
-This repo wears two hats:
-
-1. **Quartz site** — source for [tiulp.in](https://tiulp.in/). PR workflow is normal: fork, branch, `npm run check`, open a PR. CI runs the full `check` suite plus link-spector.
-2. **Dotfiles** — managed by [yadm](https://yadm.io/) with `$HOME` as the worktree.
-
-## New machine setup
+## New machine
 
 ```bash
 xcode-select --install
-brew install yadm
-yadm clone https://github.com/tiulpin/tiulpin.git
+brew install go yadm
+yadm clone --no-bootstrap https://github.com/tiulpin/tiulpin.git
+yadm config local.class workstation # use mini on the Mac mini
 yadm bootstrap
 ```
 
-`bootstrap` (at `~/.config/yadm/bootstrap`) is interactive — it uses [`gum`](https://github.com/charmbracelet/gum) for prompts and walks through, in order:
+Review the [Go setup program](.config/yadm/setup/bootstrap.go) before running it. Its prompts cover
+packages, CLI integrations, macOS preferences and vim configuration. Workstation
+setup also offers YubiKey configuration and an SSH remote for yadm. Setup requires
+Go 1.27 or later and uses no third-party Go packages.
+Run `yadm bootstrap --check-tools` afterward to check installed tools and plugins.
 
-1. **Homebrew** — self-installs if missing, then `brew bundle` from `Brewfile`.
-2. **macOS defaults** — runs `./macos` (mathiasbynens-style tweaks).
-3. **tmux + vim** — clones [`amix/vimrc`](https://github.com/amix/vimrc) and [`gpakosz/.tmux`](https://github.com/gpakosz/.tmux) and symlinks `~/.tmux.conf`. The upstream config files are *not* tracked here; bootstrap recreates them.
-4. **GPG + SSH via YubiKey:**
-   - Locks down `~/.gnupg` perms (`700` dir, `600` files).
-   - Fetches the public key from <https://log.tiulp.in/pubkey.asc> (falls back to tracked `~/.gnupg/pubkey.asc` if the site is unreachable) and trusts it ultimate.
-   - Prompts you to insert the YubiKey, runs `gpg --card-status` to bind key stubs to the card, restarts `gpg-agent`.
-   - SSH already routes through `gpg-agent` via `SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)` in `.zshrc`.
-5. **Remote URL** — switches yadm origin from HTTPS to SSH.
+Afterward:
 
-> The public key is also published at <https://log.tiulp.in/pubkey.asc> and (optionally) referenced from the YubiKey itself via `gpg --card-edit` → `url` → `https://log.tiulp.in/pubkey.asc`. With that set, any clean machine can do `gpg --card-edit` → `fetch` to grab the key without touching this repo.
+- Sign in to apps. For 1Password CLI, enable Settings > Developer > Integrate
+  with 1Password CLI and check `op whoami`.
+- Start Docker Desktop on the workstation, or OrbStack on the mini; check
+  `docker info` and `docker compose version`.
+- On the workstation, register the YubiKey's SSH public key with the services you use.
+- Restore `~/.vim_runtime/my_configs.vim` if needed.
+- Set up cloud sign-ins and kubeconfigs separately. Use `gcloud auth login` for
+  GKE and `kubectl --context CONTEXT_NAME get namespaces` to check access.
 
-### Verify the YubiKey works
+For YubiKey setup, check:
 
 ```bash
-gpg --card-status                # should show the YubiKey
-ssh-add -L                       # should list the SSH key from cardno:...
-echo test | gpg --clearsign      # should prompt for PIN, then sign
+gpg --card-status
+ssh-add -L
+echo test | gpg --clearsign
 ```
 
-### Manual followups
+Personal setup notes belong in the ignored `~/.bootstrap/` directory.
+Keep tokens, kubeconfigs, account details, and private configuration untracked.
 
-- **Register the SSH pubkey** (`~/.ssh/id_rsa.pub`) on GitHub, GitLab, JetBrains Space, etc.
-- **Sign in** to apps with state outside the Brewfile: 1Password, JetBrains Toolbox, iCloud, Raycast Pro, Cursor, Claude.
-- **Restore `~/.vim_runtime/my_configs.vim`** from backup if you want personalization beyond the amix defaults.
+## Package profiles
 
-## What's where
+`~/Brewfile` selects the profile from `yadm config local.class`, defaulting to
+`workstation`. Edit the manifests under `.config/yadm/brewfiles/`:
 
-| Path | Purpose |
-|---|---|
-| `Brewfile` | Single source of truth for installed apps/tools. Refresh with `brew bundle dump --force --describe`. |
-| `.zshrc` | antigen + powerlevel10k; path/fpath in arrays. |
-| `.gitconfig` | Signing key + aliases. `up` / `dcb` glob `*master*` (works on `main` too). |
-| `.gnupg/*.conf` | pinentry-mac, ssh-support, 8h cache, `keys.openpgp.org` keyserver. |
-| `.gnupg/pubkey.asc` | Exported GPG public key (private material lives on the YubiKey). Mirrored at `quartz/static/pubkey.asc` so it's served at <https://log.tiulp.in/pubkey.asc> (this Quartz site). |
-| `.macos` | System defaults — re-run after big macOS upgrades. |
-| `.config/yadm/bootstrap` | The bootstrap script. Edit when adding setup steps. |
+- `common`: all shared CLI tools, including Rust, Maven, Helm, CMake, FFmpeg,
+  tfenv, cloud tools and coding agents. Both machines install this list.
+- `workstation`: common plus desktop apps and YubiKey tools.
+- `mini`: common plus OrbStack; no App Store apps.
+- `optional-apps`: other desktop apps from the installed inventory. Bootstrap
+  skips this file.
 
-## Day-to-day
+```bash
+brew bundle list --all --file="$HOME/Brewfile"
+brew bundle check --no-upgrade --file="$HOME/Brewfile"
+# On the mini:
+brew bundle list --all --file="$HOME/.config/yadm/brewfiles/mini"
+brew bundle install --no-upgrade --file="$HOME/.config/yadm/brewfiles/mini"
+```
 
-- **Adding a new app/tool:** install it, then `brew bundle dump --force --describe` and review the diff before committing.
-- **Editing config:** edit the file in `$HOME` directly — yadm sees `$HOME` as its worktree, no checkout dance needed.
-- **Pulling on multiple machines:** `yadm pull --rebase`. Stash any in-progress site work first (the Quartz tree lives under the same repo).
-- **Site changes vs. dotfile changes:** keep them in separate commits when practical — easier to rebase or revert.
+Store Home Assistant/Pi-hole deployments, data and backups separately from package
+manifests.
+
+Keep inventory dumps separate from the dispatcher:
+
+```bash
+brew bundle dump --file=/tmp/Brewfile.installed --force
+```
+
+Review the dump before updating manifests. Avoid `brew bundle cleanup --force`:
+it would uninstall desktop apps kept outside the default profile. Use project configuration to pin runtime versions.
+
+### Installation sources
+
+| Tool | Installation |
+| --- | --- |
+| Claude Code | `claude-code` cask. Workstation skips it while the native `~/.local/bin/claude` exists, avoiding a duplicate installation. |
+| TeamCity, YouTrack, JCP | `jetbrains/utils` formulae in common |
+| Airlock | [Release installer](https://github.com/JetBrains/airlock-cli#install), using `gh` authentication |
+| Central CLI | [Vendor installer](https://www.jetbrains.com/help/central-cli/cli-setup.html); no matching Brew package found |
+| Space CLI | Existing internal distribution; confirm the installer before deploying to mini |
+| Rex | [Vendor download](https://www.superlogical.com/rex/docs/installation). The Brew formula named `rex` is a different product. |
+| Herdr app and `herdr-core`/`hc` | [App installer](https://herdr.dev/download/) or [runtime installer](https://herdr.dev/core/). Brew's `herdr` installs the TUI, not these binaries. |
+| Air Control, Central desktop | Vendor/internal installers |
+| IntelliJ IDEA/EAP, JetBrains Light | Toolbox; managed separately |
+| Yeti Dev | Local build. Yeti Alpha is in workstation; stable Yeti is optional. |
+| `yt`, `herdr-app`, `docker-credential-space`, Claude Code URL Handler | Helpers installed with their parent tools |
+| GKE authentication plugin | `gcloud components install gke-gcloud-auth-plugin`; handled by bootstrap |
+| Rust | Keep native `~/.cargo/bin/rustup` when present; otherwise install Brew `rustup`. Run `rustup default stable` on a fresh machine. |
+| Terraform | Shared Brew `tfenv`; install the version required by each project with `tfenv install` and select it with `tfenv use`. |
+
+Craft, Happ, Hidden Bar, NordVPN, Slack, WhatsApp and Windows App also have Brew
+casks. The manifests retain their existing App Store channel. Check product
+identity before switching: the `flow` formula and `gifski` formula are CLIs, and
+Brew's `outline` is a note-taking app.
+
+### Audit, 2026-11-14
+
+The shell-history sample covers October 15 through November 13.
+Airlock (123), Claude (61), Codex (45), Central (26), TeamCity (25), kubectl (13),
+Go (13), scc (13), gh (10), op (10), Space (9), YouTrack (9) and gcloud (8) have
+direct usage evidence. Shared tools also include shell/bootstrap dependencies,
+JDK 21 for Gradle work and golangci-lint for the Airlock/Central projects.
+Shell history misses agent commands and indirect script calls. All CLI tools from
+the inventory are shared, including those absent from this sample.
+
+The mini had `gh`, Codex and OrbStack installed through Brew, with almost no shell
+history. Its profile uses workstation CLI needs. Airlock, Central and Space still
+need their vendor installers and host-specific sign-ins.
+
+Desktop last-used dates were unavailable. The workstation profile keeps apps
+observed running, setup tools, and the explicitly retained iMovie, Logic Pro,
+GarageBand and LM Studio. Other installed apps remain available in optional-apps.
+Changing a manifest does not uninstall an app. Keep IntelliJ installations under
+separate management. Junie and Grazie are excluded from all profiles.
+
+## Machine-specific configuration
+
+Shared Git config includes `~/.gitconfig.local`; shared SSH config includes
+`~/.ssh/config.local`. Both files are ignored. Keep signing keys, credential
+helpers, host aliases and agent selection there. Existing workstation settings
+were moved into these files; a fresh machine starts without mandatory signing.
+
+`.zshrc` preserves `SSH_AUTH_SOCK` and loads an optional ignored `~/.zshrc.local`.
+It skips integrations whose tools are not installed yet. A fresh mini can use its
+own agent without the workstation's GPG socket. To select an agent explicitly,
+set `IdentityAgent` in that machine's `.ssh/config.local`.
+
+The optional YubiKey step verifies the tracked public key and offers to enable
+local GPG commit signing. Authentication and signing credentials stay on each
+host. Agent/Rex settings are not tracked here; port configuration separately
+from credentials.
+
+`.node-version` is the Node version for this repo and its Node-based CI workflows.
+Homebrew provides the system runtime; project version managers must read
+`.node-version` if an exact version is needed.
+
+## Setup development
+
+`.config/yadm/bootstrap` and `check-tools` are launchers for the Go
+program in `.config/yadm/setup`. Shell startup stays in zsh. Go setup invokes
+tools with argument arrays; it does not build shell command strings.
+
+```bash
+go -C ~/.config/yadm/setup test ./...
+go -C ~/.config/yadm/setup vet ./...
+```
+
+The Dotfiles workflow checks the Go program, shell launchers and package profiles,
+and previews macOS preferences. Tests use temporary homes and fake command
+runners to cover backups, power restrictions, repeat runs and local overrides.
+Existing vim checkouts are kept; conflicting paths produce an error.
+
+## macOS preferences
+
+The [Go preferences command](.config/yadm/setup/macos.go) uses settings sampled from the main Mac on
+2026-11-13: keyboard/text input, language and region, Finder, Dock, trackpads,
+screenshots, Activity Monitor and Terminal. Check the results after macOS upgrades;
+some keys are undocumented.
+
+```bash
+go -C ~/.config/yadm/setup run . macos                              # preview only
+go -C ~/.config/yadm/setup run . macos --apply                      # apply shared preferences
+go -C ~/.config/yadm/setup run . macos --profile mini --power       # preview shared + server power settings
+go -C ~/.config/yadm/setup run . macos --profile mini --power --apply
+```
+
+The command uses the same yadm profile as the Brewfile. Both profiles share
+preferences; `--power` is available only for the mini.
+
+Before writing any preferences, all affected domains are backed up under the ignored
+`~/.bootstrap/macos-*` directory. `.absent` markers identify domains that did not
+exist. Backups are local recovery material; do not sync them as dotfiles.
+
+`--power` prevents idle sleep on AC, sleeps the display after 15 minutes and enables
+restart after power loss. Configure and test Rex/OrbStack startup after reboot
+separately. Battery and hibernation settings stay unchanged.
+
+Settings applied by older versions remain until explicitly changed.
+
+## Changes
+
+- Site: run `npm run check` before opening a PR. CI also runs link-spector.
+- Packages: edit `.config/yadm/brewfiles/common`, `workstation`, or `mini`.
+  `~/Brewfile` selects the profile; see [Package profiles](#package-profiles).
+- Dotfiles: edit files directly in `$HOME`; use `yadm diff` to review.
+- Setup steps: edit `.config/yadm/setup/`. Shell configuration is in `.zshrc`
+  and `.zprofile`, macOS values in `setup/preferences.go`, and GPG settings in `.gnupg/`.
+- Sync: use `yadm pull --rebase` with a clean worktree.
+- Keep site and dotfile changes in separate commits when practical.

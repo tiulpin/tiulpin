@@ -1,13 +1,11 @@
 [user]
     name = tiulpin
     email = viktor@tiulp.in
-	signingkey = 0E5CC7B47A2D1A2A
 [core]
-    excludesfile = /Users/tv/.gitignore
+    excludesfile = ~/.gitignore
     autocrlf = input
 [commit]
     template = ~/.gitmessage
-	gpgsign = true
 [fetch]
     prune = true
 [rebase]
@@ -35,5 +33,6 @@
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
-[gpg]
-	program = gpg
+
+[include]
+    path = ~/.gitconfig.local

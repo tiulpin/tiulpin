@@ -2,7 +2,6 @@
 .claude/
 .idea/
 .env
-.tmux.conf
 .vimrc
 node_modules
 public
@@ -14,3 +13,11 @@ private/
 .replit
 replit.nix
 content/private
+
+# Private workstation setup notes
+.bootstrap/
+
+# Machine-specific overrides
+/.gitconfig.local
+/.zshrc.local
+/.ssh/config.local

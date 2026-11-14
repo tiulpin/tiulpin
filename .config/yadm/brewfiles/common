@@ -1,0 +1,83 @@
+# Shared CLI tools for workstation and Mini.
+brew "antigen"
+brew "bat"
+brew "direnv"
+brew "fzf"
+brew "gh"
+brew "git"
+brew "git-lfs"
+brew "jq"
+brew "just"
+brew "neovim"
+brew "node"
+brew "pnpm"
+brew "ripgrep"
+brew "shellcheck"
+brew "tree"
+brew "uv"
+brew "yadm"
+brew "yq"
+
+# CLI casks
+cask "codex"
+
+# Work and infrastructure CLIs
+tap "derailed/k9s"
+tap "jetbrains/utils"
+brew "awscli"
+brew "curl"
+brew "fastfetch"
+brew "gnupg"
+brew "go"
+brew "kubelogin"
+brew "kubernetes-cli"
+brew "openjdk@21"
+brew "pi-coding-agent"
+brew "scc"
+brew "derailed/k9s/k9s", trusted: true
+brew "jetbrains/utils/teamcity", trusted: true
+brew "jetbrains/utils/youtrack", trusted: true
+cask "1password-cli"
+cask "gcloud-cli"
+brew "jetbrains/utils/jcp", trusted: true
+brew "golangci-lint"
+brew "python@3.14"
+
+tap "brewsci/bio"
+tap "goreleaser/tap"
+
+brew "bcftools"
+brew "cmake"
+brew "duckdb"
+brew "ffmpeg"
+brew "git-absorb"
+brew "git-quick-stats"
+brew "hadolint"
+brew "helm"
+brew "imagemagick"
+brew "jless"
+brew "ktlint"
+brew "leetcode-cli"
+brew "libimobiledevice"
+brew "maven"
+brew "mcp-grafana"
+brew "opencode"
+brew "openssh"
+brew "poppler"
+brew "semgrep"
+brew "skaffold"
+brew "syft"
+brew "tfenv"
+brew "wget"
+brew "yamllint"
+brew "yarn"
+brew "yt-dlp"
+brew "brewsci/bio/plink2", trusted: true
+brew "jetbrains/utils/qodana", trusted: true
+cask "goreleaser/tap/goreleaser-pro", trusted: true
+cask "mitmproxy"
+
+# Keep an existing native Rust installation.
+brew "rustup" unless File.executable?(File.expand_path("~/.cargo/bin/rustup"))
+
+brew "gum"

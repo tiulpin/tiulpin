@@ -1,0 +1,8 @@
+# Mini: shared CLIs and OrbStack.
+common = File.join(__dir__, "common")
+instance_eval(File.read(common), common)
+
+cask "orbstack"
+cask "claude-code"
+
+# Install Rex and the internal CLIs using the sources in CONTRIBUTING.md.
