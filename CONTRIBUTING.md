@@ -73,49 +73,14 @@ brew bundle dump --file=/tmp/Brewfile.installed --force
 Review the dump before updating manifests. Avoid `brew bundle cleanup --force`:
 it would uninstall desktop apps kept outside the default profile. Use project configuration to pin runtime versions.
 
-### Installation sources
+### Additional setup
 
-| Tool | Installation |
-| --- | --- |
-| Claude Code | `claude-code` cask. Workstation skips it while the native `~/.local/bin/claude` exists, avoiding a duplicate installation. |
-| TeamCity, YouTrack, JCP | `jetbrains/utils` formulae in common |
-| Airlock | [Release installer](https://github.com/JetBrains/airlock-cli#install), using `gh` authentication |
-| Central CLI | [Vendor installer](https://www.jetbrains.com/help/central-cli/cli-setup.html); no matching Brew package found |
-| Space CLI | Existing internal distribution; confirm the installer before deploying to mini |
-| Rex | [Vendor download](https://www.superlogical.com/rex/docs/installation). The Brew formula named `rex` is a different product. |
-| Herdr app and `herdr-core`/`hc` | [App installer](https://herdr.dev/download/) or [runtime installer](https://herdr.dev/core/). Brew's `herdr` installs the TUI, not these binaries. |
-| Air Control, Central desktop | Vendor/internal installers |
-| IntelliJ IDEA/EAP, JetBrains Light | Toolbox; managed separately |
-| Yeti Dev | Local build. Yeti Alpha is in workstation; stable Yeti is optional. |
-| `yt`, `herdr-app`, `docker-credential-space`, Claude Code URL Handler | Helpers installed with their parent tools |
-| GKE authentication plugin | `gcloud components install gke-gcloud-auth-plugin`; handled by bootstrap |
-| Rust | Keep native `~/.cargo/bin/rustup` when present; otherwise install Brew `rustup`. Run `rustup default stable` on a fresh machine. |
-| Terraform | Shared Brew `tfenv`; install the version required by each project with `tfenv install` and select it with `tfenv use`. |
+Install IDEs through Toolbox and Rex from its [download page](https://www.superlogical.com/rex/docs/installation).
+Keep work-specific installers and setup notes in the ignored `~/.bootstrap/` directory.
 
-Craft, Happ, Hidden Bar, NordVPN, Slack, WhatsApp and Windows App also have Brew
-casks. The manifests retain their existing App Store channel. Check product
-identity before switching: the `flow` formula and `gifski` formula are CLIs, and
-Brew's `outline` is a note-taking app.
-
-### Audit, 2026-11-14
-
-The shell-history sample covers October 15 through November 13.
-Airlock (123), Claude (61), Codex (45), Central (26), TeamCity (25), kubectl (13),
-Go (13), scc (13), gh (10), op (10), Space (9), YouTrack (9) and gcloud (8) have
-direct usage evidence. Shared tools also include shell/bootstrap dependencies,
-JDK 21 for Gradle work and golangci-lint for the Airlock/Central projects.
-Shell history misses agent commands and indirect script calls. All CLI tools from
-the inventory are shared, including those absent from this sample.
-
-The mini had `gh`, Codex and OrbStack installed through Brew, with almost no shell
-history. Its profile uses workstation CLI needs. Airlock, Central and Space still
-need their vendor installers and host-specific sign-ins.
-
-Desktop last-used dates were unavailable. The workstation profile keeps apps
-observed running, setup tools, and the explicitly retained iMovie, Logic Pro,
-GarageBand and LM Studio. Other installed apps remain available in optional-apps.
-Changing a manifest does not uninstall an app. Keep IntelliJ installations under
-separate management. Junie and Grazie are excluded from all profiles.
+On a fresh machine, run `rustup default stable`. Use `tfenv install` and
+`tfenv use` to select the Terraform version required by each project.
+Changing a Brewfile does not uninstall existing apps.
 
 ## Machine-specific configuration
 
