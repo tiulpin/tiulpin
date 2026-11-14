@@ -6,7 +6,7 @@ tags:
     - thoughts
 ---
 
-Am iubit acest articol de pe [billwear.github.io/](https://billwear.github.io/art-of-attention.html).
+Am iubit acest articol de pe [billwear.github.io/](https://billwear.github.io/quiet-art-of-attention.html).
 O să-l păstrez aici în cazul în care pagina originală dispare.
 
 > Vezi și: [[ro/resources/education/learning-how-to-learn|Learning How To Learn]], [[ro/notes/sunscreen|Poartă cremă de protecție solară]]

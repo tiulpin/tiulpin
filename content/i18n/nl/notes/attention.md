@@ -6,7 +6,7 @@ tags:
     - thoughts
 ---
 
-Ik vond dit stuk geweldig van [billwear.github.io/](https://billwear.github.io/art-of-attention.html).
+Ik vond dit stuk geweldig van [billwear.github.io/](https://billwear.github.io/quiet-art-of-attention.html).
 Ik bewaar het hier voor het geval de originele pagina verdwijnt.
 
 > Zie ook: [[nl/resources/education/learning-how-to-learn|Leren Hoe Te Leren]], [[nl/notes/sunscreen|Draag Zonnebrandcrème]]

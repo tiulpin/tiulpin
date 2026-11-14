@@ -1,7 +1,14 @@
 dirs:
   - content
-baseUrl: https://v.tiulp.in/
+baseUrl: https://log.tiulp.in/
 useGitIgnore: true
 ignorePatterns:
   - pattern: https://www.linkedin.com/in/tiulpin/.*$
   - pattern: ^courses/.*$
+  # These pages are reachable but return 403 to the CI browser (checked 2026-11-14).
+  - pattern: '^https://ceac\.state\.gov/genniv/$'
+  - pattern: '^https://travel\.state\.gov/content/travel/en/us-visas/visa-information-resources/photos\.html$'
+  - pattern: '^https://travel\.state\.gov/content/travel/en/us-visas/visa-information-resources/wait-times\.html$'
+  - pattern: '^https://www\.insidetherustickitchen\.com/parmigiana-di-melanzane-aubergine-parmigana/$'
+  - pattern: '^https://www\.noracooks\.com/vegan-chocolate-cake/$'
+  - pattern: '^https://www\.reddit\.com/r/docker/comments/19815c9/alternative_to_docker_desktop/$'
