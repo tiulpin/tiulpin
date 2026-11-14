@@ -51,7 +51,7 @@ func (a *app) checkTools(profile string) error {
 		ok := err == nil && strings.Contains(string(output), check.contains)
 		report(check.label, ok)
 	}
-	for _, name := range []string{"teamcity", "youtrack", "jcp", "airlock", "central", "space"} {
+	for _, name := range []string{"teamcity", "youtrack", "jcp", "central"} {
 		_, err := exec.LookPath(name)
 		report(name, err == nil)
 	}
