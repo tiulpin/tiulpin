@@ -140,7 +140,7 @@ Homebrew provides the system runtime; project version managers must read
 
 ## Setup development
 
-`.config/yadm/bootstrap`, `check-tools` and `macos` are launchers for the Go
+`.config/yadm/bootstrap` and `check-tools` are launchers for the Go
 program in `.config/yadm/setup`. Shell startup stays in zsh. Go setup invokes
 tools with argument arrays; it does not build shell command strings.
 
@@ -156,19 +156,19 @@ Existing vim checkouts are kept; conflicting paths produce an error.
 
 ## macOS preferences
 
-[macos](.config/yadm/macos) runs the Go preferences command, using settings sampled from the main Mac on
+The [Go preferences command](.config/yadm/setup/macos.go) uses settings sampled from the main Mac on
 2026-11-13: keyboard/text input, language and region, Finder, Dock, trackpads,
 screenshots, Activity Monitor and Terminal. Check the results after macOS upgrades;
 some keys are undocumented.
 
 ```bash
-~/.config/yadm/macos                              # preview only
-~/.config/yadm/macos --apply                      # apply shared preferences
-~/.config/yadm/macos --profile mini --power       # preview shared + server power settings
-~/.config/yadm/macos --profile mini --power --apply
+go -C ~/.config/yadm/setup run . macos                              # preview only
+go -C ~/.config/yadm/setup run . macos --apply                      # apply shared preferences
+go -C ~/.config/yadm/setup run . macos --profile mini --power       # preview shared + server power settings
+go -C ~/.config/yadm/setup run . macos --profile mini --power --apply
 ```
 
-The script uses the same yadm profile as the Brewfile. Both profiles share
+The command uses the same yadm profile as the Brewfile. Both profiles share
 preferences; `--power` is available only for the mini.
 
 Before writing any preferences, all affected domains are backed up under the ignored

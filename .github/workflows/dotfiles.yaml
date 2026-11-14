@@ -45,7 +45,7 @@ jobs:
         run: |
           zsh -n .zshrc .zprofile
           brew install shellcheck
-          shellcheck .config/yadm/bootstrap .config/yadm/check-tools .config/yadm/macos
+          shellcheck .config/yadm/bootstrap .config/yadm/check-tools
       - name: Parse package profiles
         env:
           HOMEBREW_NO_AUTO_UPDATE: '1'
