@@ -1,0 +1,33 @@
+# Other installed apps, retained for optional installation.
+# Install selected entries when needed; this file is not loaded by bootstrap.
+tap "tiulpin/tap"
+
+cask "affinity"
+cask "anki"
+cask "basictex"
+cask "firefox"
+cask "fork"
+cask "ghostty@tip"
+cask "gpg-suite-no-mail"
+cask "incident-io"
+cask "keka"
+cask "signal"
+cask "steam"
+cask "superwhisper"
+cask "telegram"
+cask "transmission"
+cask "vlc"
+cask "tiulpin/tap/yeti", trusted: true
+cask "zoom"
+mas "Craft Web Clipper", id: 6748613311
+mas "Gifski", id: 1351639930
+mas "Hidden Bar", id: 1452453066
+mas "KeyKey", id: 1035137927
+mas "Keynote", id: 361285480
+mas "NordVPN", id: 905953485
+mas "Numbers", id: 361304891
+mas "Outline", id: 1356178125
+mas "Pages", id: 361309726
+mas "TestFlight", id: 899247664
+mas "Windows App", id: 1295203466
+mas "Xcode", id: 497799835

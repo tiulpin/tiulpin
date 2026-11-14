@@ -36,16 +36,23 @@ check "Codex CLI" codex --version
 check "Git LFS" git lfs version
 check "Docker CLI" docker --version
 check "Docker Compose plugin" docker compose version
-if [ "$profile" = workstation ]; then
-    check "JDK 21 on PATH" jdk21
-    check "1Password CLI" op --version
-    check "kubectl" kubectl version --client=true
-    check "Kubernetes OIDC plugin" kubectl oidc-login --version
-    check "Google Cloud CLI" gcloud version
-    check "GKE authentication plugin" gke-gcloud-auth-plugin --version
-else
+check "JDK 21 on PATH" jdk21
+check "Go" go version
+check "1Password CLI" op --version
+check "kubectl" kubectl version --client=true
+check "Kubernetes OIDC plugin" kubectl oidc-login --version
+check "Google Cloud CLI" gcloud version
+check "GKE authentication plugin" gke-gcloud-auth-plugin --version
+check "Claude Code CLI" claude --version
+check "TeamCity CLI" command -v teamcity
+check "YouTrack CLI" command -v youtrack
+check "JCP CLI" command -v jcp
+check "AWS CLI" aws --version
+check "Airlock (vendor install)" command -v airlock
+check "Central (vendor install)" command -v central
+check "Space (vendor install)" command -v space
+if [ "$profile" = mini ]; then
     check "OrbStack app" test -d /Applications/OrbStack.app
-    check "Claude Code CLI" claude --version
 fi
 
 if [ "$failures" -ne 0 ]; then

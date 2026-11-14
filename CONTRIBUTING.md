@@ -45,9 +45,11 @@ Keep tokens, kubeconfigs, account details, and private configuration untracked.
 `~/Brewfile` selects the profile from `yadm config local.class`, defaulting to
 `workstation`. Edit the manifests under `.config/yadm/brewfiles/`:
 
-- `common`: shared shell/development tools and Codex CLI.
-- `workstation`: common plus workstation CLI tools, GUI apps and App Store apps.
-- `mini`: common plus OrbStack and Claude Code CLI.
+- `common`: shared development/work CLIs, including cloud tools and coding agents.
+- `workstation`: common plus desktop apps and YubiKey tools.
+- `mini`: common plus OrbStack; no App Store apps.
+- `optional-cli`, `optional-apps`: other tools from the installed inventory.
+  Bootstrap skips these files. Move entries into a profile when needed.
 
 ```bash
 brew bundle list --all --file="$HOME/Brewfile"
@@ -66,23 +68,52 @@ Keep inventory dumps separate from the dispatcher:
 brew bundle dump --file=/tmp/Brewfile.installed --force
 ```
 
-Review the dump before updating manifests. `brew bundle cleanup --force` removes
-unlisted packages. Use project configuration to pin runtime versions.
+Review the dump before updating manifests. Avoid `brew bundle cleanup --force`:
+it would uninstall optional tools that are deliberately outside the default
+profile. Use project configuration to pin runtime versions.
 
-### Manual installations
+### Installation sources
 
-| Installed item | Restore/update path |
+| Tool | Installation |
 | --- | --- |
-| Rex Beta (both Macs) | Official Rex installer and in-app updater; sign into Tailscale separately |
-| Air Control, Central, Herdr | Vendor/internal installers; sources need documenting |
-| IntelliJ IDEA, IDEA EAPCandidate, JetBrains Light in `~/Applications` | JetBrains Toolbox or original installer |
-| Yeti Dev | Local development build; Yeti and Yeti Alpha releases are in the workstation manifest |
-| Claude Code (`~/.local/bin/claude`) | Native installer on workstation; `claude-code` cask on mini |
-| Claude Code URL Handler | Installed with the existing Claude setup |
-| `airlock`, `central`, `space`, `herdr-core`/`hc` | Manual/internal binaries in `~/.local/bin`; restore only where needed |
-| `junie` in `~/.local/bin` | Check PATH precedence against the Brew formula |
-| `yt`, `herdr-app`, `docker-credential-space` | Links to Yeti, Herdr, and Space; recreate with those tools |
-| `gke-gcloud-auth-plugin` | Installed through gcloud components by workstation bootstrap |
+| Claude Code | `claude-code` cask. Workstation skips it while the native `~/.local/bin/claude` exists, avoiding a duplicate installation. |
+| TeamCity, YouTrack, JCP | `jetbrains/utils` formulae in common |
+| Airlock | [Release installer](https://github.com/JetBrains/airlock-cli#install), using `gh` authentication |
+| Central CLI | [Vendor installer](https://www.jetbrains.com/help/central-cli/cli-setup.html); no matching Brew package found |
+| Space CLI | Existing internal distribution; confirm the installer before deploying to mini |
+| Rex | [Vendor download](https://www.superlogical.com/rex/docs/installation). The Brew formula named `rex` is a different product. |
+| Herdr app and `herdr-core`/`hc` | [App installer](https://herdr.dev/download/) or [runtime installer](https://herdr.dev/core/). Brew's `herdr` installs the TUI, not these binaries. |
+| Air Control, Central desktop | Vendor/internal installers |
+| IntelliJ IDEA/EAP, JetBrains Light | Toolbox; managed separately |
+| Yeti Dev | Local build. Yeti Alpha is in workstation; stable Yeti is optional. |
+| `yt`, `herdr-app`, `docker-credential-space`, Claude Code URL Handler | Helpers installed with their parent tools |
+| GKE authentication plugin | `gcloud components install gke-gcloud-auth-plugin`; handled by bootstrap |
+| Rust | Native rustup found in `~/.cargo/bin`; Brew `rustup` is an optional alternative, not an additional installation |
+
+Craft, Happ, Hidden Bar, NordVPN, Slack, WhatsApp and Windows App also have Brew
+casks. The manifests retain their existing App Store channel. Check product
+identity before switching: the `flow` formula and `gifski` formula are CLIs, and
+Brew's `outline` is a note-taking app.
+
+### Audit, 2026-11-14
+
+The shell-history sample covers October 15 through November 13.
+Airlock (123), Claude (61), Codex (45), Central (26), TeamCity (25), kubectl (13),
+Go (13), scc (13), gh (10), op (10), Space (9), YouTrack (9) and gcloud (8) have
+direct usage evidence. Shared tools also include shell/bootstrap dependencies,
+JDK 21 for Gradle work and golangci-lint for the Airlock/Central projects.
+Shell history misses agent commands and indirect script calls; optional means
+unconfirmed in this sample, not unused.
+
+The mini had `gh`, Codex and OrbStack installed through Brew, with almost no shell
+history. Its profile uses workstation CLI needs. Airlock, Central and Space still
+need their vendor installers and host-specific sign-ins.
+
+Desktop last-used dates were unavailable. The workstation profile keeps apps
+observed running, setup tools, and the explicitly retained iMovie, Logic Pro,
+GarageBand and LM Studio. Other installed apps remain available in optional-apps.
+Changing a manifest does not uninstall an app. Keep IntelliJ installations under
+separate management. Junie and Grazie are excluded from all profiles.
 
 Before deploying all dotfiles to the mini, guard the unconditional Go/GPG calls
 in `.zshrc`, configure Git signing independently, and review the workstation GPG

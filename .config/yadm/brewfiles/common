@@ -1,4 +1,4 @@
-# Shared shell and development tools. Project runtime versions are managed separately.
+# Shared CLIs: shell setup, development tools and commands observed in workstation history.
 brew "antigen"
 brew "bat"
 brew "direnv"
@@ -19,5 +19,29 @@ brew "uv"
 brew "yadm"
 brew "yq"
 
-# Terminal coding agent; no desktop app.
+# CLI casks
 cask "codex"
+
+
+# Work and infrastructure CLIs
+tap "derailed/k9s"
+tap "jetbrains/utils"
+brew "awscli"
+brew "curl"
+brew "fastfetch"
+brew "gnupg"
+brew "go"
+brew "kubelogin"
+brew "kubernetes-cli"
+brew "openjdk@21"
+brew "pi-coding-agent"
+brew "scc"
+brew "tmux"
+brew "derailed/k9s/k9s", trusted: true
+brew "jetbrains/utils/teamcity", trusted: true
+brew "jetbrains/utils/youtrack", trusted: true
+cask "1password-cli"
+cask "gcloud-cli"
+brew "jetbrains/utils/jcp", trusted: true
+brew "golangci-lint"
+brew "python@3.14"

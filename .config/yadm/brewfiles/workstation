@@ -1,131 +1,45 @@
-# Audited workstation packages, 2026-11-13. See ../../../CONTRIBUTING.md for manual installs.
+# Workstation apps observed running, requested apps and desktop setup tools.
 common = File.join(__dir__, "common")
 instance_eval(File.read(common), common)
 
-tap "brewsci/bio"
-tap "derailed/k9s"
-tap "goreleaser/tap"
-tap "jetbrains/junie"
-tap "jetbrains/utils"
 tap "jorgelbg/tap"
 tap "tiulpin/tap"
 
-# Workstation CLI tools
-brew "awscli"
-brew "bcftools"
-brew "cmake"
-brew "curl"
-brew "duckdb"
-brew "fastfetch"
-brew "ffmpeg"
-brew "git-absorb"
-brew "git-quick-stats"
-brew "gnupg"
-brew "go"
-brew "golangci-lint"
-brew "hadolint"
-brew "helm"
-brew "imagemagick"
-brew "jless"
-brew "kind"
-brew "ktlint"
-brew "kubelogin"
-brew "kubernetes-cli"
-brew "leetcode-cli"
-brew "libimobiledevice"
 brew "mas"
-brew "maven"
-brew "mcp-grafana"
-brew "minikube"
-brew "opencode"
-brew "openjdk@21"
-brew "openssh"
-brew "pi-coding-agent"
 brew "pinentry-mac"
-brew "poppler"
-brew "python@3.14"
-brew "scc"
-brew "semgrep"
-brew "skaffold"
-brew "syft"
-brew "tfenv"
-brew "tmux"
-brew "wget"
-brew "yamllint"
-brew "yarn"
 brew "ykman"
-brew "yt-dlp"
-brew "brewsci/bio/plink2", trusted: true
-brew "derailed/k9s/k9s", trusted: true
-brew "jetbrains/junie/junie", trusted: true
-brew "jetbrains/utils/qodana", trusted: true
-brew "jetbrains/utils/teamcity", trusted: true
-brew "jetbrains/utils/youtrack", trusted: true
 brew "jorgelbg/tap/pinentry-touchid", trusted: true
-
-# Workstation applications
 cask "1password"
-cask "1password-cli"
-cask "affinity"
-cask "anki"
-cask "basictex"
 cask "chatgpt"
 cask "claude"
 cask "cleanshot"
 cask "cloudflare-warp"
 cask "docker-desktop"
 cask "finicky"
-cask "firefox"
 cask "font-jetbrains-mono"
-cask "fork"
-cask "gcloud-cli"
-cask "ghostty@tip"
 cask "google-chrome"
 cask "google-gemini"
-cask "goreleaser/tap/goreleaser-pro", trusted: true
-cask "gpg-suite-no-mail"
-cask "incident-io"
 cask "jetbrains-toolbox"
-cask "keka"
-cask "lm-studio"
-cask "mitmproxy"
 cask "proton-mail-bridge"
 cask "raycast"
-cask "signal"
-cask "steam"
-cask "superwhisper"
 cask "tailscale-app"
-cask "telegram"
-cask "transmission"
-cask "vlc"
-cask "tiulpin/tap/yeti", trusted: true
 cask "tiulpin/tap/yeti-alpha", trusted: true
-cask "zoom"
 
-# Mac App Store applications (account sign-in required)
+# App Store sign-in required
 mas "1Password for Safari", id: 1569813296
 mas "Craft", id: 1487937127
-mas "Craft Web Clipper", id: 6748613311
 mas "Flighty", id: 1358823008
 mas "Flow", id: 1423210932
 mas "Foodnoms", id: 1479461686
-mas "GarageBand", id: 682658836
-mas "Gifski", id: 1351639930
-mas "Grazie", id: 6450955215
 mas "Happ", id: 6504287215
-mas "Hidden Bar", id: 1452453066
-mas "iMovie", id: 408981434
-mas "KeyKey", id: 1035137927
-mas "Keynote", id: 361285480
-mas "Logic Pro", id: 1615087040
 mas "MoneyWiz", id: 1511185140
-mas "NordVPN", id: 905953485
-mas "Numbers", id: 361304891
-mas "Outline", id: 1356178125
-mas "Pages", id: 361309726
 mas "Slack", id: 803453959
-mas "TestFlight", id: 899247664
 mas "Things", id: 904280696
 mas "WhatsApp", id: 310633997
-mas "Windows App", id: 1295203466
-mas "Xcode", id: 497799835
+cask "lm-studio"
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Logic Pro", id: 1615087040
+
+# Keep an existing native Claude installation instead of installing a second copy.
+cask "claude-code" unless File.executable?(File.expand_path("~/.local/bin/claude"))
