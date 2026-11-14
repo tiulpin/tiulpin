@@ -16,7 +16,7 @@ yadm bootstrap
 Review the [Go setup program](.config/yadm/setup/bootstrap.go) before running it. Its prompts cover
 packages, CLI integrations, macOS preferences and tmux/vim configs. Workstation
 setup also offers YubiKey configuration and an SSH remote for yadm. Setup requires
-Go 1.22 or later and uses no third-party Go packages.
+Go 1.27 or later and uses no third-party Go packages.
 Run `yadm bootstrap --check-tools` afterward to check installed tools and plugins.
 
 Afterward:
@@ -170,7 +170,7 @@ some keys are undocumented.
 The script uses the same yadm profile as the Brewfile. Both profiles share
 preferences; `--power` is available only for the mini.
 
-Before applying, preference domains are backed up under the ignored
+Before writing any preferences, all affected domains are backed up under the ignored
 `~/.bootstrap/macos-*` directory. `.absent` markers identify domains that did not
 exist. Backups are local recovery material; do not sync them as dotfiles.
 

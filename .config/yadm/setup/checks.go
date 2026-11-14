@@ -8,31 +8,32 @@ import (
 )
 
 type toolCheck struct {
-	label   string
-	command []string
+	label    string
+	command  []string
+	contains string
 }
 
 var toolChecks = []toolCheck{
-	{"GitHub CLI", []string{"gh", "--version"}},
-	{"Node.js", []string{"node", "--version"}},
-	{"pnpm", []string{"pnpm", "--version"}},
-	{"Python environment manager", []string{"uv", "--version"}},
-	{"direnv", []string{"direnv", "version"}},
-	{"fzf", []string{"fzf", "--version"}},
-	{"ripgrep", []string{"rg", "--version"}},
-	{"Codex CLI", []string{"codex", "--version"}},
-	{"Git LFS", []string{"git", "lfs", "version"}},
-	{"Docker CLI", []string{"docker", "--version"}},
-	{"Docker Compose", []string{"docker", "compose", "version"}},
-	{"JDK 21", []string{"java", "-version"}},
-	{"Go", []string{"go", "version"}},
-	{"1Password CLI", []string{"op", "--version"}},
-	{"kubectl", []string{"kubectl", "version", "--client=true"}},
-	{"Kubernetes OIDC plugin", []string{"kubectl", "oidc-login", "--version"}},
-	{"Google Cloud CLI", []string{"gcloud", "version"}},
-	{"GKE authentication plugin", []string{"gke-gcloud-auth-plugin", "--version"}},
-	{"Claude Code", []string{"claude", "--version"}},
-	{"AWS CLI", []string{"aws", "--version"}},
+	{label: "GitHub CLI", command: []string{"gh", "--version"}},
+	{label: "Node.js", command: []string{"node", "--version"}},
+	{label: "pnpm", command: []string{"pnpm", "--version"}},
+	{label: "Python environment manager", command: []string{"uv", "--version"}},
+	{label: "direnv", command: []string{"direnv", "version"}},
+	{label: "fzf", command: []string{"fzf", "--version"}},
+	{label: "ripgrep", command: []string{"rg", "--version"}},
+	{label: "Codex CLI", command: []string{"codex", "--version"}},
+	{label: "Git LFS", command: []string{"git", "lfs", "version"}},
+	{label: "Docker CLI", command: []string{"docker", "--version"}},
+	{label: "Docker Compose", command: []string{"docker", "compose", "version"}},
+	{label: "JDK 21", command: []string{"java", "-version"}, contains: `version "21.`},
+	{label: "Go", command: []string{"go", "version"}},
+	{label: "1Password CLI", command: []string{"op", "--version"}},
+	{label: "kubectl", command: []string{"kubectl", "version", "--client=true"}},
+	{label: "Kubernetes OIDC plugin", command: []string{"kubectl", "oidc-login", "--version"}},
+	{label: "Google Cloud CLI", command: []string{"gcloud", "version"}},
+	{label: "GKE authentication plugin", command: []string{"gke-gcloud-auth-plugin", "--version"}},
+	{label: "Claude Code", command: []string{"claude", "--version"}},
+	{label: "AWS CLI", command: []string{"aws", "--version"}},
 }
 
 func (a *app) checkTools(profile string) error {
@@ -47,10 +48,7 @@ func (a *app) checkTools(profile string) error {
 	}
 	for _, check := range toolChecks {
 		output, err := a.runner.Output(check.command[0], check.command[1:]...)
-		ok := err == nil
-		if check.label == "JDK 21" {
-			ok = ok && strings.Contains(string(output), `version "21.`)
-		}
+		ok := err == nil && strings.Contains(string(output), check.contains)
 		report(check.label, ok)
 	}
 	for _, name := range []string{"teamcity", "youtrack", "jcp", "airlock", "central", "space"} {

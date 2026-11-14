@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"fmt"
+	"errors"
 	"io"
 	"os"
 	"path/filepath"
@@ -19,6 +19,7 @@ func (f *fakeRunner) Run(_ io.Reader, name string, args ...string) error {
 	f.calls = append(f.calls, append([]string{name}, args...))
 	return nil
 }
+
 func (f *fakeRunner) Output(name string, args ...string) ([]byte, error) {
 	f.calls = append(f.calls, append([]string{name}, args...))
 	if f.output != nil {
@@ -26,6 +27,7 @@ func (f *fakeRunner) Output(name string, args ...string) ([]byte, error) {
 	}
 	return nil, nil
 }
+
 func TestMacOSPreviewDoesNotWrite(t *testing.T) {
 	for _, profile := range []string{"mini", "workstation"} {
 		t.Run(profile, func(t *testing.T) {
@@ -33,7 +35,7 @@ func TestMacOSPreviewDoesNotWrite(t *testing.T) {
 			var out bytes.Buffer
 			r := &fakeRunner{}
 			a := app{home: home, out: &out, runner: r}
-			if err := a.macos(profile, false, profile == "mini"); err != nil {
+			if err := a.macos(profile, macOSOptions{power: profile == "mini"}); err != nil {
 				t.Fatal(err)
 			}
 			if len(r.calls) != 0 {
@@ -49,6 +51,7 @@ func TestMacOSPreviewDoesNotWrite(t *testing.T) {
 		})
 	}
 }
+
 func TestPowerRejectsWorkstationAndBattery(t *testing.T) {
 	for _, test := range []struct {
 		profile string
@@ -58,7 +61,7 @@ func TestPowerRejectsWorkstationAndBattery(t *testing.T) {
 		home := t.TempDir()
 		r := &fakeRunner{output: func(string, ...string) ([]byte, error) { return []byte(test.output), nil }}
 		a := app{home: home, out: io.Discard, runner: r}
-		if err := a.macos(test.profile, test.apply, true); err == nil {
+		if err := a.macos(test.profile, macOSOptions{apply: test.apply, power: true}); err == nil {
 			t.Fatal("expected refusal")
 		}
 		for _, call := range r.calls {
@@ -72,21 +75,22 @@ func TestPowerRejectsWorkstationAndBattery(t *testing.T) {
 		}
 	}
 }
+
 func TestPreferenceBackupOncePerDomain(t *testing.T) {
 	r := &fakeRunner{output: func(name string, args ...string) ([]byte, error) {
 		if name == "/usr/bin/defaults" && args[0] == "export" {
 			if args[1] == "com.apple.Terminal" {
-				return nil, fmt.Errorf("missing")
+				return nil, errors.New("missing")
 			}
-			return nil, os.WriteFile(args[2], []byte("old preferences"), 0600)
+			return nil, os.WriteFile(args[2], []byte("old preferences"), 0o600)
 		}
 		if name == "/usr/bin/defaults" && args[0] == "read" {
-			return []byte("Domain does not exist"), fmt.Errorf("missing")
+			return []byte("Domain does not exist"), errors.New("missing")
 		}
 		return []byte("macOS test"), nil
 	}}
 	a := app{home: t.TempDir(), out: io.Discard, runner: r}
-	if err := a.macos("mini", true, false); err != nil {
+	if err := a.macos("mini", macOSOptions{apply: true}); err != nil {
 		t.Fatal(err)
 	}
 	exports := map[string]int{}
@@ -116,45 +120,52 @@ func TestPreferenceBackupOncePerDomain(t *testing.T) {
 		t.Fatal("missing absent marker")
 	}
 }
+
 func TestBackupFailureStopsWrites(t *testing.T) {
 	r := &fakeRunner{output: func(name string, args ...string) ([]byte, error) {
 		if name == "/usr/bin/defaults" && args[0] == "export" {
-			return nil, fmt.Errorf("permission denied")
+			// Fail the last domain, after the preceding backups have succeeded.
+			if args[1] == "com.apple.Terminal" {
+				return nil, errors.New("permission denied")
+			}
+			return nil, os.WriteFile(args[2], []byte("backup"), 0o600)
 		}
 		return []byte("existing domain"), nil
 	}}
 	a := app{home: t.TempDir(), out: io.Discard, runner: r}
-	if err := a.macos("mini", true, false); err == nil {
-		t.Fatal("expected backup failure")
+	err := a.macos("mini", macOSOptions{apply: true})
+	if err == nil || !strings.Contains(err.Error(), "com.apple.Terminal") {
+		t.Fatalf("expected last-domain backup failure, got %v", err)
 	}
 	for _, call := range r.calls {
 		if len(call) > 1 && call[1] == "write" {
-			t.Fatal("wrote without backup")
+			t.Fatal("wrote preferences before completing backups")
 		}
 	}
 }
+
 func TestRepoRerunAndConflict(t *testing.T) {
 	dir := filepath.Join(t.TempDir(), "existing")
-	if err := os.MkdirAll(filepath.Join(dir, ".git"), 0700); err != nil {
+	if err := os.MkdirAll(filepath.Join(dir, ".git"), 0o700); err != nil {
 		t.Fatal(err)
 	}
 	r := &fakeRunner{output: func(string, ...string) ([]byte, error) { return []byte("https://example.test/config.git\n"), nil }}
 	a := app{out: io.Discard, runner: r}
-	fresh, err := a.ensureRepo("https://example.test/config.git", dir)
-	if err != nil || fresh {
-		t.Fatal(fresh, err)
+	if err := a.ensureRepo("https://example.test/config.git", dir); err != nil {
+		t.Fatal(err)
 	}
 	if len(r.calls) != 1 {
 		t.Fatal("rerun changed checkout")
 	}
-	if _, err := a.ensureRepo("https://example.test/other.git", dir); err == nil {
+	if err := a.ensureRepo("https://example.test/other.git", dir); err == nil {
 		t.Fatal("accepted unrelated checkout")
 	}
 	conflict := t.TempDir()
-	if _, err := a.ensureRepo("https://example.test/config.git", conflict); err == nil {
+	if err := a.ensureRepo("https://example.test/config.git", conflict); err == nil {
 		t.Fatal("accepted existing non-Git directory")
 	}
 }
+
 func TestLinksPreserveUserFiles(t *testing.T) {
 	dir := t.TempDir()
 	source := filepath.Join(dir, "source")
@@ -169,7 +180,7 @@ func TestLinksPreserveUserFiles(t *testing.T) {
 		t.Fatal("replaced link")
 	}
 	custom := filepath.Join(dir, "custom")
-	if err := os.WriteFile(custom, []byte("mine"), 0600); err != nil {
+	if err := os.WriteFile(custom, []byte("mine"), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	if err := ensureLink(source, custom); err == nil {
@@ -180,6 +191,7 @@ func TestLinksPreserveUserFiles(t *testing.T) {
 		t.Fatal("custom file changed")
 	}
 }
+
 func TestPrimaryFingerprint(t *testing.T) {
 	data := "pub:-:2048:1:key::::::\nfpr:::::::::" + signingFingerprint + ":\nfpr:::::::::OTHER:"
 	if got := primaryFingerprint(data); got != signingFingerprint {
@@ -187,5 +199,39 @@ func TestPrimaryFingerprint(t *testing.T) {
 	}
 	if primaryFingerprint("malformed") != "" {
 		t.Fatal("accepted malformed key")
+	}
+}
+
+func TestCopyIfAbsentPreservesLocalConfig(t *testing.T) {
+	directory := t.TempDir()
+	source, target := filepath.Join(directory, "source"), filepath.Join(directory, "target")
+	if err := os.WriteFile(source, []byte("default"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := copyIfAbsent(source, target); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(target, []byte("custom"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Remove(source); err != nil {
+		t.Fatal(err)
+	}
+	if err := copyIfAbsent(source, target); err != nil {
+		t.Fatal(err)
+	}
+	content, err := os.ReadFile(target)
+	if err != nil || string(content) != "custom" {
+		t.Fatalf("local config changed: %q (%v)", content, err)
+	}
+}
+
+func TestPreferenceArgumentsDoNotMutateDefaults(t *testing.T) {
+	pref := preference{domain: "example", key: "path", values: []string{"-string", "$HOME/Desktop/"}}
+	first := pref.arguments("/first")
+	first[3] = "changed"
+	second := pref.arguments("/second")
+	if second[3] != "-string" || second[4] != "/second/Desktop/" {
+		t.Fatalf("defaults mutated: %v", second)
 	}
 }
