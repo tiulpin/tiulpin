@@ -1,4 +1,4 @@
-# Mini: persistent development sessions and containers; no App Store or desktop suite.
+# Mini: development sessions and containers.
 common = File.join(__dir__, "common")
 instance_eval(File.read(common), common)
 

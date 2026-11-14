@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Selected preferences observed on top, macOS 27.2, 2026-11-13.
-# Preview by default. This is a portable preference set, not a full system clone.
+# Preview commands by default; use --apply to write preferences.
 set -euo pipefail
 
 usage() {
@@ -13,7 +13,7 @@ Default: print commands without changing settings.
 --power    Mini only: keep awake on AC, sleep display after 15 minutes,
            and restart after power loss. Requires sudo when applying.
 
-No app restarts. Reopen affected apps or log out when convenient.
+Reopen affected apps or log out to see changes.
 Machine names, timezone, accounts, security, updates and backups stay local.
 HELP
 }

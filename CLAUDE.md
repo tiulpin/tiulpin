@@ -2,7 +2,7 @@
 
 This is Viktor Tiulpin's personal digital garden/notes website built with **Quartz v4** static site generator.
 
-## Quick Reference
+## Quick reference
 
 ### Commands
 ```bash
@@ -17,14 +17,14 @@ just translate-check  # Show missing translations
 just translate        # Run DeepL translation for missing content
 ```
 
-### Tech Stack
-- **Runtime:** Node.js 22+, TypeScript
-- **Build:** esbuild
-- **UI:** Preact (JSX), SCSS
-- **Content:** Markdown → remark/rehype → HTML
-- **Features:** flexsearch (search), D3.js (graph), Shiki (syntax highlighting)
+### Tech stack
+- Runtime: Node.js 22+, TypeScript
+- Build: esbuild
+- UI: Preact (JSX), SCSS
+- Content: Markdown -> remark/rehype -> HTML
+- Features: flexsearch (search), D3.js (graph), Shiki (syntax highlighting)
 
-## Project Structure
+## Project structure
 
 ```
 content/           # Markdown content (notes, resources, recipes)
@@ -42,10 +42,10 @@ quartz.layout.ts   # Component layout
 
 ## Configuration
 
-- **Site config:** `quartz.config.ts` - title, URL, analytics, plugins, theme
-- **Layout:** `quartz.layout.ts` - component placement (left/right sidebars, etc.)
+- Site config: `quartz.config.ts` - title, URL, analytics, plugins, theme
+- Layout: `quartz.layout.ts` - component placement (left/right sidebars, etc.)
 
-## Content Authoring
+## Content authoring
 
 Frontmatter format:
 ```yaml
@@ -64,14 +64,14 @@ Supported features:
 - LaTeX math, Mermaid diagrams, callouts
 - Syntax highlighting with language tags
 
-## Plugin Architecture
+## Plugin architecture
 
 Three plugin types in `quartz/plugins/`:
-1. **Transformers** - Process content (frontmatter, syntax, links)
-2. **Filters** - Exclude content (drafts, explicit publish)
-3. **Emitters** - Generate output (pages, RSS, sitemap, assets)
+1. Transformers - Process content (frontmatter, syntax, links)
+2. Filters - Exclude content (drafts, explicit publish)
+3. Emitters - Generate output (pages, RSS, sitemap, assets)
 
-## Development Notes
+## Development notes
 
 - Components are **Preact**, not React
 - Worker threads used when >128 content files
@@ -79,13 +79,27 @@ Three plugin types in `quartz/plugins/`:
 - TypeScript strict mode enforced
 - `*.inline.ts` files bundle to browser
 
-## Code Style
+## Code style
 
-- **No redundant comments** - avoid obvious comments that restate what the code does. Let the code speak for itself. Good variable/function names > comments.
-- **No JSDoc noise** - skip `/** @param */` style comments unless the type system can't express it.
-- **Keep it terse** - one blank line between logical sections is enough, no need for comment separators.
+- Use descriptive names. Comment on decisions or behavior that the code does not explain.
+- Use JSDoc only for information the types cannot express.
+- Use one blank line between logical sections.
 
-## Landing Page CSS
+## Writing
+
+Write repository docs in plain, specific language. Start with the answer or
+instruction. Keep commands, requirements and useful limitations; cut preambles,
+process narration, repeated summaries and filler.
+
+Use sentence-case headings, consistent terms and ordinary punctuation. Preserve
+the author's voice. Avoid promotional claims, invented labels, forced metaphors,
+contrast formulas ("not X, but Y") and fragments used for emphasis. Use lists and
+tables when they make instructions easier to follow.
+
+Use [AI writing tropes](https://tropes.fyi) as an editing reference. Judge patterns
+in context rather than banning individual words.
+
+## Landing page CSS
 
 The landing page (`quartz/components/Landing.tsx`) has specific z-index constraints to work with fixed overlays:
 
@@ -94,7 +108,7 @@ The landing page (`quartz/components/Landing.tsx`) has specific z-index constrai
 - Use `isolation: isolate` for local stacking effects (like card flips) without competing with global overlays
 - Avoid setting high z-index values on landing elements; they will break search/graph visibility
 
-## Translation Workflow
+## Translation workflow
 
 Content is translated to 9 languages (de, es, fr, ja, nl, pt, ro, uk, zh) stored in `content/i18n/<lang>/`.
 
@@ -111,7 +125,7 @@ Content is translated to 9 languages (de, es, fr, ja, nl, pt, ro, uk, zh) stored
 
 The translation script (`scripts/translate.ts`) preserves code blocks, links, math, and other markdown syntax during translation.
 
-## Useful Paths
+## Useful paths
 
 - Content: `content/notes/`, `content/resources/`
 - Translations: `content/i18n/<lang>/`
@@ -120,11 +134,11 @@ The translation script (`scripts/translate.ts`) preserves code blocks, links, ma
 - CI: `.github/workflows/ci.yaml`
 - Wiki: `content/wiki/`
 
-## LLM Wiki
+## LLM wiki
 
 A persistent, LLM-maintained knowledge base that indexes ALL content in `content/`. Existing notes, courses, recipes, and docs are cataloged in the wiki index. New LLM-generated synthesis goes in `content/wiki/pages/`. Everything is published by Quartz, visible in Obsidian's graph view, and searchable.
 
-### Directory Structure
+### Directory structure
 
 ```
 content/
@@ -134,12 +148,12 @@ content/
   │   ├── raw/       # Immutable source documents (excluded from Quartz via ignorePatterns)
   │   │   └── assets/
   │   ├── pages/     # LLM-generated pages (summaries, entities, concepts, analyses)
-  │   ├── index.md   # Master catalog — ALL content with links and one-line summaries
+  │   ├── index.md   # Master catalog; ALL content with links and one-line summaries
   │   └── log.md     # Chronological record of operations
   └── ...
 ```
 
-### Page Format
+### Page format
 
 LLM-generated wiki pages in `content/wiki/pages/` use this frontmatter:
 
@@ -154,7 +168,7 @@ sources: [raw/filename.md]
 ```
 
 - Use Obsidian wikilinks: `[[wiki/pages/page-name]]`, `[[notes/some-note]]`
-- Keep pages focused — one entity/concept/source per page
+- Keep pages focused; one entity/concept/source per page
 
 ### Workflows
 
@@ -163,7 +177,7 @@ sources: [raw/filename.md]
 2. Discuss key takeaways with the user
 3. If raw source: create a summary page in `content/wiki/pages/`
 4. Create or update entity/concept pages touched by the source
-5. Update `content/wiki/index.md` — this is the master catalog of ALL content
+5. Update `content/wiki/index.md`; this is the master catalog of ALL content
 6. Append to `content/wiki/log.md`: `## [YYYY-MM-DD] ingest | Source Title`
 
 **Query** (user asks a question against the wiki):
@@ -182,11 +196,11 @@ sources: [raw/filename.md]
 
 ### Conventions
 
-- Raw sources are immutable — never modify files in `content/wiki/raw/`
+- Raw sources are immutable; never modify files in `content/wiki/raw/`
 - The LLM owns `content/wiki/pages/`, `content/wiki/index.md`, and `content/wiki/log.md`
 - The LLM does NOT modify hand-written content in `notes/`, `resources/` without explicit request
 - `content/wiki/index.md` indexes content that benefits from cross-referencing and synthesis
-- **Excluded from wiki:** recipes (`resources/recipes/`) and courses (`resources/courses/`) — recipes don't compound, courses are archived reference material for past students
+- Excluded from wiki: recipes (`resources/recipes/`) and courses (`resources/courses/`); recipes don't compound, courses are archived reference material for past students
 - Log entries use the format `## [YYYY-MM-DD] operation | Title` for parsability
 - When a query produces a valuable analysis, file it in `content/wiki/pages/`
 - Raw sources excluded from Quartz build (`wiki/raw` in `ignorePatterns`)
