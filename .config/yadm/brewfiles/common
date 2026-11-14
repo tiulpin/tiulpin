@@ -1,0 +1,23 @@
+# Shared shell and development tools. Project runtime versions are managed separately.
+brew "antigen"
+brew "bat"
+brew "direnv"
+brew "fzf"
+brew "gh"
+brew "git"
+brew "git-lfs"
+brew "gum"
+brew "jq"
+brew "just"
+brew "neovim"
+brew "node"
+brew "pnpm"
+brew "ripgrep"
+brew "shellcheck"
+brew "tree"
+brew "uv"
+brew "yadm"
+brew "yq"
+
+# Terminal coding agent; no desktop app.
+cask "codex"

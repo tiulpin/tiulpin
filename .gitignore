@@ -14,3 +14,6 @@ private/
 .replit
 replit.nix
 content/private
+
+# Private workstation setup notes
+.bootstrap/

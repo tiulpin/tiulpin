@@ -1,0 +1,182 @@
+#!/usr/bin/env bash
+# Selected preferences observed on top, macOS 27.2, 2026-11-13.
+# Preview by default. This is a portable preference set, not a full system clone.
+set -euo pipefail
+
+usage() {
+    cat <<'HELP'
+Usage: bash ~/.config/yadm/macos [--profile workstation|mini] [--apply] [--power]
+
+Default: print commands without changing settings.
+--profile  Defaults to yadm local.class, or workstation when unset.
+--apply    Back up affected preference domains, then write preferences.
+--power    Mini only: keep awake on AC, sleep display after 15 minutes,
+           and restart after power loss. Requires sudo when applying.
+
+No app restarts. Reopen affected apps or log out when convenient.
+Machine names, timezone, accounts, security, updates and backups stay local.
+HELP
+}
+
+profile=''
+apply=false
+power=false
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --profile)
+            [ "$#" -ge 2 ] || { usage >&2; exit 2; }
+            profile="$2"
+            shift 2
+            ;;
+        --apply) apply=true; shift ;;
+        --power) power=true; shift ;;
+        --help|-h) usage; exit 0 ;;
+        *) printf 'Unknown option: %s\n' "$1" >&2; usage >&2; exit 2 ;;
+    esac
+done
+if [ -z "$profile" ]; then
+    profile=$(yadm config --get local.class 2>/dev/null || true)
+    profile=${profile:-workstation}
+fi
+case "$profile" in
+    workstation|mini) ;;
+    *) printf 'Unknown profile: %s; choose workstation or mini.\n' "$profile" >&2; exit 2 ;;
+esac
+if "$power" && [ "$profile" != mini ]; then
+    echo '--power requires --profile mini.' >&2
+    exit 2
+fi
+[ "$(uname -s)" = Darwin ] || { echo 'macOS only.' >&2; exit 1; }
+[ "$EUID" -ne 0 ] || { echo 'Run as your login user, not sudo.' >&2; exit 1; }
+if "$apply" && "$power" && /usr/bin/pmset -g batt | /usr/bin/grep -q InternalBattery; then
+    echo 'Refusing mini power settings on a Mac with an internal battery.' >&2
+    exit 1
+fi
+
+backup=''
+if "$apply"; then
+    # Authenticate before any writes if the requested power step needs root.
+    if "$power"; then sudo -v; fi
+    umask 077
+    mkdir -p "$HOME/.bootstrap"
+    backup=$(mktemp -d "$HOME/.bootstrap/macos-XXXXXXXX")
+    /usr/bin/sw_vers > "$backup/macos-version.txt"
+    if "$power"; then /usr/bin/pmset -g custom > "$backup/power-before.txt"; fi
+    printf 'Preference backup: %s\n' "$backup"
+else
+    printf 'Preview (%s): add --apply to write these settings.\n' "$profile"
+fi
+
+run() {
+    printf '  '
+    printf '%q ' "$@"
+    printf '\n'
+    if "$apply"; then "$@"; fi
+}
+
+pref() {
+    local domain="$1"
+    if "$apply" && [ ! -e "$backup/$domain.plist" ] && [ ! -e "$backup/$domain.absent" ]; then
+        if ! /usr/bin/defaults export "$domain" "$backup/$domain.plist" 2>/dev/null; then
+            rm -f "$backup/$domain.plist"
+            touch "$backup/$domain.absent"
+        fi
+    fi
+    run /usr/bin/defaults write "$@"
+}
+
+
+# NSGlobalDomain
+pref NSGlobalDomain AppleInterfaceStyle -string Dark
+pref NSGlobalDomain AppleShowAllExtensions -bool true
+pref NSGlobalDomain AppleKeyboardUIMode -int 3
+pref NSGlobalDomain ApplePressAndHoldEnabled -bool false
+pref NSGlobalDomain KeyRepeat -int 1
+pref NSGlobalDomain InitialKeyRepeat -int 10
+pref NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+pref NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+pref NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+pref NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+pref NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+pref NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+pref NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+pref NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+pref NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
+pref NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+pref NSGlobalDomain com.apple.springing.enabled -bool true
+pref NSGlobalDomain com.apple.springing.delay -float 0
+pref NSGlobalDomain AppleLanguages -array en nl uk-GB
+pref NSGlobalDomain AppleLocale -string 'en_001@currency=eur;rg=gbzzzz'
+pref NSGlobalDomain AppleMeasurementUnits -string Centimeters
+pref NSGlobalDomain AppleMetricUnits -bool true
+
+# com.apple.finder
+pref com.apple.finder ShowStatusBar -bool true
+pref com.apple.finder ShowPathbar -bool true
+pref com.apple.finder _FXShowPosixPathInTitle -bool true
+pref com.apple.finder _FXSortFoldersFirst -bool true
+pref com.apple.finder FXDefaultSearchScope -string SCcf
+pref com.apple.finder FXEnableExtensionChangeWarning -bool false
+pref com.apple.finder FXPreferredViewStyle -string Nlsv
+pref com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+pref com.apple.finder ShowHardDrivesOnDesktop -bool false
+pref com.apple.finder ShowRemovableMediaOnDesktop -bool true
+pref com.apple.finder NewWindowTarget -string PfDe
+pref com.apple.finder NewWindowTargetPath -string "file://$HOME/Desktop/"
+
+# com.apple.dock
+pref com.apple.dock tilesize -float 40
+pref com.apple.dock autohide -bool true
+pref com.apple.dock autohide-delay -float 0.15
+pref com.apple.dock autohide-time-modifier -float 0.15
+pref com.apple.dock mineffect -string scale
+pref com.apple.dock show-process-indicators -bool true
+pref com.apple.dock show-recents -bool false
+pref com.apple.dock mru-spaces -bool false
+pref com.apple.dock showhidden -bool true
+pref com.apple.dock wvous-tl-corner -int 2
+pref com.apple.dock wvous-tr-corner -int 4
+pref com.apple.dock wvous-bl-corner -int 5
+pref com.apple.dock wvous-br-corner -int 14
+pref com.apple.dock wvous-tl-modifier -int 0
+pref com.apple.dock wvous-tr-modifier -int 0
+pref com.apple.dock wvous-bl-modifier -int 0
+
+# com.apple.desktopservices
+pref com.apple.desktopservices DSDontWriteNetworkStores -bool true
+pref com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# com.apple.AppleMultitouchTrackpad
+pref com.apple.AppleMultitouchTrackpad Clicking -bool true
+pref com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
+pref com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 0
+pref com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool false
+
+# com.apple.driver.AppleBluetoothMultitouch.trackpad
+pref com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+pref com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+pref com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+pref com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool false
+
+# com.apple.screencapture
+pref com.apple.screencapture type -string png
+
+# com.apple.ActivityMonitor
+pref com.apple.ActivityMonitor OpenMainWindow -bool true
+pref com.apple.ActivityMonitor IconType -int 5
+pref com.apple.ActivityMonitor ShowCategory -int 100
+pref com.apple.ActivityMonitor SortColumn -string CPUUsage
+pref com.apple.ActivityMonitor SortDirection -int 0
+
+# com.apple.Terminal
+pref com.apple.Terminal SecureKeyboardEntry -bool true
+pref com.apple.Terminal ShowLineMarks -int 0
+
+if "$power"; then
+    run sudo /usr/bin/pmset -c sleep 0 displaysleep 15 autorestart 1
+fi
+if "$apply"; then
+    echo 'Preferences written. Reopen affected apps or log out when convenient.'
+else
+    echo 'Preview complete; no settings changed.'
+fi

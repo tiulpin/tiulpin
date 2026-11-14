@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -u
+
+profile=${YADM_PROFILE:-$(yadm config --get local.class 2>/dev/null || true)}
+profile=${profile:-workstation}
+case "$profile" in
+    workstation|mini) ;;
+    *) echo "Unknown profile: $profile" >&2; exit 2 ;;
+esac
+failures=0
+check() {
+    local label="$1"
+    shift
+    if "$@" >/dev/null 2>&1; then
+        printf 'OK    %s\n' "$label"
+    else
+        printf 'FAIL  %s\n' "$label"
+        failures=$((failures + 1))
+    fi
+}
+
+jdk21() {
+    local version
+    version=$(java -version 2>&1) || return 1
+    [[ "$version" == *'version "21.'* ]]
+}
+
+check "GitHub CLI" gh --version
+check "Node.js" node --version
+check "pnpm" pnpm --version
+check "Python environment manager" uv --version
+check "direnv" direnv version
+check "fzf" fzf --version
+check "ripgrep" rg --version
+check "Codex CLI" codex --version
+check "Git LFS" git lfs version
+check "Docker CLI" docker --version
+check "Docker Compose plugin" docker compose version
+if [ "$profile" = workstation ]; then
+    check "JDK 21 on PATH" jdk21
+    check "1Password CLI" op --version
+    check "kubectl" kubectl version --client=true
+    check "Kubernetes OIDC plugin" kubectl oidc-login --version
+    check "Google Cloud CLI" gcloud version
+    check "GKE authentication plugin" gke-gcloud-auth-plugin --version
+else
+    check "OrbStack app" test -d /Applications/OrbStack.app
+    check "Claude Code CLI" claude --version
+fi
+
+if [ "$failures" -ne 0 ]; then
+    printf '\n%d check(s) failed. Run bootstrap setup, then open a new terminal.\n' "$failures"
+    exit 1
+fi
+printf '\nTools are available. Account sign-ins and cluster permissions are separate.\n'

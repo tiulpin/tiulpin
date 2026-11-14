@@ -2,11 +2,32 @@
 set -e
 
 cd "$HOME"
+profile=${YADM_PROFILE:-$(yadm config --get local.class 2>/dev/null || true)}
+profile=${profile:-workstation}
+case "$profile" in
+    workstation|mini) ;;
+    *) echo "Unknown profile: $profile" >&2; exit 2 ;;
+esac
+export YADM_PROFILE="$profile"
+brewfile="$HOME/.config/yadm/brewfiles/$profile"
 
+if [ "${1:-}" = "--check-tools" ]; then
+    exec bash "$HOME/.config/yadm/check-tools"
+fi
+
+if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
 if ! command -v brew >/dev/null 2>&1; then
     echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    if [ -x /opt/homebrew/bin/brew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    else
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
 fi
 
 if ! command -v gum >/dev/null 2>&1; then
@@ -27,15 +48,49 @@ step() {
 cat .config/yadm/doggo
 banner "Bootstrapping $(whoami)@$(hostname)"
 
-if gum confirm "Install brew packages from Brewfile?"; then
-    step "brew bundle"
-    brew bundle
+if gum confirm "Install $profile packages from $brewfile?"; then
+    step "brew bundle ($profile)"
+    brew bundle --file="$brewfile" --no-upgrade
 fi
 
-if gum confirm "Apply macOS defaults?"; then
-    step "./macos"
-    chmod +x ./macos
-    ./macos
+if gum confirm "Configure development CLI integrations?"; then
+    step "Configuring Git LFS"
+    git lfs install --skip-repo
+
+    if command -v gcloud >/dev/null 2>&1; then
+        step "Installing the GKE authentication plugin"
+        gcloud components install gke-gcloud-auth-plugin --quiet
+        SDK_ROOT=$(gcloud info --format='value(installation.sdk_root)')
+        mkdir -p "$HOME/.local/bin"
+        if [ -x "$SDK_ROOT/bin/gke-gcloud-auth-plugin" ] && \
+            [ ! -e "$HOME/.local/bin/gke-gcloud-auth-plugin" ] && \
+            [ ! -L "$HOME/.local/bin/gke-gcloud-auth-plugin" ]; then
+            ln -s "$SDK_ROOT/bin/gke-gcloud-auth-plugin" "$HOME/.local/bin/gke-gcloud-auth-plugin"
+        fi
+    fi
+
+    COMPOSE_PLUGIN="/Applications/Docker.app/Contents/Resources/cli-plugins/docker-compose"
+    if [ "$profile" = workstation ] && [ -x "$COMPOSE_PLUGIN" ]; then
+        mkdir -p "$HOME/.docker/cli-plugins"
+        if [ ! -e "$HOME/.docker/cli-plugins/docker-compose" ] && \
+            [ ! -L "$HOME/.docker/cli-plugins/docker-compose" ]; then
+            ln -s "$COMPOSE_PLUGIN" "$HOME/.docker/cli-plugins/docker-compose"
+        fi
+    fi
+
+    step "Checking development tools"
+    if ! bash "$HOME/.config/yadm/check-tools"; then
+        gum style --foreground "$PINK" "Some tools are unavailable; check the messages above."
+    fi
+    gum style --foreground "$GREEN" "Complete account sign-ins from CONTRIBUTING.md."
+fi
+
+if gum confirm "Review macOS preferences?"; then
+    step "Previewing $HOME/.config/yadm/macos"
+    bash "$HOME/.config/yadm/macos" --profile "$profile"
+    if gum confirm "Apply these macOS preferences?"; then
+        bash "$HOME/.config/yadm/macos" --profile "$profile" --apply
+    fi
 fi
 
 if gum confirm "Install tmux & vim configurations?"; then
@@ -49,37 +104,75 @@ if gum confirm "Install tmux & vim configurations?"; then
     [ -f ~/.tmux.conf.local ] || cp ~/.tmux/.tmux.conf.local ~/.tmux.conf.local
 fi
 
-if gum confirm "Set up GPG + SSH via YubiKey?"; then
+if [ "$profile" = workstation ] && gum confirm "Set up GPG + SSH via YubiKey?"; then
+    step "Checking GPG and SSH tools"
+    for tool in gpg gpgconf gpg-connect-agent ssh ssh-add; do
+        command -v "$tool" >/dev/null 2>&1 || {
+            echo "Missing $tool; install the Brewfile packages first." >&2
+            exit 1
+        }
+    done
+
     step "Locking down ~/.gnupg permissions"
-    chmod 700 ~/.gnupg
-    find ~/.gnupg -type f -exec chmod 600 {} \;
+    mkdir -p "$HOME/.gnupg"
+    chmod 700 "$HOME/.gnupg"
+    find "$HOME/.gnupg" -type f -exec chmod 600 {} \;
 
+    EXPECTED_FPR="25AD09288D162FCDFC7DE25E0E5CC7B47A2D1A2A"
+    KEY_FILE=$(mktemp)
+    trap 'rm -f "$KEY_FILE"' EXIT
     step "Fetching public key from log.tiulp.in"
-    if curl -fsSL https://log.tiulp.in/pubkey.asc | gpg --import 2>/dev/null; then
-        :
-    elif [ -f ~/.gnupg/pubkey.asc ]; then
+    if ! curl -fsSL --connect-timeout 10 --max-time 30 \
+        https://log.tiulp.in/pubkey.asc -o "$KEY_FILE"; then
         step "Falling back to tracked ~/.gnupg/pubkey.asc"
-        gpg --import ~/.gnupg/pubkey.asc
+        cp "$HOME/.gnupg/pubkey.asc" "$KEY_FILE"
     fi
-
-    FPR=$(gpg --list-keys --with-colons viktor@tiulp.in \
-          | awk -F: '/^fpr:/ {print $10; exit}')
-    if [ -n "$FPR" ]; then
-        step "Trusting key $FPR"
-        echo -e "5\ny\n" | gpg --command-fd 0 --batch --no-tty --edit-key "$FPR" trust quit
+    FPR=$(gpg --show-keys --with-colons "$KEY_FILE" \
+        | awk -F: '/^fpr:/ {print $10; exit}')
+    if [ "$FPR" != "$EXPECTED_FPR" ]; then
+        echo "Public key fingerprint does not match $EXPECTED_FPR." >&2
+        exit 1
     fi
+    gpg --import "$KEY_FILE"
+    printf '%s:6:\n' "$EXPECTED_FPR" | gpg --import-ownertrust
+    rm -f "$KEY_FILE"
+    trap - EXIT
 
     gum style --foreground "$PINK" "Insert your YubiKey, then press Enter."
     read -r
-    step "Engaging YubiKey"
-    gpg --card-status >/dev/null 2>&1 || true
+    step "Starting the GPG SSH agent"
     gpgconf --kill gpg-agent
-    gpg-connect-agent /bye >/dev/null 2>&1
+    gpgconf --launch gpg-agent
+    export SSH_AUTH_SOCK
+    SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+    export GPG_TTY
+    GPG_TTY=$(tty)
+    gpg-connect-agent updatestartuptty /bye
+    gpg --card-status
+    step "Checking SSH keys available from the YubiKey"
+    ssh-add -L
 
-    gum style --foreground "$GREEN" --bold "✔ Verify with: ssh-add -L"
+    if gum confirm "Test GitHub SSH authentication (may prompt for YubiKey PIN)?"; then
+        # GitHub returns 1 even when authentication succeeds; inspect its greeting.
+        if SSH_RESULT=$(ssh -T -o ConnectTimeout=15 git@github.com 2>&1); then
+            SSH_STATUS=0
+        else
+            SSH_STATUS=$?
+        fi
+        printf '%s\n' "$SSH_RESULT"
+        if [ "$SSH_STATUS" -eq 1 ] && \
+            [[ "$SSH_RESULT" == *"You've successfully authenticated"* ]]; then
+            gum style --foreground "$GREEN" --bold "✔ GitHub authentication succeeded"
+        else
+            echo "GitHub authentication was not confirmed; check the output above." >&2
+            exit 1
+        fi
+    fi
+
 fi
 
-step "Setting yadm origin to SSH"
-yadm remote set-url origin "git@github.com:tiulpin/tiulpin.git"
+if [ "$profile" = workstation ] && gum confirm "Switch yadm origin to SSH?"; then
+    yadm remote set-url origin "git@github.com:tiulpin/tiulpin.git"
+fi
 
 banner "All done — reload your shell"

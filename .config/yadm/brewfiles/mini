@@ -1,0 +1,10 @@
+# Mini: persistent development sessions and containers; no App Store or desktop suite.
+common = File.join(__dir__, "common")
+instance_eval(File.read(common), common)
+
+cask "orbstack"
+cask "claude-code"
+
+# Rex is installed from the vendor; see ../README.md.
+# Add JDK/Go/cloud CLIs only when a project needs them.
+# Home Assistant and Pi-hole deployments/data belong outside the Brewfile.

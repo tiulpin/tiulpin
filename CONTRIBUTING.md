@@ -1,64 +1,91 @@
 # Contributing
 
-Mostly notes for future Viktor, but anyone curious about the setup is welcome.
+This repo contains the [tiulp.in](https://tiulp.in/) Quartz site and personal
+dotfiles managed by [yadm](https://yadm.io/), with `$HOME` as the worktree.
 
-This repo wears two hats:
-
-1. **Quartz site** — source for [tiulp.in](https://tiulp.in/). PR workflow is normal: fork, branch, `npm run check`, open a PR. CI runs the full `check` suite plus link-spector.
-2. **Dotfiles** — managed by [yadm](https://yadm.io/) with `$HOME` as the worktree.
-
-## New machine setup
+## New machine
 
 ```bash
 xcode-select --install
 brew install yadm
-yadm clone https://github.com/tiulpin/tiulpin.git
+yadm clone --no-bootstrap https://github.com/tiulpin/tiulpin.git
+yadm config local.class workstation # use mini on the Mac mini
 yadm bootstrap
 ```
 
-`bootstrap` (at `~/.config/yadm/bootstrap`) is interactive — it uses [`gum`](https://github.com/charmbracelet/gum) for prompts and walks through, in order:
+The interactive bootstrap installs Brewfile packages, optionally configures CLI
+integrations, applies macOS defaults, installs tmux/vim configs, and sets up
+GPG/SSH through a YubiKey. It verifies the public-key fingerprint before trusting
+it and offers a GitHub authentication check. On the workstation it offers to switch yadm to SSH; the mini keeps its current remote.
+Review the steps in [the script](.config/yadm/bootstrap) before running it.
+Run `yadm bootstrap --check-tools` afterward to verify local tools and plugins
+without contacting clusters or starting sign-ins.
 
-1. **Homebrew** — self-installs if missing, then `brew bundle` from `Brewfile`.
-2. **macOS defaults** — runs `./macos` (mathiasbynens-style tweaks).
-3. **tmux + vim** — clones [`amix/vimrc`](https://github.com/amix/vimrc) and [`gpakosz/.tmux`](https://github.com/gpakosz/.tmux) and symlinks `~/.tmux.conf`. The upstream config files are *not* tracked here; bootstrap recreates them.
-4. **GPG + SSH via YubiKey:**
-   - Locks down `~/.gnupg` perms (`700` dir, `600` files).
-   - Fetches the public key from <https://log.tiulp.in/pubkey.asc> (falls back to tracked `~/.gnupg/pubkey.asc` if the site is unreachable) and trusts it ultimate.
-   - Prompts you to insert the YubiKey, runs `gpg --card-status` to bind key stubs to the card, restarts `gpg-agent`.
-   - SSH already routes through `gpg-agent` via `SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)` in `.zshrc`.
-5. **Remote URL** — switches yadm origin from HTTPS to SSH.
+Afterward:
 
-> The public key is also published at <https://log.tiulp.in/pubkey.asc> and (optionally) referenced from the YubiKey itself via `gpg --card-edit` → `url` → `https://log.tiulp.in/pubkey.asc`. With that set, any clean machine can do `gpg --card-edit` → `fetch` to grab the key without touching this repo.
+- Sign in to apps. For 1Password CLI, enable **Settings → Developer → Integrate
+  with 1Password CLI** and check `op whoami`.
+- Start Docker Desktop on the workstation, or OrbStack on the mini; check
+  `docker info` and `docker compose version`.
+- Register the YubiKey's SSH public key with the services you use.
+- Restore `~/.vim_runtime/my_configs.vim` if needed.
+- Set up cloud sign-ins and kubeconfigs separately. Use `gcloud auth login` for
+  GKE and `kubectl --context CONTEXT_NAME get namespaces` to check access.
 
-### Verify the YubiKey works
+Verify the YubiKey:
 
 ```bash
-gpg --card-status                # should show the YubiKey
-ssh-add -L                       # should list the SSH key from cardno:...
-echo test | gpg --clearsign      # should prompt for PIN, then sign
+gpg --card-status
+ssh-add -L
+echo test | gpg --clearsign
 ```
 
-### Manual followups
+Personal setup notes belong in the ignored `~/.bootstrap/` directory.
+Keep tokens, kubeconfigs, account details, and private configuration untracked.
 
-- **Register the SSH pubkey** (`~/.ssh/id_rsa.pub`) on GitHub, GitLab, JetBrains Space, etc.
-- **Sign in** to apps with state outside the Brewfile: 1Password, JetBrains Toolbox, iCloud, Raycast Pro, Cursor, Claude.
-- **Restore `~/.vim_runtime/my_configs.vim`** from backup if you want personalization beyond the amix defaults.
+## macOS preferences
 
-## What's where
+`.config/yadm/macos` contains selected preferences read from the main Mac on 2026-11-13:
+keyboard/text input, language and region, Finder, Dock, trackpads, screenshots,
+Activity Monitor and Terminal. It does not export accounts, app data, Dock app
+lists or the entire preferences database. Keys absent on the source Mac retain
+the destination Mac's defaults. Some preferences are undocumented macOS keys;
+check the visible result after an OS upgrade.
 
-| Path | Purpose |
-|---|---|
-| `Brewfile` | Single source of truth for installed apps/tools. Refresh with `brew bundle dump --force --describe`. |
-| `.zshrc` | antigen + powerlevel10k; path/fpath in arrays. |
-| `.gitconfig` | Signing key + aliases. `up` / `dcb` glob `*master*` (works on `main` too). |
-| `.gnupg/*.conf` | pinentry-mac, ssh-support, 8h cache, `keys.openpgp.org` keyserver. |
-| `.gnupg/pubkey.asc` | Exported GPG public key (private material lives on the YubiKey). Mirrored at `quartz/static/pubkey.asc` so it's served at <https://log.tiulp.in/pubkey.asc> (this Quartz site). |
-| `.macos` | System defaults — re-run after big macOS upgrades. |
-| `.config/yadm/bootstrap` | The bootstrap script. Edit when adding setup steps. |
+```bash
+bash ~/.config/yadm/macos                              # preview only
+bash ~/.config/yadm/macos --apply                      # apply shared preferences
+bash ~/.config/yadm/macos --profile mini --power       # preview shared + server power settings
+bash ~/.config/yadm/macos --profile mini --power --apply
+```
 
-## Day-to-day
+The default profile comes from `yadm config local.class` (or `workstation` when
+unset). `yadm config local.class mini` selects the mini profile. Both profiles
+share preferences; only the mini permits the explicit `--power` step. This also
+selects the matching Brewfile and tool checks in bootstrap.
 
-- **Adding a new app/tool:** install it, then `brew bundle dump --force --describe` and review the diff before committing.
-- **Editing config:** edit the file in `$HOME` directly — yadm sees `$HOME` as its worktree, no checkout dance needed.
-- **Pulling on multiple machines:** `yadm pull --rebase`. Stash any in-progress site work first (the Quartz tree lives under the same repo).
-- **Site changes vs. dotfile changes:** keep them in separate commits when practical — easier to rebase or revert.
+Before applying, preference domains are backed up under the ignored
+`~/.bootstrap/macos-*` directory. `.absent` markers identify domains that did not
+exist. Backups are local recovery material; do not sync them as dotfiles.
+
+The mini power step prevents idle sleep on AC, allows display sleep after 15
+minutes and enables restart after power loss. It does not configure login after
+reboot, start Rex/OrbStack, or guarantee services recover after a restart. Test
+that separately. Laptop battery settings and hibernation are untouched.
+
+The script does not change hostnames, timezone, security protections, software
+update policies or backup policies. It does not reset Launchpad, rebuild Spotlight,
+delete sleep images, import missing terminal themes or quit applications. Removing
+an old setting from this script does not undo a previous application of it.
+
+## Changes
+
+- **Site:** run `npm run check` before opening a PR. CI also runs link-spector.
+- **Packages:** edit `.config/yadm/brewfiles/common`, `workstation`, or `mini`.
+  `~/Brewfile` selects the profile. See [.config/yadm/README.md](.config/yadm/README.md)
+  for the audit, manual installs, and safe inventory commands.
+- **Dotfiles:** edit files directly in `$HOME`; use `yadm diff` to review.
+- **Setup steps:** edit `.config/yadm/bootstrap`. Shell configuration lives in
+  `.zshrc`, macOS defaults in `.config/yadm/macos`, and GPG settings in `.gnupg/`.
+- **Sync:** use `yadm pull --rebase` with a clean worktree.
+- Keep site and dotfile changes in separate commits when practical.
