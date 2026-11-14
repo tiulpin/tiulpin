@@ -43,6 +43,60 @@ echo test | gpg --clearsign
 Personal setup notes belong in the ignored `~/.bootstrap/` directory.
 Keep tokens, kubeconfigs, account details, and private configuration untracked.
 
+## Package profiles
+
+`~/Brewfile` selects the profile from `yadm config local.class`, defaulting to
+`workstation`. Edit the manifests under `.config/yadm/brewfiles/`:
+
+- `common`: shared shell/development tools and Codex CLI.
+- `workstation`: common plus workstation CLI tools, GUI apps and App Store apps.
+- `mini`: common plus OrbStack and Claude Code CLI.
+
+```bash
+brew bundle list --all --file="$HOME/Brewfile"
+brew bundle check --no-upgrade --file="$HOME/Brewfile"
+# Inspect or install the mini profile explicitly on the intended machine:
+brew bundle list --all --file="$HOME/.config/yadm/brewfiles/mini"
+brew bundle install --no-upgrade --file="$HOME/.config/yadm/brewfiles/mini"
+```
+
+Bootstrap selects the same profile for packages and tool checks, and skips
+YubiKey setup on the mini. Launch the container runtime and authenticate accounts
+separately. Home Assistant/Pi-hole deployments, persistent data and backups belong
+outside the Brewfile.
+
+Keep inventory dumps separate from the dispatcher:
+
+```bash
+brew bundle dump --file=/tmp/Brewfile.installed --force
+```
+
+Review the dump before updating manifests. `brew bundle cleanup --force` removes
+unlisted packages; it is not part of bootstrap. Brewfiles do not pin runtime
+versions; use project-specific runtime management where needed.
+
+### Manual installations
+
+| Installed item | Restore/update path |
+| --- | --- |
+| Rex Beta (both Macs) | Official Rex installer and in-app updater; sign into Tailscale separately |
+| Air Control, Central, Herdr | Existing vendor/internal installers; exact installation sources still need documenting |
+| IntelliJ IDEA, IDEA EAPCandidate, JetBrains Light in `~/Applications` | Restore the required products via JetBrains Toolbox/original channel |
+| Yeti Dev | Local development build; Yeti and Yeti Alpha releases are in the workstation manifest |
+| Claude Code (`~/.local/bin/claude`) | Existing native installation on workstation; mini uses the verified `claude-code` cask |
+| Claude Code URL Handler | Helper associated with the existing Claude setup; not a separate cask |
+| `airlock`, `central`, `space`, `herdr-core`/`hc` | Manual/internal binaries in `~/.local/bin`; restore only where needed |
+| `junie` in `~/.local/bin` | Existing additional launcher; review PATH precedence against the Brew formula |
+| `yt`, `herdr-app`, `docker-credential-space` | Links to Yeti, Herdr, and Space; recreate with those tools |
+| `gke-gcloud-auth-plugin` | Installed through gcloud components by workstation bootstrap |
+
+
+Before deploying all dotfiles to the mini, guard the unconditional Go/GPG calls
+in `.zshrc`, configure Git signing independently, and review the workstation GPG
+agent reference in `.ssh/config`. Agent/Rex settings are not tracked here; port
+portable configuration separately from credentials. The tracked `.node-version`
+and `.tool-versions` also disagree and need reconciling per project.
+
 ## macOS preferences
 
 `.config/yadm/macos` contains selected preferences read from the main Mac on 2026-11-13:
@@ -82,8 +136,7 @@ an old setting from this script does not undo a previous application of it.
 
 - **Site:** run `npm run check` before opening a PR. CI also runs link-spector.
 - **Packages:** edit `.config/yadm/brewfiles/common`, `workstation`, or `mini`.
-  `~/Brewfile` selects the profile. See [.config/yadm/README.md](.config/yadm/README.md)
-  for the audit, manual installs, and safe inventory commands.
+  `~/Brewfile` selects the profile; see [Package profiles](#package-profiles).
 - **Dotfiles:** edit files directly in `$HOME`; use `yadm diff` to review.
 - **Setup steps:** edit `.config/yadm/bootstrap`. Shell configuration lives in
   `.zshrc`, macOS defaults in `.config/yadm/macos`, and GPG settings in `.gnupg/`.

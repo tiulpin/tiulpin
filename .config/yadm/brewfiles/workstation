@@ -1,4 +1,4 @@
-# Audited workstation packages, 2026-11-13. See ../README.md for manual installs.
+# Audited workstation packages, 2026-11-13. See ../../../CONTRIBUTING.md for manual installs.
 common = File.join(__dir__, "common")
 instance_eval(File.read(common), common)
 
