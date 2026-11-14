@@ -2,12 +2,9 @@
 # Install selected entries when needed; this file is not loaded by bootstrap.
 tap "tiulpin/tap"
 
-cask "affinity"
-cask "anki"
 cask "basictex"
 cask "firefox"
 cask "fork"
-cask "ghostty@tip"
 cask "gpg-suite-no-mail"
 cask "incident-io"
 cask "keka"
